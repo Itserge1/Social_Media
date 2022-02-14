@@ -1,4 +1,5 @@
 const user = require("../models/users.model")
+const bcrypt = require("bcrypt");
 
 
 
@@ -21,7 +22,7 @@ module.exports.Login = async (req, res) => {
         !useR && res.status(400).json({message: "Email does not existe please register!"});
 
         // Validate password
-        const validPassword = await  compare(req.body.password, useR.password) // use bcrypt later
+        const validPassword = await  bcrypt.compare(req.body.password, useR.password) // use bcrypt later
         !validPassword && res.status(400).json({message: "invalid login attempt"})
 
         res.status(200).json(useR)
