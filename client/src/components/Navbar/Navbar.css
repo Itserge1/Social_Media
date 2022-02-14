@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:ital,wght@1,300&family=Poppins:wght@300;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Storing variable */
+:root{
+    --primary-color-hue:252;
+    --dark-color-lightness: 17%;
+    --light-color-lightness: 95%;
+    --white-color-ligthness: 100%;
+
+    --color-white: hsl(252, 30%, var(--white-color-ligthness));
+    --color-light: hsl(252, 30%, var(--light-color-lightness));
+    --color-gray: hsl(var(--primary-color-hue), 15%, 65%);
+    --color-primary: hsl(var(--primary-color-hue), 75%, 60%);
+    --color-secondary: hsl(252, 100%, 90%);
+    --color-success: hsl(120, 95%, 65%);
+    --color-danger: hsl(0, 95%, 65%);
+    --color-dark: hsl(252, 30%, var(--dark-color-lightness));
+    --color-black: hsl(252, 30%, 10%);
+
+    --border-radius: 2rem;
+    --card-border-radius: 1rem;
+    --btb-padding: 0.6rem 2rem;
+    --search-padding: 0.6rem 1rem;
+    --card-padding: 1rem;
+
+    --sticky-top-left: 5.4rem;
+    --sticky-top-rigth: -18rem;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    color: var(--color-dark);
+    background-color: var(--color-light);
+    overflow-x: hidden;
+}
+
+/* general setting */
+
+.container{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.profile-pic{
+    /* background-color: rebeccapurple; */
+    height: 2.7rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    overflow: hidden;
+}
+img{
+    display: block;
+    width: 100%;
+}
+
+.btn{
+    display: inline-block;
+    padding: var(--btb-padding);
+    font-weight: 500;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 300ms ease;
+    font-size: 0.9rem;
+}
+
+.btn:hover{
+    opacity: 0.8;
+}
+.btn-primary{
+    background:var(--color-primary);
+    color: white;
+    border: 0;
+}
+
+.text-bold{
+    font-weight: 500;
+}
+
+.text-muted{
+    color: var(--color-gray);
+}
+/* NAVBAR STYLING */
+nav{
+    width: 100%;
+    background: var(--color-white);
+    padding: 0.3rem 0;
+    position: fixed;
+    z-index: 10;
+}
+
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.navbar .search_bar {
+    display: flex;
+    align-items: center;
+}
+
+/* SEARCH BAR */
+.search_bar{
+    background: var(--color-light);
+    border-radius: var(--border-radius);
+    padding: var(--search-padding);
+}
+
+.search_bar input[type="search"]{
+    background: transparent;
+    width: 30vw;
+    border: 0;
+    margin-left: 1rem;
+    font-size: 0,9rem;
+    color: var(--color-dark);
+}
+
+.search_bar input:focus{
+    outline: none;
+    border: 0px solid;
+}
+
+.search_bar input[type="search"]::placeholder{
+    color: var(--color-gray);
+}
+
+/* NAV LEFT */
+.nav-left{
+    /* width: 150px; */
+    display: flex;
+    align-items: center;
+    /* justify-content: space-evenly; */
+    gap: 2rem;
+}
+
+#marginBottom{
+    margin-bottom: 0.7rem;
+}
+
+/* ================================================ */
+/* MEDIAS QUERIES FOR SMALL TABLETS AND PHONES */
+/* ================================================ */
+
+@media screen and (max-width: 992px) {
+    nav .search-bar{
+        display: none;
+    }
+}

@@ -1,0 +1,163 @@
+/* ========== Main container ============ */
+main{
+    position: relative;
+    top: 5.4em;
+}
+
+main .container{
+    display: grid;
+    grid-template-columns: 18vw auto 20vw;
+    column-gap: 2rem;
+    position: relative;
+}
+
+/* ============== LEFT =============== */
+.left{
+    height: max-content;
+    position: sticky;
+    top: var(--sticky-top-left);
+}
+
+.sidebar h3 {
+    margin-left: 1.5rem;
+    font-size: 1rem;
+}
+
+.sidebar .active {
+    background: var(--color-light);
+}
+
+.sidebar .active i, .sidebar .active h3{
+    color: var(--color-primary);
+}
+
+.sidebar .active::before{
+    content:"";
+    display: block;
+    width: 0.5rem;
+    height: 100%;
+    position: absolute;
+    background: var(--color-primary);
+}
+
+.sidebar .menu-item:first-child.active{
+    border-top-left-radius: var(--card-border-radius);
+    overflow: hidden;
+} 
+
+.sidebar .menu-item:last-child.active{
+    border-top-left-radius: var(--card-border-radius);
+    overflow: hidden;
+} 
+
+.btn {
+    margin-top: 1rem;
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+/* ========== NOTIFICATION POPUP ================ */
+
+/* .notification-popup{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    position: absolute;
+    right: -1rem;
+    top: 13rem;;
+    width: 30rem;
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    box-shadow: 0 0 2rem hsl(var(--color-primary), 75%, 60% 25%);
+    z-index: 9 !important;
+    background-color: rebeccapurple;
+    display: none;
+}
+
+.notification-popup::before {
+    content: "";
+    width: 1.2rem;
+    height: 1.2rem;
+    display: block;
+    background: var(--color-white);
+    background:peachpuff;
+    position: absolute;
+    left: -0.6rem;
+    transform: rotate(45deg);
+    display: none;
+}
+
+.notification-popup > div {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.notification-popup small{
+    display: block;
+} */
+/* ============== FEED ============== */
+
+.feed{
+    position: relative;
+}
+
+/* ============== RIGHT ================== */
+
+.right{
+    height: max-content;
+    position: sticky;
+    top: 0;
+    bottom: var(--sticky-top-left);
+}
+
+
+/* ================================================ */
+/* MEDIAS QUERIES FOR SMALL LAPTOP AND BIG TABLETS */
+/* ================================================ */
+
+@media screen and (max-width: 1200px) {
+    .container{
+        width: 96%;
+    }
+
+    .main .container {
+        grid-template-columns: 5rem auto 30vw;
+        gap:1rem;
+    }
+
+    .left{
+        width: 5rem;
+        z-index: 5;
+    }
+    
+    main .container .left .profile {
+        display: none;
+    }
+
+    .sidebar h3 {
+        display: none;
+    }
+
+    .left .btn {
+        display: none;
+    }
+}
+
+/* ================================================ */
+/* MEDIAS QUERIES FOR SMALL TABLETS AND PHONES */
+/* ================================================ */
+
+@media screen and (max-width: 992px) {
+    nav .search-bar{
+        display: none;
+    }
+
+    main .container {
+        grid-template-columns: 0 auto 5rem;
+    }
+
+}

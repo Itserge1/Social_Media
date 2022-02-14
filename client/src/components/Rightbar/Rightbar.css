@@ -1,0 +1,133 @@
+/* ============== MESSAGE ============ */
+.top{
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+}
+
+.heading{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.heading span i {
+    font-size: 1.4rem;
+}
+
+.Search-bar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    background: var(--color-light);
+    border-radius: var(--border-radius);
+    padding: var(--search-padding);
+}
+
+.Search-bar input[type="search"]{
+    background: transparent;
+    width: 30vw;
+    border: 0;
+    margin-left: 1rem;
+    font-size: 0,9rem;
+    color: var(--color-dark);
+}
+
+.Search-bar input:focus{
+    outline: none;
+    border: 0px solid;
+}
+
+.category{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+}
+
+.category h6{
+    width: 100%;
+    text-align: center;
+    border-bottom: 4px solid var(--color-light);
+    padding-bottom: 0.5rem ;
+    font-size: 0.85rem;
+}
+.category .message-requests{
+    color: var(--color-primary);
+}
+
+.category .active{
+    border-color: var(--color-dark);
+}
+
+/* ============== MESSAGE ============ */
+
+.message{
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: start;
+}
+.profile-pic{
+    position: relative;
+    overflow: visible;
+}
+
+.profile-pic img{
+    border-radius: 50%;
+}
+
+.message:last-child{
+    margin: 0;
+}
+
+.message .message-body p{
+    font-size: 0.8rem;
+}
+
+.message .profile-pic .active{
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    border: 3px solid var(--color-white);
+    background-color: var(--color-success);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+/* =============== REQUEST =============== */
+
+.friend-requests{
+    margin-top: 1rem;
+}
+
+.request{
+    margin-top: 1rem;
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    background-color: var(--color-white);
+}
+
+.info{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.action{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#noBorber{
+    border: 0 solid;
+}
+
+#noBorber:hover{
+    color: var(--color-white);
+    background: var(--color-danger);
+}
