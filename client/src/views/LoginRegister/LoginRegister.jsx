@@ -1,8 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {useHistory} from 'react-router-dom';
+import axios from 'axios';
 import "./LoginRegister.css";
 
 const LoginRegister = (props) => {
-    const login = (props) => {
+    const history = useHistory();
+    const [form, setForm] = useState({
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword:"",
+        // profilePicture: "",
+        // coverPicture: "",
+        // followers: [],
+        // isAdmin: false,
+        // description: "",
+        // city: "",
+        // from: "",
+        // relationship: "",
+    });
+
+    const oneChangeHandler = (event) => {
+        setForm({
+            ...form,
+            [event.target.name]: event.target.value,
+        })
+    }
+
+    // LOGIN AN REGISTER  (BACKEND)
+    
+    // Login
+    const login = (event) =>{
+        event.preventDefault(); // stop the page from refreching
+        console.log(form)
+        axios.post("http://localhost:8000/api/login", form)
+            .then( res => {
+                console.log(res);
+                history.push("/home")
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+
+    }
+
+    // Register
+    const register = (event) => {
+        event.preventDefault();
+        axios.post("http://localhost:8000/api/register", form)
+            .then(res => {
+                console.log(res)
+                history.push("/home") // redirect to an edit profile 
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+    }
+
+
+
+
+    // LOGIN AN REGISTER SLIDER (FRONTEND)
+    const loginSlider = (props) => {
         var x = document.getElementById("login")
         var y = document.getElementById("register")
         var z = document.getElementById("LoginRegister-btn")
@@ -11,7 +72,7 @@ const LoginRegister = (props) => {
         z.style.left = "0px"
     }
 
-    const register = (props) => {
+    const registerSlider = (props) => {
         var x = document.getElementById("login")
         var y = document.getElementById("register")
         var z = document.getElementById("LoginRegister-btn")
@@ -34,8 +95,8 @@ const LoginRegister = (props) => {
                         <div className="form-box">
                             <div className="button-box">
                                 <div id="LoginRegister-btn"></div>
-                                <button type="button" className="toggle-btn" onClick={() => login()}>Login</button>
-                                <button type="button" className="toggle-btn" onClick={() => register()}>Register</button>
+                                <button type="button" className="toggle-btn" onClick={() => loginSlider()}>Login</button>
+                                <button type="button" className="toggle-btn" onClick={() => registerSlider()}>Register</button>
                             </div>
 
                             <div className="LoginRegister-social-icons">
@@ -48,19 +109,20 @@ const LoginRegister = (props) => {
 
                             {/*  =============== LOGIN =================== */}
 
-                            <form id="login" className="input-group">
-                                <input type="text" className="input-feild" placeholder="Username" />
-                                <input type="text" className="input-feild" placeholder="Password" />
+                            <form onSubmit={login} id="login" className="input-group">
+                                <input type="email" className="input-feild" placeholder="email" name="email" onChange={oneChangeHandler}/>
+                                <input type="password" className="input-feild" placeholder="Password" name="password" onChange={oneChangeHandler}/>
                                 <input type="checkbox" className="checkbox" name="" id="" /><span>Remember Password</span>
                                 <button type="submit" className="LoginRegister-submit-btn">Login</button>
                             </form>
 
                             {/*  =============== REGISTER =================== */}
 
-                            <form id="register" className="input-group">
-                                <input type="text" className="input-feild" placeholder="Username" />
-                                <input type="email" className="input-feild" placeholder="Email" />
-                                <input type="text" className="input-feild" placeholder="Password" />
+                            <form onSubmit={register} id="register" className="input-group">
+                                <input type="text" className="input-feild" placeholder="Username" name="username" onChange={oneChangeHandler} />
+                                <input type="email" className="input-feild" placeholder="Email" name="email" onChange={oneChangeHandler}/>
+                                <input type="password" className="input-feild" placeholder="Password" name="password" onChange={oneChangeHandler}/>
+                                <input type="password" className="input-feild" placeholder="Confirm Password" name="confirmPassword" onChange={oneChangeHandler}/>
                                 <input type="checkbox" className="checkbox" name="" id="" /><span>I agree to the terms and conditions</span>
                                 <button type="submit" className="LoginRegister-submit-btn">Register</button>
                             </form>

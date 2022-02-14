@@ -6,4 +6,5 @@ module.exports = app => {
     // Register a user
     app.post("/api/register", AuthControllers.Register);
     app.post("/api/login", AuthControllers.Login)
+    app.post("/api/logout", AuthControllers.Logout)
 }
