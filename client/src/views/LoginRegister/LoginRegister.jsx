@@ -33,7 +33,7 @@ const LoginRegister = (props) => {
     const login = (event) =>{
         event.preventDefault(); // stop the page from refreching
         console.log(form)
-        axios.post("http://localhost:8000/api/login", form)
+        axios.post("http://localhost:8000/api/login", form, {withCredentials:true}) // {withCredentials:true} allow us to pass in cookies back and forth(lol)
             .then( res => {
                 console.log(res);
                 history.push("/home")
@@ -48,13 +48,13 @@ const LoginRegister = (props) => {
     // Register
     const register = (event) => {
         event.preventDefault();
-        axios.post("http://localhost:8000/api/register", form)
+        axios.post("http://localhost:8000/api/register", form, {withCredentials:true})// {withCredentials:true} allow us to pass in cookies back and forth(lol)
             .then(res => {
-                console.log(res)
+                console.log("Register successfully!", res)
                 history.push("/home") // redirect to an edit profile 
             })
             .catch(err => {
-                console.log(err)
+                console.log("Error during registration!", err)
             })
 
     }

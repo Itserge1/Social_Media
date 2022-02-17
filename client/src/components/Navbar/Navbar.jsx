@@ -1,7 +1,21 @@
 import React from "react";
+import {useHistory} from 'react-router-dom';
 import "./Navbar.css";
+import axios from 'axios';
 
 const Navbar = (props) => {
+
+    const history = useHistory();
+
+    const logout = () => {
+        axios.get("http://localhost:8000/api/logout", {withCredentials: true})
+        .then(res => {
+            console.log(res)
+            history.push("/")
+        })
+        .catch(err => console.log(err))
+    }
+
     return(
         <div>
             <html lang="en">
@@ -24,7 +38,7 @@ const Navbar = (props) => {
                             <input type="search" placeholder="search" />
                         </div>
                         <div className="nav-left">
-                            <input id="marginBottom" className="btn btn-primary" type="button" value="Create" />
+                            <input id="marginBottom" className="btn btn-primary" type="button" value="Logout" onClick={logout}/>
                             <div className="profile-pic">
                                 <img src="/assets/person/1.png" alt="profile picture" />
                             </div>
