@@ -86,9 +86,8 @@ module.exports.Login = async (req, res) => {
             .cookie("usertoken", userToken, process.env.SECRET_KEY, {
                 httpOnly: true
             })
-            .json({ msg: "success!", useR: useR });
+            .json({ msg: "Successful Login!", useR: useR });
 
-        // res.status(200).json(useR)
     } catch (err) {
         console.log(err);
     }

@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Leftbar.css";
+import axios from "axios";
 
 const Leftbar = (props) => {
+    const [LoggedInUser, setLoggedInUser] = useState({});
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/finduser", {withCredentials:true})
+            .then(res => {
+                console.log("Your logged in user info", res)
+                // res.data.results will contains the info of the user, 
+                // that has its id in the cookies. if the user logged in, he will have one. 
+                // if not he won't have a cookie therefore no info
+                if(res.data.results){
+                    // user have a cookies
+                    setLoggedInUser(res.data.results)
+                    // history.push("/home")
+                } else{
+                    // he won't have a cookie therefore no info. So not logged in person trying to access the home page
+                    // history.push("/")
+                    console.log("ok")
+                }
+            })
+            .catch(err => {
+                console.log("Erorr when getting logged in user", err)
+            })
+    }, [])
 
     // theme display
     const OpenThemModel = () => {
@@ -33,8 +56,8 @@ const Leftbar = (props) => {
                         <img src="/assets/person/1.png" alt="Profile picture" />
                     </div>
                     <div className="profile-name">
-                        <h2>Diana Ayi</h2>
-                        <p className="text-muted">@dayi</p>
+                        <h2>{LoggedInUser.username}</h2>
+                        <p className="text-muted">@{LoggedInUser.username}</p>
                     </div>
                 </a>
                 {/* ======================= SIDEBAR ====================== */}

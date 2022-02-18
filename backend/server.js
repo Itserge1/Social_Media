@@ -16,6 +16,7 @@ const cookieParser = require('cookie-parser'); // so that the server can underst
 
 // start the confi file to communicate with the DB - 1
 require("./server/config/mongoose.config");
+// require("./server/config/jwt.config");
 
 //  important to accept post data(post request) - 2
 app.use(express.json(), express.urlencoded({extended:true}));

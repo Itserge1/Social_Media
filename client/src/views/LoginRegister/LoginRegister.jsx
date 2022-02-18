@@ -32,14 +32,14 @@ const LoginRegister = (props) => {
     // Login
     const login = (event) =>{
         event.preventDefault(); // stop the page from refreching
-        console.log(form)
+        console.log("User form input", form)
         axios.post("http://localhost:8000/api/login", form, {withCredentials:true}) // {withCredentials:true} allow us to pass in cookies back and forth(lol)
             .then( res => {
-                console.log(res);
+                console.log({message:"login info", results: res});
                 history.push("/home")
             })
             .catch(err => {
-                console.log(err)
+                console.log({ message: "invalid login attempt" }, err)
             })
 
 

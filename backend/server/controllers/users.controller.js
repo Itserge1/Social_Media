@@ -1,4 +1,9 @@
 const user = require("../models/users.model")
+const jwt = require("jsonwebtoken")
+
+// The decode function help use get all the info we stored in or cookies.
+// const decodedJWT = jwt.decode(req.cookies.usertoken, {complete:true}) // {complete:true} get the complete data.
+// we will use 'decodedJWT.payload.id' soon to get the id. (it work alson for any info we store in the cookie)
 
 // UPDATE USER
 module.exports.UpdateUser = (req, res) => {
@@ -7,14 +12,24 @@ module.exports.UpdateUser = (req, res) => {
     .catch(error => res.status(400).json({message: "That did not work!!!"}, error))
 }
 // DELETE A USER
+// module.exports.DeleteUser = (req, res) => {
+//     user.deleteOne({_id: req.params._id})
+//     .then(DeleteUser => res.json({results: DeleteUser}))
+//     .catch(error => res.status(400).json({message: "That did not work!!"}, error))
+// }
+
 module.exports.DeleteUser = (req, res) => {
-    user.deleteOne({id: req.params._id})
+    // Getting the current user cookie info
+    const decodedJWT = jwt.decode(req.cookies.usertoken, {complete:true})
+    user.deleteOne({_id: decodedJWT.payload.id})
     .then(DeleteUser => res.json({results: DeleteUser}))
     .catch(error => res.status(400).json({message: "That did not work!!"}, error))
 }
 // GET ON USER
-module.exports.FindOneUser = (req, res) => {
-    user.findOne({id: req.params._id})
+module.exports.GetLoggedInUser = (req, res) => {
+    // Getting the current user cookie info
+    const decodedJWT = jwt.decode(req.cookies.usertoken, {complete:true})
+    user.findOne({_id: decodedJWT.payload.id})
         .then(OneUser => res.json({results: OneUser}))
         .catch(error => res.status(400).json({message: "That did not work!!!"}, error))
 }

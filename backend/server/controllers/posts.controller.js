@@ -1,5 +1,4 @@
 const post = require("../models/post.model")
-const { findOne } = require("../models/users.model")
 const user = require("../models/users.model")
 
 // CREATE A POST
