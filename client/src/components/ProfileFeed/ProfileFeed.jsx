@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ProfileFeed.css";
 
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+
+
 const ProfileFeed = (props) => {
+    const history = useHistory();
+    const [LoggedInUser, setLoggedInUser] = useState({});
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/finduser", {withCredentials:true})
+            .then(res => {
+                // console.log("LeftBar: Your logged in user info", res)
+                // res.data.results will contains the info of the user, 
+                // that has its id in the cookies. if the user logged in, he will have one. 
+                // if not he won't have a cookie therefore no info
+                if(res.data.results){
+                    // user have a cookies
+                    setLoggedInUser(res.data.results)
+                    console.log("ok")
+                } 
+            })
+            .catch(err => {
+                history.push("/")
+                console.log("Erorr when getting logged in user", err)
+            })
+    }, [])
     return (
         <div>
             {/* =========== TOP FEED =============== */}
@@ -11,8 +35,8 @@ const ProfileFeed = (props) => {
                     <img src="/assets/person/1.jpeg" alt="profile pic" />
                 </div>
                 <div className="profile-profile-name">
-                    <h1>Safak kocaoglu</h1>
-                    <p>hellow my ferinds</p>
+                <h1>{LoggedInUser.username}</h1>
+                    <p>{LoggedInUser.description}</p>
                 </div>
             </div>
             {/* ================ FEED POST =================== */}
@@ -266,9 +290,9 @@ const ProfileFeed = (props) => {
                     {/* add freinds */}
                     <div className="profile-user-info">
                         <h3>User Information</h3>
-                        <p><b>City: </b> <span className="text-muted"> New York</span> </p>
-                        <p><b>From: </b> <span className="text-muted"> Madrild </span></p>
-                        <p><b>Relationship: </b>  <span className="text-muted"> Single</span></p>
+                        <p><b>City: </b> <span className="text-muted"> {LoggedInUser.city}</span> </p>
+                        <p><b>From: </b> <span className="text-muted"> {LoggedInUser.from} </span></p>
+                        <p><b>Relationship: </b>  <span className="text-muted"> {LoggedInUser.relationship}</span></p>
                     </div>
                     <div className="user-freind-general">
                         <h3>User Freinds</h3>

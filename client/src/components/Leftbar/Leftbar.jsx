@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from "react";
 import "./Leftbar.css";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const Leftbar = (props) => {
+    const history = useHistory();
     const [LoggedInUser, setLoggedInUser] = useState({});
     useEffect(() => {
         axios.get("http://localhost:8000/api/finduser", {withCredentials:true})
             .then(res => {
-                console.log("Your logged in user info", res)
+                // console.log("LeftBar: Your logged in user info", res)
                 // res.data.results will contains the info of the user, 
                 // that has its id in the cookies. if the user logged in, he will have one. 
                 // if not he won't have a cookie therefore no info
                 if(res.data.results){
                     // user have a cookies
                     setLoggedInUser(res.data.results)
-                    // history.push("/home")
-                } else{
-                    // he won't have a cookie therefore no info. So not logged in person trying to access the home page
-                    // history.push("/")
                     console.log("ok")
-                }
+                } 
             })
             .catch(err => {
+                history.push("/")
                 console.log("Erorr when getting logged in user", err)
             })
     }, [])
@@ -53,7 +52,7 @@ const Leftbar = (props) => {
                 {/* ======================= PROFILE ==================== */}
                 <a className="profile">
                     <div className="profile-pic">
-                        <img src="/assets/person/1.png" alt="Profile picture" />
+                        <a href="/profile"><img src="/assets/person/1.png" alt="Profile picture" /></a>
                     </div>
                     <div className="profile-name">
                         <h2>{LoggedInUser.username}</h2>
@@ -62,7 +61,7 @@ const Leftbar = (props) => {
                 </a>
                 {/* ======================= SIDEBAR ====================== */}
                 <div className="sidebar">
-                    <a className="menu-item active">
+                    <a href="/home" className="menu-item active">
                         <span> <i class="uil uil-home"></i> </span> <h3>Home</h3>
                     </a>
                     <a className="menu-item">
@@ -129,7 +128,7 @@ const Leftbar = (props) => {
                     <a className="menu-item"  onClick= {OpenThemModel}>
                         <span> <i class="uil uil-palette"></i> </span> <h3>Theme</h3>
                     </a>
-                    <a className="menu-item">
+                    <a href="/edit" className="menu-item">
                         <span> <i class="uil uil-setting"></i> </span> <h3>Settings</h3>
                     </a>
                 </div>

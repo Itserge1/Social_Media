@@ -2,7 +2,7 @@ const userControllers = require("../controllers/users.controller");
 // const authors = require("../models/authors.model");
 
 module.exports = app => {
-    app.patch("/api/update/:_id", userControllers.UpdateUser);
+    app.patch("/api/update", userControllers.UpdateUser);
     app.delete("/api/delete/:_id", userControllers.DeleteUser);
     app.get("/api/finduser", userControllers.GetLoggedInUser);
     app.post("/api/find", userControllers.FindAllUser);

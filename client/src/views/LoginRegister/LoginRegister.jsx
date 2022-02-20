@@ -10,14 +10,6 @@ const LoginRegister = (props) => {
         email: "",
         password: "",
         confirmPassword:"",
-        // profilePicture: "",
-        // coverPicture: "",
-        // followers: [],
-        // isAdmin: false,
-        // description: "",
-        // city: "",
-        // from: "",
-        // relationship: "",
     });
 
     const oneChangeHandler = (event) => {
@@ -36,7 +28,7 @@ const LoginRegister = (props) => {
         axios.post("http://localhost:8000/api/login", form, {withCredentials:true}) // {withCredentials:true} allow us to pass in cookies back and forth(lol)
             .then( res => {
                 console.log({message:"login info", results: res});
-                history.push("/home")
+                history.push("/edit")
             })
             .catch(err => {
                 console.log({ message: "invalid login attempt" }, err)
@@ -51,7 +43,7 @@ const LoginRegister = (props) => {
         axios.post("http://localhost:8000/api/register", form, {withCredentials:true})// {withCredentials:true} allow us to pass in cookies back and forth(lol)
             .then(res => {
                 console.log("Register successfully!", res)
-                history.push("/home") // redirect to an edit profile 
+                history.push("/edit") // redirect to an edit profile 
             })
             .catch(err => {
                 console.log("Error during registration!", err)

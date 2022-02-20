@@ -3,6 +3,7 @@ import Theme from "./components/Theme/Theme";
 import {BrowserRouter, Switch, Route} from "react-router-dom"
 import Profile from "./views/Profile/Profile";
 import LoginRegister from "./views/LoginRegister/LoginRegister";
+import EditProfile from "./views/EditProfile/EditProfile";
 
 function App() {
   return (
@@ -11,6 +12,10 @@ function App() {
       <Switch>
         <Route exact path= "/">
         <LoginRegister/>
+        </Route>
+
+        <Route exact path= "/edit">
+        <EditProfile/>
         </Route>
 
         <Route exact path= "/home">

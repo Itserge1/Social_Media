@@ -7,16 +7,11 @@ const jwt = require("jsonwebtoken")
 
 // UPDATE USER
 module.exports.UpdateUser = (req, res) => {
-    user.updateOne({_id: req.params._id}, req.body, {runValidators:true} )
+    const decodedJWT = jwt.decode(req.cookies.usertoken, {complete:true})
+    user.updateOne({_id: decodedJWT.payload.id}, req.body, {runValidators:true} )
     .then(updateUser => res.json({results: updateUser}))
     .catch(error => res.status(400).json({message: "That did not work!!!"}, error))
 }
-// DELETE A USER
-// module.exports.DeleteUser = (req, res) => {
-//     user.deleteOne({_id: req.params._id})
-//     .then(DeleteUser => res.json({results: DeleteUser}))
-//     .catch(error => res.status(400).json({message: "That did not work!!"}, error))
-// }
 
 module.exports.DeleteUser = (req, res) => {
     // Getting the current user cookie info

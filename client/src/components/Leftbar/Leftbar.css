@@ -36,6 +36,11 @@
     position: relative;
 }
 
+.sidebar a {
+    text-decoration: none;
+    color: var(--color-dark);
+}
+
 .menu-item i .notification-count{
     background: var(--color-danger);
     color: white;
