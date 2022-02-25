@@ -7,5 +7,6 @@ module.exports = app => {
     app.delete("/api/delete/post/:_id", postControllers.DeletePost)
     app.put("/api/like/post/:_id", postControllers.LikePost)
     app.post("/api/post/find/:_id", postControllers.GetOnePost)
-    app.post("/api/post/find", postControllers.GetAllPost)
+    app.get("/api/post/find", postControllers.GetAllPost)
+    app.get("/api/post/find/:username", postControllers.GetAllProfilePost)
 }

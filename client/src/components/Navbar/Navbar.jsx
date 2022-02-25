@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {useHistory} from 'react-router-dom';
 import "./Navbar.css";
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 const Navbar = (props) => {
 
     const history = useHistory();
+    const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+    const [LoggedInUser, setLoggedInUser] = useState({});
+
 
     const logout = () => {
         axios.get("http://localhost:8000/api/logout", {withCredentials: true})
@@ -15,6 +19,25 @@ const Navbar = (props) => {
         })
         .catch(err => console.log(err))
     }
+
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/finduser", {withCredentials:true})
+            .then(res => {
+                // console.log("LeftBar: Your logged in user info", res)
+                // res.data.results will contains the info of the user, 
+                // that has its id in the cookies. if the user logged in, he will have one. 
+                // if not he won't have a cookie therefore no info
+                if(res.data.results){
+                    // user have a cookies
+                    setLoggedInUser(res.data.results)
+                    console.log("ok")
+                } 
+            })
+            .catch(err => {
+                history.push("/")
+                console.log("Erorr when getting logged in user", err)
+            })
+    }, [])
 
     return(
         <div>
@@ -30,9 +53,11 @@ const Navbar = (props) => {
             <body>
                 <nav>
                     <div className="navbar">
-                        <h2 class="log">
-                            Social Name
-                        </h2>
+                        <Link to="/home" className="link-clean-text">
+                            <h2 class="log">
+                                Social Name
+                            </h2>
+                        </Link>
                         <div className="search_bar">
                             <i class="uil uil-search"></i>
                             <input type="search" placeholder="search" />
@@ -40,7 +65,7 @@ const Navbar = (props) => {
                         <div className="nav-left">
                             <input id="marginBottom" className="btn btn-primary" type="button" value="Logout" onClick={logout}/>
                             <div className="profile-pic">
-                                <a href="/profile"><img src="/assets/person/1.png" alt="profile picture" /></a>
+                                <a href={`/profile/${LoggedInUser.username}`}><img className="profile-pic" src={PUBLIC_FOLDER+LoggedInUser.profilePicture} alt="profile picture" /></a>
                             </div>
                         </div>
                     </div>

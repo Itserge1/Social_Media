@@ -1,0 +1,96 @@
+
+/* Post */
+.post{
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    margin: 1rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+/* Post - Top */
+.post-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.post-profile{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.post-profile-pic{
+    height: 2.7rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+/* Post-middle */
+
+.post-middle img{
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+    margin: 0.5rem 0;
+}
+
+/* comments */
+.comments a{
+    text-decoration: none;
+    color: var(--color-gray)
+}
+
+/* interreactive buttons */
+.action-button{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.action-button span i{
+    cursor: pointer;
+}
+
+
+.uil{
+    margin-left: 0.7rem;
+    font-size: 1.4rem;
+}
+.text-uil{
+    /* margin-left: 0.7rem; */
+    font-size: 1.3rem
+}
+
+.bookmark{
+    margin-right: 0.7rem;
+    font-size: 1.4rem;
+}
+
+.like-by{
+    display: flex;
+}
+
+.like-by span{
+    width: 1.4rem;
+    height: 1.4rem;
+    display: block;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--color-white);
+    margin-left: -0.6rem;
+}
+.like-by span:first-child{
+    margin: 0;
+}
+.like-by p{
+    margin-left: 0.5rem;
+}
+
+.Post-Link-Text{
+    text-decoration: none;
+    color: var(--color-dark);
+}

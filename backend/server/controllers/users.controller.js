@@ -8,6 +8,8 @@ const jwt = require("jsonwebtoken")
 // UPDATE USER
 module.exports.UpdateUser = (req, res) => {
     const decodedJWT = jwt.decode(req.cookies.usertoken, {complete:true})
+    var newid = decodedJWT.payload.id
+    console.log(newid)
     user.updateOne({_id: decodedJWT.payload.id}, req.body, {runValidators:true} )
     .then(updateUser => res.json({results: updateUser}))
     .catch(error => res.status(400).json({message: "That did not work!!!"}, error))
@@ -20,7 +22,7 @@ module.exports.DeleteUser = (req, res) => {
     .then(DeleteUser => res.json({results: DeleteUser}))
     .catch(error => res.status(400).json({message: "That did not work!!"}, error))
 }
-// GET ON USER
+// GET LOGGED IN USER
 module.exports.GetLoggedInUser = (req, res) => {
     // Getting the current user cookie info
     const decodedJWT = jwt.decode(req.cookies.usertoken, {complete:true})
@@ -34,9 +36,24 @@ module.exports.FindAllUser = (req, res) => {
         .then(AllUser => res.json({results: AllUser}))
         .catch(error => res.status(400).json({message: "That did not work!!!"}, error))
 }
+
+// GET ONE USER BY USERNAME
+module.exports.GetOneUserByUsername = (req, res) => {
+    user.findOne({username: req.params.username})
+        .then(OneUser => res.json({results: OneUser}))
+        .catch(error => res.status(400).json({message: "That did not work!!!"}, error))
+}
+
+// GET ONE USER
+module.exports.GetOneUser = (req, res) => {
+    user.findOne({_id: req.params._id})
+        .then(OneUser => res.json({results: OneUser}))
+        .catch(error => res.status(400).json({message: "That did not work!!!"}, error))
+}
+
 // FOLLOW A USER
 module.exports.FollowUser = async (req, res) => {
-    if(req.body._id === req.param._id){
+    if(req.body._id === req.params._id){
         // it means that the are the same person
         res.status(403).json({message: "You can not follow yourself"} )
     } else{

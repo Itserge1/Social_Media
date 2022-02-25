@@ -2,6 +2,8 @@ import React from "react";
 import "./Rightbar.css";
 
 const Rightbar = (props) => {
+
+    const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
     return (
         <div>
             <html lang="en">
@@ -34,7 +36,7 @@ const Rightbar = (props) => {
                             {/* ============= Message 1 ============ */}
                             <div className="message">
                                 <div className="profile-pic">
-                                    <img src="/assets/person/5.png" alt="profile picture" />
+                                    <img src={`${PUBLIC_FOLDER}person/5.png`} alt="profile picture" />
                                 </div>
                                 <div className="message-body">
                                     <h5>Jen</h5>
@@ -44,7 +46,7 @@ const Rightbar = (props) => {
                             {/* ============= Message 2============ */}
                             <div className="message">
                                 <div className="profile-pic">
-                                    <img src="/assets/person/4.png" alt="profile picture" />
+                                    <img src={`${PUBLIC_FOLDER}person/4.png`} alt="profile picture" />
                                     <div className="active"></div>
                                 </div>
                                 <div className="message-body">
@@ -55,7 +57,7 @@ const Rightbar = (props) => {
                             {/* ============= Message 3============ */}
                             <div className="message">
                                 <div className="profile-pic">
-                                    <img src="/assets/person/3.png" alt="profile picture" />
+                                    <img src={`${PUBLIC_FOLDER}person/3.png`} alt="profile picture" />
                                 </div>
                                 <div className="message-body">
                                     <h5>Rick</h5>
@@ -65,7 +67,7 @@ const Rightbar = (props) => {
                             {/* ============= Message 3============ */}
                             <div className="message">
                                 <div className="profile-pic">
-                                    <img src="/assets/person/1.png" alt="profile picture" />
+                                    <img src={`${PUBLIC_FOLDER}person/1.png`} alt="profile picture" />
                                     <div className="active"></div>
                                 </div>
                                 <div className="message-body">
@@ -82,7 +84,7 @@ const Rightbar = (props) => {
                             <div className="request">
                                 <div className="info">
                                     <div className="profile-pic">
-                                        <img src="/assets/person/6.png" alt="profile pic" />
+                                        <img src={`${PUBLIC_FOLDER}person/6.png`} alt="profile pic" />
                                     </div>
                                     <div>
                                         <h5>Lauretta Vshiwk</h5>
@@ -98,7 +100,7 @@ const Rightbar = (props) => {
                             <div className="request">
                                 <div className="info">
                                     <div className="profile-pic">
-                                        <img src="/assets/person/8.png" alt="profile pic" />
+                                        <img src={`${PUBLIC_FOLDER}person/8.png`} alt="profile pic" />
                                     </div>
                                     <div>
                                         <h5>Luci Smith</h5>

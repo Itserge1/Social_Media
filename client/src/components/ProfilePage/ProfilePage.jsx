@@ -4,6 +4,7 @@ import Leftbar from "../Leftbar/Leftbar";
 import ProfileFeed from "../../components/ProfileFeed/ProfileFeed";
 import "./ProfilePage.css";
 
+
 const ProfilePage = (props) => {
     return (
         <div>
@@ -16,7 +17,7 @@ const ProfilePage = (props) => {
                         <Leftbar />
                     </div>
                     <div className="profile-feed">
-                        <ProfileFeed/>
+                        <ProfileFeed username={props.params.username}/>
                     </div>
                 </div>
             </main>

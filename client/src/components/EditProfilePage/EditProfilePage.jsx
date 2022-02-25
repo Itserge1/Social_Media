@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import axios from "axios";
 import "./EditProfilePage.css"
+import Crop from "../crop/Crop";
 
 const EditProfilePage = () => {
     const [userForm, setUserForm] = useState({});
@@ -37,7 +38,7 @@ const EditProfilePage = () => {
         event.preventDefault();
         axios.patch("http://localhost:8000/api/update", userForm, { withCredentials: true })
             .then(res => {
-                history.push("/profile")
+                history.push(`/profile/${LoggedInUser.username}`)
                 console.log({ message: "User updated", results: res })
             })
             .catch(err => {
@@ -93,6 +94,7 @@ const EditProfilePage = () => {
                 </div>
                 <button type="submit" >Update</button>
             </form>
+            <Crop/>
         </div>
     )
 }

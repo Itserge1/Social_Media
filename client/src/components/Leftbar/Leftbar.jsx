@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 const Leftbar = (props) => {
     const history = useHistory();
     const [LoggedInUser, setLoggedInUser] = useState({});
+    const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
     useEffect(() => {
         axios.get("http://localhost:8000/api/finduser", {withCredentials:true})
             .then(res => {
@@ -52,7 +53,7 @@ const Leftbar = (props) => {
                 {/* ======================= PROFILE ==================== */}
                 <a className="profile">
                     <div className="profile-pic">
-                        <a href="/profile"><img src="/assets/person/1.png" alt="Profile picture" /></a>
+                        <a href={`/profile/${LoggedInUser.username}`}><img className="profile-pic" src={PUBLIC_FOLDER+LoggedInUser.profilePicture} alt="Profile picture" /></a>
                     </div>
                     <div className="profile-name">
                         <h2>{LoggedInUser.username}</h2>
@@ -74,7 +75,7 @@ const Leftbar = (props) => {
 
                             <div>
                                 <div className="profile-pic">
-                                    <img src="/assets/person/1.png" alt="Person picture" />
+                                    <img src={`${PUBLIC_FOLDER}person/1.png`} alt="Person picture" />
                                 </div>
                                 <div className="notification-body">
                                     <b>Kenny Michel </b> accepted your friend request
@@ -84,7 +85,7 @@ const Leftbar = (props) => {
 
                             <div>
                                 <div className="profile-pic">
-                                    <img src="/assets/person/1.png" alt="Person picture" />
+                                    <img src={`${PUBLIC_FOLDER}person/1.png`} alt="Person picture" />
                                 </div>
                                 <div className="notification-body">
                                     <b>Alex Kubel </b> commented on your post
@@ -94,7 +95,7 @@ const Leftbar = (props) => {
 
                             <div>
                                 <div className="profile-pic">
-                                    <img src="/assets/person/1.png" alt="Person picture" />
+                                    <img src={`${PUBLIC_FOLDER}person/1.png`} alt="Person picture" />
                                 </div>
                                 <div className="notification-body">
                                     <b>Micheal Smith </b> Started following you
@@ -104,7 +105,7 @@ const Leftbar = (props) => {
 
                             <div>
                                 <div className="profile-pic">
-                                    <img src="/assets/person/1.png" alt="Person picture" />
+                                    <img src={`${PUBLIC_FOLDER}person/1.png`} alt="Person picture" />
                                 </div>
                                 <div className="notification-body">
                                     <b>Brethany Amber  </b> share  your post

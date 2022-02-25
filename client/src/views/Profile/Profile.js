@@ -4,10 +4,13 @@ import ProfilePage from "../../components/ProfilePage/ProfilePage";
 import Theme from "../../components/Theme/Theme";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
+import { useParams } from "react-router";
 
 const Profile = (props) => {
     const history = useHistory();
+    const params = useParams();
+    // console.log({message:" Here is your Parms", params: params});
+
     useEffect(() => {
         axios.get("http://localhost:8000/api/finduser", {withCredentials:true})
             .then(res => {
@@ -28,7 +31,7 @@ const Profile = (props) => {
     }, [])
     return(
         <div>
-            <ProfilePage/>
+            <ProfilePage params = {params}/>
             <Theme/>
         </div>
     )

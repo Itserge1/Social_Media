@@ -1,5 +1,6 @@
 const post = require("../models/post.model")
 const user = require("../models/users.model")
+const jwt = require("jsonwebtoken")
 
 // CREATE A POST
 module.exports.NewPost = (req, res) => {
@@ -64,12 +65,40 @@ module.exports.GetOnePost = (req, res) => {
         .then(OnePost => res.json({ results: OnePost }))
         .catch(error => res.status(400).json({ message: "That did not work", error }))
 }
+
 // GET (ALL) TIMELINE POSTS
 
 module.exports.GetAllPost = async (req, res) => {
+    const decodedJWT = jwt.decode(req.cookies.usertoken, {complete:true})
+    // var newid = decodedJWT.payload.id
+    // console.log(newid)
     try {
         // Get the current user
-        const CurrentUser = await user.findOne({ _id: req.body._id })
+        const CurrentUser = await user.findOne({ _id: decodedJWT.payload.id })
+        // const CurrentUser = await user.findOne({ _id: req.body._id })
+        // Get all the current user post
+        const UserPost = await post.find({ userId: CurrentUser._id })
+        //  map trought the current user following array to get it's freinds id
+        const AllFriendPost = await Promise.all(
+            CurrentUser.followings.map((FreindId) => {
+                // for each id we want to find a post that have the same userId, Then put all that in AllFriendPost 
+                return post.find({ userId: FreindId })
+            })
+        )
+        // Concat both arrays
+        res.json({results: UserPost.concat(...AllFriendPost)})
+    } catch (error) {
+        res.status(500).json({ message: "That did not work", error })
+    }
+}
+
+// GET (ALL) PROFILE TIMELINE POSTS (FIND BY USERNAME)
+
+module.exports.GetAllProfilePost = async (req, res) => {
+    try {
+        // Get the current user
+        const CurrentUser = await user.findOne({ username: req.params.username})
+        // const CurrentUser = await user.findOne({ _id: req.body._id })
         // Get all the current user post
         const UserPost = await post.find({ userId: CurrentUser._id })
         //  map trought the current user following array to get it's freinds id
