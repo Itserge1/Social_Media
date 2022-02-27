@@ -19,7 +19,7 @@
 
 .form-box{
     width: 380px;
-    height: 480px;
+    height: 580px;
     position: relative;
     margin: 6% auto;
     background: #fff;
@@ -120,19 +120,49 @@
     margin: 30px 10px 30px 0;
 }
 
-.input-group span{
+
+/* .input-group span{
     color: #777;
     font-size: 12px;
     bottom: 62px;
     position: absolute;
-}
+} */
 
 /* =============== INPUT FIELS DESING [FORM GENERAL] (Login Rgister) =================== */
 
 #login{
     left: 50px;
+    top: 200px;
 }
 
 #register{
     left: 450px;
+    top: 200px;
+}
+
+/* ERROR MESSAGE */
+
+.mainErrormessage{
+    color: tomato;
+    font-size: 1rem;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin-top:1px;
+}
+
+.littleErrormessage{
+    color: tomato;
+    font-size: 0.8rem;
+}
+
+.checkbox-message{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 40px;
+    margin-left: 40px;
+    color: tomato;
 }

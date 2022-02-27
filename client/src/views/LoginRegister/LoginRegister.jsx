@@ -10,7 +10,11 @@ const LoginRegister = (props) => {
         email: "",
         password: "",
         confirmPassword:"",
+        checkbox:"",
     });
+    const [loginError,setLoginError] = useState("");
+    const [registerError,setRegisterError] = useState("");
+    const [formErrors, setFormErrors] = useState({});
 
     const oneChangeHandler = (event) => {
         setForm({
@@ -31,7 +35,9 @@ const LoginRegister = (props) => {
                 history.push("/edit")
             })
             .catch(err => {
-                console.log({ message: "invalid login attempt" }, err)
+                console.log({message:"here is err", errors:err});
+                // console.log(err.response.data.message)
+                setLoginError(err.response.data.message)
             })
 
 
@@ -42,13 +48,18 @@ const LoginRegister = (props) => {
         event.preventDefault();
         axios.post("http://localhost:8000/api/register", form, {withCredentials:true})// {withCredentials:true} allow us to pass in cookies back and forth(lol)
             .then(res => {
-                console.log("Register successfully!", res)
-                history.push("/edit") // redirect to an edit profile 
+                if(res.data.message){
+                    setRegisterError(res.data.message);
+                    setFormErrors(res.data.error.errors)
+                    console.log(res);
+                } else{
+                    console.log("Register successfully!", res)
+                    history.push("/edit") // redirect to an edit profile 
+                }
             })
             .catch(err => {
-                console.log("Error during registration!", err)
+                console.log(err)
             })
-
     }
 
 
@@ -101,21 +112,44 @@ const LoginRegister = (props) => {
 
                             {/*  =============== LOGIN =================== */}
 
+                            <span className="mainErrormessage">{loginError}</span>
                             <form onSubmit={login} id="login" className="input-group">
                                 <input type="email" className="input-feild" placeholder="email" name="email" onChange={oneChangeHandler}/>
                                 <input type="password" className="input-feild" placeholder="Password" name="password" onChange={oneChangeHandler}/>
-                                <input type="checkbox" className="checkbox" name="" id="" /><span>Remember Password</span>
+                                <input type="checkbox" className="checkbox" name="checkbox"  onChange={oneChangeHandler} /><span>Remember Password</span>
                                 <button type="submit" className="LoginRegister-submit-btn">Login</button>
                             </form>
 
                             {/*  =============== REGISTER =================== */}
 
+                            <span className="mainErrormessage">{registerError}</span>
+                            {/* <span>{formErrors.username?.message}</span>
+                            <span>{formErrors.email?.message}</span>
+                            <span>{formErrors.password?.message}</span>
+                            <span>{formErrors.confirmPassword?.message}</span>
+                            <span>{formErrors.checkbox?.message}</span> */}
                             <form onSubmit={register} id="register" className="input-group">
-                                <input type="text" className="input-feild" placeholder="Username" name="username" onChange={oneChangeHandler} />
-                                <input type="email" className="input-feild" placeholder="Email" name="email" onChange={oneChangeHandler}/>
-                                <input type="password" className="input-feild" placeholder="Password" name="password" onChange={oneChangeHandler}/>
-                                <input type="password" className="input-feild" placeholder="Confirm Password" name="confirmPassword" onChange={oneChangeHandler}/>
-                                <input type="checkbox" className="checkbox" name="" id="" /><span>I agree to the terms and conditions</span>
+                                <div >
+                                    <input type="text" className="input-feild" placeholder="Username (at leaste 3 characters)" name="username" onChange={oneChangeHandler} />
+                                    <span className="littleErrormessage" >{formErrors.username?.message}</span>
+                                </div>
+                                <div >
+                                    <input type="email" className="input-feild" placeholder="Email" name="email" onChange={oneChangeHandler}/>
+                                    <span className="littleErrormessage" >{formErrors.email?.message}</span>
+                                </div>
+                                <div >
+                                    <input type="password" className="input-feild" placeholder="Password (at least 6 characters)" name="password" onChange={oneChangeHandler}/>
+                                    <span className="littleErrormessage" >{formErrors.password?.message}</span>
+                                </div>
+                                <div >
+                                    <input type="password" className="input-feild" placeholder="Confirm Password" name="confirmPassword" onChange={oneChangeHandler}/>
+                                    <span className="littleErrormessage" >{formErrors.confirmPassword?.message}</span>
+                                </div>
+                                <p>
+                                    <input type="checkbox" className="checkbox" name="checkbox"  id="checkbox" onChange={oneChangeHandler}/>
+                                    <label htmlFor="checkbox" >I agree to the terms and conditions</label>
+                                    <span className="checkbox-message">{formErrors.checkbox?.message}</span>
+                                </p>
                                 <button type="submit" className="LoginRegister-submit-btn">Register</button>
                             </form>
 

@@ -110,6 +110,21 @@ UserSchema.pre('save', function (next) {
         });
 });
 
+// CHEKBOX
+UserSchema.virtual('checkbox')
+    .get(() => this._checkbox)
+    .set(value => this._checkbox = value);
+
+
+// the block of code below is making the comparison
+// PS: THIS CODE RUN FIRST BEFORE SENDING ANYTHIBG TO THE DATABASE 
+// TO ENSURE THAT WE HAVE A CLEAR INPUT DATA
+UserSchema.pre('validate', function (next) {
+    if (this.checkbox !== "on") {
+        this.invalidate('checkbox', 'checkbox must be checked');
+    }
+    next(); //after the above process is dove , go to the next usual step.
+});
 
 const user = mongoose.model("users", UserSchema);
 
