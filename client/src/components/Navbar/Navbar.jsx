@@ -65,7 +65,7 @@ const Navbar = (props) => {
                         <div className="nav-left">
                             <input id="marginBottom" className="btn btn-primary" type="button" value="Logout" onClick={logout}/>
                             <div className="profile-pic">
-                                <a href={`/profile/${LoggedInUser.username}`}><img className="profile-pic" src={PUBLIC_FOLDER+LoggedInUser.profilePicture} alt="profile picture" /></a>
+                                <a href={`/profile/${LoggedInUser.username}`}><img className="profile-pic" src={LoggedInUser.profilePicture? PUBLIC_FOLDER+LoggedInUser.profilePicture : PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="profile picture" /></a>
                             </div>
                         </div>
                     </div>
