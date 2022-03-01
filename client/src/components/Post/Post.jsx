@@ -15,6 +15,12 @@ const Post = ({post}) => {
     // and we need to add "REACT_APP_"+variable_name for it to work.
     const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
     const [UserInDB, setUserInDB] = useState({});
+    const [LoggedInUser, setLoggedInUser] = useState({});
+
+    // LIKE CONDITIONAL STYLING
+    const [liked, setLiked] = useState(false);
+    const [likedCount, setLikedCount] = useState(post.likes.length)
+    const [bookmarked, setBookmarked] = useState(false);
 
     // Get all users
     useEffect(() => {
@@ -28,6 +34,50 @@ const Post = ({post}) => {
             })
     }, [post.userId])
 
+    // GET THE LOGGED IN USER WITH JASONWEBTOKEN
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/finduser`, {withCredentials:true})
+        .then(res => {
+            // console.log("LeftBar: Your logged in user info", res)
+            // res.data.results will contains the info of the user, 
+            // that has its id in the cookies. if the user logged in, he will have one. 
+            // if not he won't have a cookie therefore no info
+            if(res.data.results){
+                // user have a cookies
+                setLoggedInUser(res.data.results)
+                console.log("ok")
+            } 
+        })
+        .catch(err => {
+            console.log("Erorr when getting logged in user", err)
+        })
+
+    }, []);
+
+    // LIKED/BOOKEDMARK A POST
+    const Cliked = (object) => {
+        if(object=="like"){
+            liked? setLiked(false): setLiked(true);
+
+            // AXIOS CALL ,{_id: LoggedInUser._id}
+            axios.put(`http://localhost:8000/api/post/like/${post._id}`, {_id: LoggedInUser._id})
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log({error:err});
+                })
+        } else if (object="bookmark"){
+            bookmarked? setBookmarked(false): setBookmarked(true);
+        }
+    }
+
+    // display like
+
+    useEffect(() => {
+        setLiked(post.likes.includes(LoggedInUser._id))
+    },[post.likes, LoggedInUser._id]);
+
     return (
         <div>
             {/* ======== Fist post ============= */}
@@ -35,7 +85,7 @@ const Post = ({post}) => {
                 <div className="post-top">
                     <div className="post-profile">
                         <div className="post-profile-pic">
-                            <img src={UserInDB.profilePicture || PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="profile profile" />
+                            <img src={UserInDB.profilePicture? PUBLIC_FOLDER+UserInDB.profilePicture : PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="profile profile" />
                         </div>
                         <div className="info">
                             <Link className="Post-Link-Text" to={`/profile/${UserInDB.username}`}><h3>{UserInDB.username}</h3></Link>
@@ -55,19 +105,19 @@ const Post = ({post}) => {
                     {/* Action button */}
                     <div className="action-button">
                         <div className="interrection-button">
-                            <span><i class="uil uil-heart"></i></span>
-                            <span><i class="uil uil-comment-dots"></i></span>
-                            <span><i class="uil uil-share-alt"></i></span>
+                            <span onClick={() => Cliked("like")} ><i className={liked? "uil uil-heart uil-active" : "uil uil-heart" } ></i></span>
+                            <span ><i className="uil uil-comment-dots"></i></span>
+                            <span><i className="uil uil-share-alt"></i></span>
                         </div>
                         <div className="bookmark">
-                            <span><i class="uil uil-bookmark bookmark"></i></span>
+                            <span onClick={() => Cliked("bookmark")}><i class={bookmarked? "uil uil-bookmark bookmark bookmark-active":"uil uil-bookmark bookmark"} ></i></span>
                         </div>
                     </div>
                     <div className="like-by">
-                        <span> <img src="/assets/person/10.jpeg" alt="profile picture" /></span>
+                        <span> <img  src="/assets/person/10.jpeg" alt="profile picture" /></span>
                         <span> <img src="/assets/person/1.jpeg" alt="profile picture" /></span>
                         <span> <img src="/assets/person/9.jpeg" alt="profile picture" /></span>
-                        <p>Liked by <b>Ernest Achiever</b> and <b>{post.likes.length} others</b></p>
+                        <p>Liked by <b>Ernest Achiever</b> and <b>{likedCount} others</b></p>
                     </div>
                     <div className="caption">
                         <p><b>Lana Rose</b> {post.description} <span className="harsh-tag">  </span></p>

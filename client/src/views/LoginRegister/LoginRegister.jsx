@@ -123,11 +123,6 @@ const LoginRegister = (props) => {
                             {/*  =============== REGISTER =================== */}
 
                             <span className="mainErrormessage">{registerError}</span>
-                            {/* <span>{formErrors.username?.message}</span>
-                            <span>{formErrors.email?.message}</span>
-                            <span>{formErrors.password?.message}</span>
-                            <span>{formErrors.confirmPassword?.message}</span>
-                            <span>{formErrors.checkbox?.message}</span> */}
                             <form onSubmit={register} id="register" className="input-group">
                                 <div >
                                     <input type="text" className="input-feild" placeholder="Username (at leaste 3 characters)" name="username" onChange={oneChangeHandler} />

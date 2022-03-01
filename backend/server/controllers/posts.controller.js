@@ -1,6 +1,6 @@
-const post = require("../models/post.model")
-const user = require("../models/users.model")
-const jwt = require("jsonwebtoken")
+const post = require("../models/post.model");
+const user = require("../models/users.model");
+const jwt = require("jsonwebtoken");
 
 // CREATE A POST
 module.exports.NewPost = (req, res) => {
@@ -44,8 +44,11 @@ module.exports.DeletePost = async (req, res) => {
 module.exports.LikePost = async (req, res) => {
     try {
         // LIKE A POST
+        // Getting the current user cookie info
+        // const decodedJWT = jwt.decode(req.cookies.usertoken, {complete:true})
         const postToUpdate = await post.findOne({ _id: req.params._id })
         //(Not) If the post already was liked
+        // console.log(decodedJWT.payload.id);
         if (!postToUpdate.likes.includes(req.body._id)) {
             await postToUpdate.updateOne({ $push: { likes: req.body._id } })
             res.status(200).json({ message: "The post has been liked" })

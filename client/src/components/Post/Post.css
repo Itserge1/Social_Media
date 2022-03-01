@@ -55,6 +55,13 @@
     cursor: pointer;
 }
 
+.uil-active{
+    color: tomato;
+    /* color: var(--color-primary); */
+}
+.bookmark-active{
+    color: var(--color-primary);
+}
 
 .uil{
     margin-left: 0.7rem;

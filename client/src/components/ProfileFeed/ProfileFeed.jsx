@@ -16,8 +16,8 @@ const ProfileFeed = (props) => {
     const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
     const [allPost, setAllpost] = useState([]);
 
+// GET USER BY USERNAME 
     useEffect(() => {
-        // GET USER BY USERNAME 
         axios.get(`http://localhost:8000/api/finduser/username/${props.username}`, {withCredentials:true})
         .then(res => {
             // console.log("LeftBar: Your logged in user info", res)
@@ -36,24 +36,6 @@ const ProfileFeed = (props) => {
         .catch(err => {
             history.push("/error")
             // display user not found
-            console.log("Erorr when getting logged in user", err)
-        })
-
-        // GET THE LOGGED IN USER WITH JASONWEBTOKEN
-        axios.get(`http://localhost:8000/api/finduser`, {withCredentials:true})
-        .then(res => {
-            // console.log("LeftBar: Your logged in user info", res)
-            // res.data.results will contains the info of the user, 
-            // that has its id in the cookies. if the user logged in, he will have one. 
-            // if not he won't have a cookie therefore no info
-            if(res.data.results){
-                // user have a cookies
-                setLoggedInUser(res.data.results)
-                console.log("ok")
-            } 
-        })
-        .catch(err => {
-            history.push("/error")
             console.log("Erorr when getting logged in user", err)
         })
 
@@ -90,9 +72,31 @@ const ProfileFeed = (props) => {
         //         history.push("/")
         //         console.log("Erorr when getting logged in user", err)
         //     });
-    }, [])
+    }, [props.username]);
 
 
+// GET THE LOGGED IN USER WITH JASONWEBTOKEN
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/finduser`, {withCredentials:true})
+        .then(res => {
+            // console.log("LeftBar: Your logged in user info", res)
+            // res.data.results will contains the info of the user, 
+            // that has its id in the cookies. if the user logged in, he will have one. 
+            // if not he won't have a cookie therefore no info
+            if(res.data.results){
+                // user have a cookies
+                setLoggedInUser(res.data.results)
+                console.log("ok")
+            } 
+        })
+        .catch(err => {
+            history.push("/error")
+            console.log("Erorr when getting logged in user", err)
+        })
+
+    }, []);
+
+// FIND ALL USER AN USER'S FREIND POST
     useEffect(() => {
         axios.get(`http://localhost:8000/api/post/find/${props.username}`, {withCredentials:true} )
             .then(res => {
@@ -120,7 +124,7 @@ const ProfileFeed = (props) => {
         //         console.log({message:"Error when getting user posts and freind posts ", error: err})
         //     })
 
-    }, []);
+    }, [props.username]);
     return (
         <div>
             {/* =========== TOP FEED =============== */}
