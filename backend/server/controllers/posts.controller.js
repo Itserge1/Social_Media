@@ -3,10 +3,10 @@ const user = require("../models/users.model");
 const jwt = require("jsonwebtoken");
 
 // CREATE A POST
-module.exports.NewPost = (req, res) => {
+module.exports.NewPost = async (req, res) => {
     post.create(req.body)
         .then(newPost => res.json({ results: newPost }))
-        .catch(error => res.status(400).json({ mesage: "That did not work!1", error }))
+        .catch(error => res.status(400).json({ mesage: "That did not work!", error }))
 }
 // UPDATE A POST
 module.exports.UpdatePost = async (req, res) => {

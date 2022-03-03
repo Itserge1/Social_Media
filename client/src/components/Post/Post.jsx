@@ -57,7 +57,14 @@ const Post = ({post}) => {
     // LIKED/BOOKEDMARK A POST
     const Cliked = (object) => {
         if(object=="like"){
+            // affectting the syling(color red)
             liked? setLiked(false): setLiked(true);
+
+            // affecting the counting
+            // Questions why? is liked still false
+            setLikedCount(liked? likedCount-1 : likedCount+1)
+
+
 
             // AXIOS CALL ,{_id: LoggedInUser._id}
             axios.put(`http://localhost:8000/api/post/like/${post._id}`, {_id: LoggedInUser._id})
@@ -68,12 +75,12 @@ const Post = ({post}) => {
                     console.log({error:err});
                 })
         } else if (object="bookmark"){
+            // affectting the syling(color Primary color)
             bookmarked? setBookmarked(false): setBookmarked(true);
         }
     }
 
-    // display like
-
+    // Keep like state(color red or black) if the post has been already liked or disliked
     useEffect(() => {
         setLiked(post.likes.includes(LoggedInUser._id))
     },[post.likes, LoggedInUser._id]);

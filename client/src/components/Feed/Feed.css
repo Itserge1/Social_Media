@@ -56,45 +56,6 @@
 .stories .story:nth-child(4){
     background:url("../../../public/assets/person/7.jpeg")no-repeat center center/cover;
 }
-/* ============ CREATED POST =============== */
-
-.create-post{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 1rem;
-    background-color: var(--color-white);
-    padding: 0.4rem var(--card-padding);
-    border-radius: var(--border-radius);
-}
-.create-post input[type="text"]{
-    justify-self: start;
-    border: 0px solid black;
-    width: 15vw;
-    padding-left: 1rem;
-    background: transparent;
-    color: var(--color-dark);
-    margin-right: 1rem;
-}
-
-.create-post input:focus {
-    outline: none ;
-}
-
-.btn2{
-    display: inline-block;
-    padding: var(--btb-padding);
-    font-weight: 500;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: all 300ms ease;
-    font-size: 0.9rem;
-}
-
-.btn2:hover{
-    opacity: 0.8;
-}
 
 /* =============== POST ITSELF ================= */
 /* Profile pic on the post */

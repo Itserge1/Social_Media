@@ -6,13 +6,13 @@ import { useHistory } from "react-router-dom";
 
 import Post from "../Post/Post";
 import ErrorPage from "../ErrorPage/ErrorPage";
+import PostForm from "../PostForm/PostForm";
 
 
 
 const ProfileFeed = (props) => {
     const history = useHistory();
     const [User, setUser] = useState({});
-    const [LoggedInUser, setLoggedInUser] = useState({});
     const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
     const [allPost, setAllpost] = useState([]);
 
@@ -74,28 +74,6 @@ const ProfileFeed = (props) => {
         //     });
     }, [props.username]);
 
-
-// GET THE LOGGED IN USER WITH JASONWEBTOKEN
-    useEffect(() => {
-        axios.get(`http://localhost:8000/api/finduser`, {withCredentials:true})
-        .then(res => {
-            // console.log("LeftBar: Your logged in user info", res)
-            // res.data.results will contains the info of the user, 
-            // that has its id in the cookies. if the user logged in, he will have one. 
-            // if not he won't have a cookie therefore no info
-            if(res.data.results){
-                // user have a cookies
-                setLoggedInUser(res.data.results)
-                console.log("ok")
-            } 
-        })
-        .catch(err => {
-            history.push("/error")
-            console.log("Erorr when getting logged in user", err)
-        })
-
-    }, []);
-
 // FIND ALL USER AN USER'S FREIND POST
     useEffect(() => {
         axios.get(`http://localhost:8000/api/post/find/${props.username}`, {withCredentials:true} )
@@ -142,13 +120,7 @@ const ProfileFeed = (props) => {
             <div className="profile-bottoms">
                 {/* create post form */}
                 <div className="feed-post">
-                    <form class="create-post">
-                        <div className="profile-pic">
-                            <img className="profile-pic" src={(LoggedInUser.profilePicture)? PUBLIC_FOLDER+LoggedInUser.profilePicture  : PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="profile picture" />
-                        </div>
-                        <input type="text" className="create-post-input" placeholder="what is inside of you mind?" id="post-id" />
-                        <input type="submit" value="Post" className="btn2 btn-primary" />
-                    </form>
+                    <PostForm/>
                     {allPost.map(p => (
                         <Post key={p._id} post={p} />
                     ))}
