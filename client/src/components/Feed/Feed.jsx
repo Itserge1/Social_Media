@@ -17,13 +17,16 @@ const Feed = (props) => {
         axios.get("http://localhost:8000/api/post/find", {withCredentials:true} )
             .then(res => {
                 console.log({message: "All user posts and freind posts", result: res})
-                setAllpost(res.data.results);
+                // setAllpost(res.data.results) // all post
+                setAllpost(res.data.results.sort((p1,p2) =>{
+                    return new Date(p2.createdAt) - new Date(p1.createdAt); //sorting all post by most recent
+                }));
             })
             .catch(err => {
                 console.log({message:"Error when getting user posts and freind posts ", error: err})
             })
 
-    }, [allPost]);
+    }, []);
 
     
     return (

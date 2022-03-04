@@ -11,6 +11,7 @@ const Profile = (props) => {
     const params = useParams();
     // console.log({message:" Here is your Parms", params: params});
 
+    // CHECK IF USER LOGGED IN
     useEffect(() => {
         axios.get("http://localhost:8000/api/finduser", {withCredentials:true})
             .then(res => {
@@ -26,7 +27,7 @@ const Profile = (props) => {
                 if(res.data.results){
                     // user have a cookies
                     // setLoggedInUser(res.data.results)
-                    console.log("ok")
+                    console.log("Profile: User Can access profile page")
                 } 
             })
             .catch(err => {
@@ -36,7 +37,7 @@ const Profile = (props) => {
     }, [])
     return(
         <div>
-            <ProfilePage params = {params}/>
+            <ProfilePage params = {params} />
             <Theme/>
         </div>
     )

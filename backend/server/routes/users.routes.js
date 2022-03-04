@@ -6,6 +6,7 @@ module.exports = app => {
     app.delete("/api/delete/:_id", userControllers.DeleteUser);
     app.get("/api/finduser", userControllers.GetLoggedInUser);
     app.get("/api/finduser/:_id", userControllers.GetOneUser);
+    app.get("/api/finduser/friends/:_id", userControllers.GetUserFriends);
     app.get("/api/finduser/username/:username", userControllers.GetOneUserByUsername);
     app.get("/api/find", userControllers.FindAllUser);
     app.put("/api/follow/:_id", userControllers.FollowUser)

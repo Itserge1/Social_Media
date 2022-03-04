@@ -30,7 +30,7 @@ const PostForm = () => {
             if(res.data.results){
                 // user have a cookies
                 setLoggedInUser(res.data.results);
-                console.log("ok")
+                console.log("PostForm: Got logged in user from cookies")
             } 
         })
         .catch(err => {
@@ -53,9 +53,8 @@ const PostForm = () => {
         event.preventDefault();
         axios.post("http://localhost:8000/api/newpost", form, {withCredentials:true})
             .then(res => {
-                console.log(res);
-                // document.getElementById("post-id").innerText("");
-                history.push("/home");
+                // console.log(res);
+                window.location.reload() // this code refresh the page after a post
             })
             .catch(err => {
                 console.log({message:"Here is your err", err:err});

@@ -45,7 +45,7 @@ const Post = ({post}) => {
             if(res.data.results){
                 // user have a cookies
                 setLoggedInUser(res.data.results)
-                console.log("ok")
+                console.log("Post: Got logged in user from cookies")
             } 
         })
         .catch(err => {

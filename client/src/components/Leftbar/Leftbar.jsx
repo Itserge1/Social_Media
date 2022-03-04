@@ -17,7 +17,7 @@ const Leftbar = (props) => {
                 if(res.data.results){
                     // user have a cookies
                     setLoggedInUser(res.data.results)
-                    console.log("ok")
+                    console.log("Leftbar: Got logged in user from cookies")
                 } 
             })
             .catch(err => {

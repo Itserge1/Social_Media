@@ -15,29 +15,31 @@ const ProfileFeed = (props) => {
     const [User, setUser] = useState({});
     const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
     const [allPost, setAllpost] = useState([]);
+    const [allFriend, setAllFriend] = useState([]);
 
-// GET USER BY USERNAME 
+
+    // GET USER BY USERNAME 
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/finduser/username/${props.username}`, {withCredentials:true})
-        .then(res => {
-            // console.log("LeftBar: Your logged in user info", res)
-            // res.data.results will contains the info of the user, 
-            // that has its id in the cookies. if the user logged in, he will have one. 
-            // if not he won't have a cookie therefore no info
-            if(res.data.results === null){
-                // send to error page
+        axios.get(`http://localhost:8000/api/finduser/username/${props.username}`, { withCredentials: true })
+            .then(res => {
+                // console.log("LeftBar: Your logged in user info", res)
+                // res.data.results will contains the info of the user, 
+                // that has its id in the cookies. if the user logged in, he will have one. 
+                // if not he won't have a cookie therefore no info
+                if (res.data.results === null) {
+                    // send to error page
+                    history.push("/error")
+                } else if (res.data.results) {
+                    // user have a cookies
+                    setUser(res.data.results);
+                    // console.log({message:"user by username", user:res.data.results, userFreinds:res.data.results.followings})
+                }
+            })
+            .catch(err => {
                 history.push("/error")
-            } else if(res.data.results){
-                // user have a cookies
-                setUser(res.data.results)
-                console.log("ok")
-            } 
-        })
-        .catch(err => {
-            history.push("/error")
-            // display user not found
-            console.log("Erorr when getting logged in user", err)
-        })
+                // display user not found
+                console.log("Erorr when getting logged in user", err)
+            })
 
         // (props.username)
         // ? axios.get("http://localhost:8000/api/finduser/username/:username", {withCredentials:true})
@@ -74,15 +76,18 @@ const ProfileFeed = (props) => {
         //     });
     }, [props.username]);
 
-// FIND ALL USER AN USER'S FREIND POST
+    // FIND ALL USER AN USER'S FREIND POST
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/post/find/${props.username}`, {withCredentials:true} )
+        axios.get(`http://localhost:8000/api/post/find/${props.username}`, { withCredentials: true })
             .then(res => {
-                console.log({message: "All user posts and freind posts base on username", result: res})
-                setAllpost(res.data.results);
+                console.log({ message: "All user posts and freind posts base on username", result: res })
+                // setAllpost(res.data.results);
+                setAllpost(res.data.results.sort((p1, p2) => {
+                    return new Date(p2.createdAt) - new Date(p1.createdAt); //sorting all post by most recent
+                }));
             })
             .catch(err => {
-                console.log({message:"Error when getting user posts and freind posts ", error: err})
+                console.log({ message: "Error when getting user posts and freind posts ", error: err })
             })
         // (props.username)?
         // axios.get(`http://localhost:8000/api/post/find/${props.username}`, {withCredentials:true} )
@@ -103,16 +108,32 @@ const ProfileFeed = (props) => {
         //     })
 
     }, [props.username]);
+
+    // GET USER'S FRIENDS
+
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/finduser/friends/${props.userByUsername._id}`)
+            .then(res => {
+                setAllFriend(res.data);
+                // console.log({message:"here is all user's freinds", friends:res});
+            })
+            .catch(err => {
+                console.log({message:"Failed to find all user's freinds", error:err});
+            })
+
+    }, [props.userByUsername._id])
+
+
     return (
         <div>
             {/* =========== TOP FEED =============== */}
             <div className="profileTopFeed">
-                <img src= { ( User.coverPicture)? PUBLIC_FOLDER+User.coverPicture : PUBLIC_FOLDER+"person/default-cover-image.jpeg"} alt="cover pic" />
+                <img src={(User.coverPicture) ? PUBLIC_FOLDER + User.coverPicture : PUBLIC_FOLDER + "person/default-cover-image.jpeg"} alt="cover pic" />
                 <div className="profile-profile-pic">
-                    <img src={(User.profilePicture)? PUBLIC_FOLDER+User.profilePicture  : PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="profile pic" />
+                    <img src={(User.profilePicture) ? PUBLIC_FOLDER + User.profilePicture : PUBLIC_FOLDER + "person/default-profile-image.jpeg"} alt="profile pic" />
                 </div>
                 <div className="profile-profile-name">
-                <h1>{User.username}</h1>
+                    <h1>{User.username}</h1>
                     <p>{User.description}</p>
                 </div>
             </div>
@@ -120,7 +141,7 @@ const ProfileFeed = (props) => {
             <div className="profile-bottoms">
                 {/* create post form */}
                 <div className="feed-post">
-                    <PostForm/>
+                    <PostForm />
                     {allPost.map(p => (
                         <Post key={p._id} post={p} />
                     ))}
@@ -138,33 +159,16 @@ const ProfileFeed = (props) => {
                         <h3>User Freinds</h3>
                         <div className="profile-user-profiles">
                             {/* ============= ONE FIREND ================= */}
-                            <div className="profile-user-profile">
-                                <div className="profile-user-profile-pic">
-                                    <img src="/assets/person/6.jpeg" alt="" />
+                            { allFriend.map(friend => (
+                                <div className="profile-user-profile">
+                                    <a href={`/profile/${friend.username}`} className="profile-Link-Text">
+                                        <div className="profile-user-profile-pic">
+                                            <img src={friend.profilePicture? PUBLIC_FOLDER+friend.profilePicture : PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="" />
+                                        </div>
+                                        <h4>{friend.username}</h4>
+                                    </a>
                                 </div>
-                                <h4>John Carter</h4>
-                            </div>
-                            {/* ============= ONE FIREND ================= */}
-                            <div className="profile-user-profile">
-                                <div className="profile-user-profile-pic">
-                                    <img src="/assets/person/6.jpeg" alt="" />
-                                </div>
-                                <h4>John Carter</h4>
-                            </div>
-                            {/* ============= ONE FIREND ================= */}
-                            <div className="profile-user-profile">
-                                <div className="profile-user-profile-pic">
-                                    <img src="/assets/person/6.jpeg" alt="" />
-                                </div>
-                                <h4>John Carter</h4>
-                            </div>
-                            {/* ============= ONE FIREND ================= */}
-                            <div className="profile-user-profile">
-                                <div className="profile-user-profile-pic">
-                                    <img src="/assets/person/1.jpeg" alt="" />
-                                </div>
-                                <h4>John Carter</h4>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </div>
