@@ -221,12 +221,6 @@ const ProfileFeed = (props) => {
                         : User.username !== LoggedInUser.username && <span className="follow-unfollow-span" onClick={FollowUser}><button className="profile-button">Follow</button></span>
                     }
                     
-                    {/* {
-                        isValidFollow? 
-                        User.username !== LoggedInUser.username && <span className="follow-unfollow-span" onClick={ () => {UnfollowUser(); CheckIfFollow()}}><button className="profile-button">UnFollow</button> </span> 
-                        : User.username !== LoggedInUser.username && <span className="follow-unfollow-span" onClick={ () => {FollowUser(); CheckIfFollow()}}><button className="profile-button">Follow</button> </span>
-                    } */}
-                    
                     <div className="profile-user-info">
                         <h3>User Information</h3>
                         <p><b>City: </b> <span className="text-muted"> {User.city}</span> </p>
