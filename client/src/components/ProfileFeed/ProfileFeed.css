@@ -60,7 +60,8 @@
 
 .profile-user-info{
     line-height: 2.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1rem ;
+    margin-top: 1rem ;
     background:var(--color-white);
     padding: 1rem;
     border-radius: var(--card-border-radius);
@@ -93,3 +94,29 @@
     object-fit: cover;
     cursor: pointer;
 }
+
+.profile-button{
+    padding: .5rem 1rem;
+    background:var(--color-primary);
+    color: white;
+    border: 0;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+/* .follow-unfollow-span{
+    display: flex;
+    align-items: center;
+} */
+/* <i class="uil uil-minus"></i> */
+/* <i class="uil uil-plus"></i> */
+/* .Round-plus-or-minus{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    color: white;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+} */

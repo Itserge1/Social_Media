@@ -4,9 +4,11 @@ import "./PostForm.css"
 import axios from "axios";
 import { useHistory } from "react-router";
 
+
 const PostForm = () => {
     const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
     const [LoggedInUser, setLoggedInUser] = useState ({});
+    const [image, setImage] = useState();
     
 
     const[form, setForm] = useState({
@@ -46,6 +48,7 @@ const PostForm = () => {
             userId: LoggedInUser._id,
             [event.target.name]: event.target.value,
         });
+        setImage(form.image);
     }
 
     // Make a post
@@ -74,6 +77,13 @@ const PostForm = () => {
                     <input type="submit" value="Post" className="btn2 btn-primary" />
                     {/* <button type="submit"  className="btn2 btn-primary">Post</button> */}
                 </div>
+                {form.image && (
+                    <div className="shareImageContainer">
+                        {/* <img className="shareImage" src={window.webkitURL.createObjectURL(form.image) } alt="image selected" /> */}
+                        <span className="shareCancelImg"> <i class="uil uil-multiply"></i></span>
+                    </div>
+                )}
+
                 <div className="feed-files">
                     <span className="feed-files-icons">
                         <i className="uil uil-image-plus" id="orange"></i>

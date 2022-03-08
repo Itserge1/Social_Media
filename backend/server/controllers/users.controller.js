@@ -1,5 +1,6 @@
 const user = require("../models/users.model")
 const jwt = require("jsonwebtoken")
+const { findOne } = require("../models/users.model")
 
 // The decode function help use get all the info we stored in or cookies.
 // const decodedJWT = jwt.decode(req.cookies.usertoken, {complete:true}) // {complete:true} get the complete data.
@@ -132,5 +133,20 @@ module.exports.UnFollowUser = async (req, res) => {
         } catch (err) {
             res.status(500).json(err);
         }
+    }
+}
+
+module.exports.CheckFollowUser = async (req, res) => {
+    const User = await user.findOne({_id: req.params._id})
+    const LoggedInUser = await user.findOne({_id: req.body._id})
+    try{
+        if(LoggedInUser.followings.includes(User._id)) {
+            res.status(200).json({message:"User has been already followed", isValidFollow:true}); 
+        }
+        else{
+            res.status(200).json({message:"User has NOT been followed yet", isValidFollow: false});
+        }
+    } catch (err){
+        res.status(500).json(err);
     }
 }
