@@ -34,9 +34,19 @@ const UserSchema = new mongoose.Schema({
         default: ""
     },
 
+    cloudinary_profilePicture_id: {
+        type: String,
+        default:""
+    },
+
     coverPicture: {
         type: String,
         default: ""
+    },
+
+    cloudinary_coverPicture_id: {
+        type: String,
+        default:""
     },
 
     followers: {

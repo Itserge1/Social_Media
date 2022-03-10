@@ -1,8 +1,9 @@
 const postControllers = require("../controllers/posts.controller");
+const upload = require("../utils/multer");
 
 
 module.exports = app => {
-    app.post("/api/newpost", postControllers.NewPost)
+    app.post("/api/newpost", upload.single('image'), postControllers.NewPost)
     app.put("/api/update/post/:_id", postControllers.UpdatePost)
     app.delete("/api/delete/post/:_id", postControllers.DeletePost)
     app.put("/api/post/like/:_id", postControllers.LikePost)

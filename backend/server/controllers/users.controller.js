@@ -1,17 +1,60 @@
 const user = require("../models/users.model")
 const jwt = require("jsonwebtoken")
+const cloudinary = require("../utils/cloudinary")
 const { findOne } = require("../models/users.model")
 
 // The decode function help use get all the info we stored in or cookies.
 // const decodedJWT = jwt.decode(req.cookies.usertoken, {complete:true}) // {complete:true} get the complete data.
 // we will use 'decodedJWT.payload.id' soon to get the id. (it work alson for any info we store in the cookie)
 
-// UPDATE USER
-module.exports.UpdateUser = (req, res) => {
+// UPDATE USER INFO
+module.exports.UpdateUserInfo = (req, res) => {
     const decodedJWT = jwt.decode(req.cookies.usertoken, { complete: true })
     // var newid = decodedJWT.payload.id
     // console.log(newid)
     user.updateOne({ _id: decodedJWT.payload.id }, req.body, { runValidators: true })
+        .then(updateUser => res.json({ results: updateUser }))
+        .catch(error => res.status(400).json({ message: "That did not work!!!" }, error))
+}
+
+// UPDATE USER PROFILE PICTURE
+module.exports.UpdateUserProfilePicture = async (req, res) => {
+    console.log(req);
+    const decodedJWT = jwt.decode(req.cookies.usertoken, { complete: true })
+    // var newid = decodedJWT.payload.id
+    // console.log(newid)
+
+    // Uploading to cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path)
+    // Find current user
+    const UserLoggedIn = await user.findOne({_id: req.params._id})
+
+    // Creation and update vesion of our user
+    Object.assign(UserLoggedIn, {profilePicture:result.secure_url, cloudinary_profilePicture_id:result.public_id})
+
+    //  Udating user info
+    user.updateOne({ _id: req.params._id }, UserLoggedIn, { runValidators: true })
+        .then(updateUser => res.json({ results: updateUser }))
+        .catch(error => res.status(400).json({ message: "That did not work!!!" }, error))
+}
+
+// UPDATE USER COVER PICTURE
+module.exports.UpdateUserCoverPicture = async (req, res) => {
+    console.log(req);
+    const decodedJWT = jwt.decode(req.cookies.usertoken, { complete: true })
+    // var newid = decodedJWT.payload.id
+    // console.log(newid)
+
+    // Uploading to cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path)
+    // Find current user
+    const UserLoggedIn = await user.findOne({_id: req.params._id})
+
+    // Creation and update vesion of our user
+    Object.assign(UserLoggedIn, {coverPicture:result.secure_url, cloudinary_coverPicture_id:result.public_id})
+
+    //  Udating user info
+    user.updateOne({ _id: req.params._id }, UserLoggedIn, { runValidators: true })
         .then(updateUser => res.json({ results: updateUser }))
         .catch(error => res.status(400).json({ message: "That did not work!!!" }, error))
 }

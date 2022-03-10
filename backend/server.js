@@ -23,7 +23,7 @@ app.use(express.json(), express.urlencoded({extended:true}));
 app.use(cookieParser());
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 
-// sending the app over to jokes.route files in the route folder inside the server folder
+// sending the app over to the route folder inside the server folder
 require("./server/routes/users.routes")(app);
 require("./server/routes/auths.routes")(app);
 require("./server/routes/post.routes")(app);

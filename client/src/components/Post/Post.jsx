@@ -104,7 +104,7 @@ const Post = ({post}) => {
 
                 {/* Photo */}
                 <div className="post-middle">
-                {(post.image)? <img src={PUBLIC_FOLDER+post.image} alt="post picture" /> : <span class="text-uil"> {post.description} </span>}
+                {(post.image)? <img src={post.image} alt="post picture" /> : <span class="text-uil"> {post.description} </span>}
                 </div>
 
                 {/* Bottom post */}

@@ -194,9 +194,9 @@ const ProfileFeed = (props) => {
         <div>
             {/* =========== TOP FEED =============== */}
             <div className="profileTopFeed">
-                <img src={(User.coverPicture) ? PUBLIC_FOLDER + User.coverPicture : PUBLIC_FOLDER + "person/default-cover-image.jpeg"} alt="cover pic" />
+                <img src={(User.coverPicture) ? User.coverPicture : PUBLIC_FOLDER + "person/default-cover-image.jpeg"} alt="cover pic" />
                 <div className="profile-profile-pic">
-                    <img src={(User.profilePicture) ? PUBLIC_FOLDER + User.profilePicture : PUBLIC_FOLDER + "person/default-profile-image.jpeg"} alt="profile pic" />
+                    <img src={(User.profilePicture) ? User.profilePicture : PUBLIC_FOLDER + "person/default-profile-image.jpeg"} alt="profile pic" />
                 </div>
                 <div className="profile-profile-name">
                     <h1>{User.username}</h1>
@@ -235,7 +235,7 @@ const ProfileFeed = (props) => {
                                 <div className="profile-user-profile">
                                     <a href={`/profile/${friend.username}`} className="profile-Link-Text">
                                         <div className="profile-user-profile-pic">
-                                            <img src={friend.profilePicture? PUBLIC_FOLDER+friend.profilePicture : PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="" />
+                                            <img src={friend.profilePicture? friend.profilePicture : PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="" />
                                         </div>
                                         <h4>{friend.username}</h4>
                                     </a>
