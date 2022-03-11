@@ -27,13 +27,13 @@ module.exports.UpdateUserProfilePicture = async (req, res) => {
     // Uploading to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path)
     // Find current user
-    const UserLoggedIn = await user.findOne({_id: req.params._id})
+    const UserLoggedIn = await user.findOne({_id: decodedJWT.payload.id})
 
     // Creation and update vesion of our user
     Object.assign(UserLoggedIn, {profilePicture:result.secure_url, cloudinary_profilePicture_id:result.public_id})
 
     //  Udating user info
-    user.updateOne({ _id: req.params._id }, UserLoggedIn, { runValidators: true })
+    user.updateOne({ _id: decodedJWT.payload.id }, UserLoggedIn, { runValidators: true })
         .then(updateUser => res.json({ results: updateUser }))
         .catch(error => res.status(400).json({ message: "That did not work!!!" }, error))
 }
@@ -49,6 +49,7 @@ module.exports.UpdateUserCoverPicture = async (req, res) => {
     const result = await cloudinary.uploader.upload(req.file.path)
     // Find current user
     const UserLoggedIn = await user.findOne({_id: req.params._id})
+    // const UserLoggedIn = await user.findOne({_id: decodedJWT.payload.id})
 
     // Creation and update vesion of our user
     Object.assign(UserLoggedIn, {coverPicture:result.secure_url, cloudinary_coverPicture_id:result.public_id})

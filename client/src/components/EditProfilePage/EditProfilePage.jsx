@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router";
 import axios from "axios";
 import "./EditProfilePage.css"
@@ -8,11 +8,8 @@ const EditProfilePage = () => {
     const [userForm, setUserForm] = useState({});
     const [LoggedInUser, setLoggedInUser] = useState({});
     const [profilePicFile, setProfilePicFile] = useState(null);
-    const [coverPicFile, setCoverPicFile] = useState(null);
-    const [pictureForm, setPictureForm ] = useState({
-        profilePicture:{},
-        coverPicture:{},
-    });
+    const coverPicFile = useRef(null);
+
     const history = useHistory();
     useEffect(() => {
         axios.get("http://localhost:8000/api/finduser", { withCredentials: true })
@@ -55,7 +52,8 @@ const EditProfilePage = () => {
     // USER COVER PICTURE ONCHANGEHANDLER
     const onChangeCoverPicHandler = (event) => {
         console.log({ message: "here is your event", event: event })
-        setCoverPicFile(event.target.files[0])
+        coverPicFile.current = event.target.files[0];
+        // setCoverPicFile(event.target.files[0])
         // setPictureForm({
         //     ...pictureForm,
         //     coverPicture:event.target.files[0]
@@ -80,9 +78,13 @@ const EditProfilePage = () => {
     // UPDATING USER PROFILE/COVER PICTURE
     const UpdateLoggedUserCoverOrProfilePic = (event) => {
         event.preventDefault();
-        console.log(event);
+        // console.log(event);
         if(profilePicFile === null){
-            axios.patch("http://localhost:8000/api/update/coverpicture", coverPicFile)
+            const formData = new FormData();
+            console.log(coverPicFile)
+            formData.append('file', coverPicFile)
+            console.log(formData);
+            axios.patch("http://localhost:8000/api/update/coverpicture", formData)
                 .then(res => {
                     console.log({message:"Successfully update cover picture" , result:res});
                 })
@@ -90,8 +92,7 @@ const EditProfilePage = () => {
                     console.log({message:"Error when updating cover picture" , error:err})
                 })
         } else if (coverPicFile === null){
-            let formImage = {profilePicFile:profilePicFile}
-            axios.patch("http://localhost:8000/api/update/profilepicture", formImage)
+            axios.patch("http://localhost:8000/api/update/profilepicture", profilePicFile)
                 .then(res => {
                     console.log({message:"Successfully update profile picture" , result:res});
                 })
