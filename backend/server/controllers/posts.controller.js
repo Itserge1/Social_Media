@@ -5,36 +5,12 @@ const cloudinary = require('../utils/cloudinary');
 
 
 // CREATE A POST
-module.exports.NewPost = async (req, res) => {
-    // console.log(req)
-    // console.log(req.body.image);
-    if(req.file){
-        try{
-            console.log(req)
 
-            // UDATING TO CLOUDINARY
-            const result = await cloudinary.uploader.upload(req.file.path);
-            // console.log(result);
-
-            // Create a new update object and send it to the post model
-            const NewPost = {
-                userId: req.body.userId,
-                description:req.body.description,
-                image: result.secure_url,
-                cloudinary_id:result.public_id
-            }
-            // Creating a post with the new object
-            post.create(NewPost)
-                .then(newPost => res.json({ results: newPost }))
-                .catch(error => res.status(400).json({ mesage: "That did not work!", error }))
-        } catch(err){
-            console.log(err + "!!!");
-        }
-    } else{
-        post.create(req.body)
-            .then(newPost => res.json({ results: newPost }))
-            .catch(error => res.status(400).json({ mesage: "That did not work!", error }))
-    }
+module.exports.NewPost = (req, res) => {
+    console.log(req.body);
+    post.create(req.body)
+        .then(newPost => res.json({ results: newPost }))
+        .catch(error => res.status(400).json({ mesage: "That did not work!", error }))
 }
 // UPDATE A POST
 module.exports.UpdatePost = async (req, res) => {

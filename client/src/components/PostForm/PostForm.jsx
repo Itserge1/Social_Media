@@ -7,36 +7,38 @@ import { useHistory } from "react-router";
 
 const PostForm = () => {
     const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
-    const [LoggedInUser, setLoggedInUser] = useState ({});
-    const [file, setFile] = useState(null);
+    const CLOUDINARY_COULD_NAME = process.env.REACT_APP_CLOUDINARY_COULD_NAME;
 
-    const[form, setForm] = useState({
-        userId:"",
+    const [LoggedInUser, setLoggedInUser] = useState({});
+    const [file, setFile] = useState(null);
+    const [form, setForm] = useState({
+        userId: "",
         // userId:"620ae28ab23cc7e406a4e017",
-        description:"",
-        image:null,
+        description: "",
+        image: null,
+        cloudinary_id: null,
     });
 
     const history = useHistory();
-    
+
 
     // GET THE LOGGED IN USER WITH JASONWEBTOKEN
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/finduser`, {withCredentials:true})
-        .then(res => {
-            // console.log("LeftBar: Your logged in user info", res)
-            // res.data.results will contains the info of the user, 
-            // that has its id in the cookies. if the user logged in, he will have one. 
-            // if not he won't have a cookie therefore no info
-            if(res.data.results){
-                // user have a cookies
-                setLoggedInUser(res.data.results);
-                console.log("PostForm: Got logged in user from cookies")
-            } 
-        })
-        .catch(err => {
-            console.log("Erorr when getting logged in user", err)
-        })
+        axios.get(`http://localhost:8000/api/finduser`, { withCredentials: true })
+            .then(res => {
+                // console.log("LeftBar: Your logged in user info", res)
+                // res.data.results will contains the info of the user, 
+                // that has its id in the cookies. if the user logged in, he will have one. 
+                // if not he won't have a cookie therefore no info
+                if (res.data.results) {
+                    // user have a cookies
+                    setLoggedInUser(res.data.results);
+                    console.log("PostForm: Got logged in user from cookies")
+                }
+            })
+            .catch(err => {
+                console.log("Erorr when getting logged in user", err)
+            })
 
     }, []);
 
@@ -48,29 +50,73 @@ const PostForm = () => {
             userId: LoggedInUser._id,
             [event.target.name]: event.target.value,
         });
-        if(event.target.files){
+        if (event.target.files) {
             setFile(event.target.files[0])
             setForm({
                 ...form,
-                image:event.target.files[0]
+                image: null,
+                cloudinary_id: null,
             });
         }
     }
 
     // Make a post
-    const makeApost =  (event) => {
+    const makeApost = async (event) => {
+        // Stop the page from reloading
         event.preventDefault();
-        console.log({message:"New form", from: form, file: file})
+        // Checking my state
+        console.log({ message: "New form", from: form, file: file })
 
-        axios.post("http://localhost:8000/api/newpost", form, {withCredentials:true})
-            .then(res => {
-                console.log(res);
-                window.location.reload() // this code refresh the page after a post
-            })
-            .catch(err => {
-                console.log({message:"Here is your err", err:err});
-            })
-        
+        // If the user select a file we want to upload it to our cloud base and save the path
+        if (file != null) {
+            // Creating a new form data to upload our file
+            const formData = new FormData();
+            formData.append('file', file)
+            formData.append('upload_preset', 'my-social-media-uploads')
+
+            // Uploading the file to our cloud platform
+            const result = await axios.post(`https://api.cloudinary.com/v1_1/dvocilaus/image/upload`, formData)
+
+            // Checking the info needed for our new post object
+            // console.log(result)
+            // console.log(form)
+            // console.log(result.data.secure_url)
+            // console.log(result.data.public_id)
+            // console.log(form.userId)
+            // console.log(form.description)
+
+            // Creating the new post object 
+            const NewPost = {
+                userId: form.userId,
+                description:form.description,
+                image: result.data.secure_url,
+                cloudinary_id:result.data.public_id
+            }
+
+            // Checking the new post object
+            console.log(NewPost)
+
+            // Making the axios call that will create our post in our MongoDB
+            axios.post("http://localhost:8000/api/newpost", NewPost, { withCredentials: true })
+                .then(res => {
+                    console.log({ message: "Here is your res", res: res });
+                    window.location.reload() // this code refresh the page after a post
+                })
+                .catch(err => {
+                    console.log({ message: "Here is your err", err: err });
+                })
+        } else {
+            // If we dont have a file selected then send the form instead.
+            axios.post("http://localhost:8000/api/newpost", form, { withCredentials: true })
+                .then(res => {
+                    console.log({ message: "Here is your res", res: res });
+                    window.location.reload() // this code refresh the page after a post
+                })
+                .catch(err => {
+                    console.log({ message: "Here is your err", err: err });
+                })
+        }
+
     }
     return (
         <div>
@@ -88,7 +134,7 @@ const PostForm = () => {
                 {file && (
                     <div className="shareImageContainer">
                         {/* <img className="shareImage"  src={PUBLIC_FOLDER + "person/default-profile-image.jpeg" } alt="image selected" />  */}
-                        <img className="shareImage"  src={URL.createObjectURL(file) } alt="image selected" /> 
+                        <img className="shareImage" src={URL.createObjectURL(file)} alt="image selected" />
                         <span className="shareCancelImg" onClick={() => setFile(null)}> <i class="uil uil-multiply"></i></span>
                     </div>
                 )}
@@ -96,7 +142,7 @@ const PostForm = () => {
                 <div className="feed-files">
                     <span className="feed-files-icons">
                         <label className="feed-files-icons" htmlFor="image"><i className="uil uil-image-plus" id="orange"></i> Photos/Videos </label>
-                        <input  type="file" style={{display: "none"}} accept="image/*" id="image" name="image" onChange={onChangeHandler} />
+                        <input type="file" style={{ display: "none" }} accept="image/*" id="image" name="image" onChange={onChangeHandler} />
                     </span>
                     <span className="feed-files-icons"><i className="uil uil-tag-alt" id="blue"></i>Tag</span>
                     <span className="feed-files-icons"><i className="uil uil-location-point" id="green"></i>Location</span>

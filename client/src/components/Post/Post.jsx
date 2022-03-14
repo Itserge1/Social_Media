@@ -92,7 +92,7 @@ const Post = ({post}) => {
                 <div className="post-top">
                     <div className="post-profile">
                         <div className="post-profile-pic">
-                            <img src={UserInDB.profilePicture? PUBLIC_FOLDER+UserInDB.profilePicture : PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="profile profile" />
+                            <img className="post-profile-pic" src={UserInDB.profilePicture? UserInDB.profilePicture : PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="profile profile" />
                         </div>
                         <div className="info">
                             <Link className="Post-Link-Text" to={`/profile/${UserInDB.username}`}><h3>{UserInDB.username}</h3></Link>
