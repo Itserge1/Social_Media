@@ -75,7 +75,9 @@ const PostForm = () => {
             formData.append('upload_preset', 'my-social-media-uploads')
 
             // Uploading the file to our cloud platform
-            const result = await axios.post(`https://api.cloudinary.com/v1_1/dvocilaus/image/upload`, formData)
+            const CLOUDINARY_COULD_NAME = process.env.REACT_APP_CLOUDINARY_COULD_NAME;
+            const result = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_COULD_NAME}/image/upload`, formData)
+            
 
             // Checking the info needed for our new post object
             // console.log(result)

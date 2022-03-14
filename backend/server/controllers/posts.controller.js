@@ -7,7 +7,7 @@ const cloudinary = require('../utils/cloudinary');
 // CREATE A POST
 
 module.exports.NewPost = (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     post.create(req.body)
         .then(newPost => res.json({ results: newPost }))
         .catch(error => res.status(400).json({ mesage: "That did not work!", error }))
