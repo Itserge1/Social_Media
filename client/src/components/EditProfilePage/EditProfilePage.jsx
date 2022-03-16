@@ -93,8 +93,7 @@ const EditProfilePage = () => {
             // console.log(formData);
 
             // Uplooading the image to cloudinary (cloud)
-            const result = await axios.post(`https://api.cloudinary.com/v1_1/dvocilaus/image/upload`, formData)
-            // const results = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_COULD_NAME}/image/upload`, formData)
+            const results = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_COULD_NAME}/image/upload`, formData)
             // console.log({message:'here is result', result:result})
 
             // creating the new object
@@ -120,8 +119,7 @@ const EditProfilePage = () => {
             formData.append('upload_preset', 'my-social-media-uploads')
 
             // Uploading to cloudinary (cloud)
-            const result = await axios.post(`https://api.cloudinary.com/v1_1/dvocilaus/image/upload`, formData)
-            // const result = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_COULD_NAME}/image/upload`, formData)
+            const result = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_COULD_NAME}/image/upload`, formData)
 
             // Creating a new object
             const newObject = {
