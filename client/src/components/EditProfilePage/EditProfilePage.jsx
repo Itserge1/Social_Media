@@ -8,9 +8,11 @@ const EditProfilePage = () => {
     const [userForm, setUserForm] = useState({});
     const [LoggedInUser, setLoggedInUser] = useState({});
     const [profilePicFile, setProfilePicFile] = useState(null);
-    const coverPicFile = useRef(null);
+    const [coverPicFile, setCoverPicFile] = useState(null);
 
     const history = useHistory();
+
+    const CLOUDINARY_COULD_NAME = process.env.REACT_APP_CLOUDINARY_COULD_NAME;
     useEffect(() => {
         axios.get("http://localhost:8000/api/finduser", { withCredentials: true })
             .then(res => {
@@ -52,7 +54,7 @@ const EditProfilePage = () => {
     // USER COVER PICTURE ONCHANGEHANDLER
     const onChangeCoverPicHandler = (event) => {
         console.log({ message: "here is your event", event: event })
-        coverPicFile.current = event.target.files[0];
+        setCoverPicFile(event.target.files[0])
         // setCoverPicFile(event.target.files[0])
         // setPictureForm({
         //     ...pictureForm,
@@ -76,25 +78,63 @@ const EditProfilePage = () => {
     }
     
     // UPDATING USER PROFILE/COVER PICTURE
-    const UpdateLoggedUserCoverOrProfilePic = (event) => {
+    const UpdateLoggedUserCoverOrProfilePic = async (event) => {
         event.preventDefault();
         // console.log(event);
         if(profilePicFile === null){
+            // Checking selected file
+            console.log({message:"here is cover pic", coverPicFile:coverPicFile})
+            console.log({message:"here is profile pic", profilePicFile:profilePicFile})
+
+            // Creating a new forData for our file
             const formData = new FormData();
-            console.log(coverPicFile)
             formData.append('file', coverPicFile)
-            console.log(formData);
-            axios.patch("http://localhost:8000/api/update/coverpicture", formData)
+            formData.append('upload_preset', 'my-social-media-uploads')
+            // console.log(formData);
+
+            // Uplooading the image to cloudinary (cloud)
+            const result = await axios.post(`https://api.cloudinary.com/v1_1/dvocilaus/image/upload`, formData)
+            // const results = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_COULD_NAME}/image/upload`, formData)
+            // console.log({message:'here is result', result:result})
+
+            // creating the new object
+            const newObject = {
+                coverPicture: result.data.secure_url,
+                cloudinary_coverPicture_id: result.data.public_id,
+            }
+            // console.log({message:"new object", newObject:newObject})
+
+            // Upadting our cover picture in MongoDB
+            axios.patch("http://localhost:8000/api/update/coverpicture", newObject, {withCredentials:true})
                 .then(res => {
                     console.log({message:"Successfully update cover picture" , result:res});
+                    history.push("/home");
                 })
                 .catch(err => {
                     console.log({message:"Error when updating cover picture" , error:err})
                 })
         } else if (coverPicFile === null){
-            axios.patch("http://localhost:8000/api/update/profilepicture", profilePicFile)
+            // Creating a new formData
+            const formData = new FormData();
+            formData.append('file', profilePicFile)
+            formData.append('upload_preset', 'my-social-media-uploads')
+
+            // Uploading to cloudinary (cloud)
+            const result = await axios.post(`https://api.cloudinary.com/v1_1/dvocilaus/image/upload`, formData)
+            // const result = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_COULD_NAME}/image/upload`, formData)
+
+            // Creating a new object
+            const newObject = {
+                profilePicture: result.data.secure_url ,
+                cloudinary_profilePicture_id: result.data.public_id,
+            };
+            // console.log({message:"new object", newObject:newObject})
+
+            // Updating user profile pic in MongoDB
+            axios.patch("http://localhost:8000/api/update/profilepicture", newObject, {withCredentials:true})
                 .then(res => {
                     console.log({message:"Successfully update profile picture" , result:res});
+                    history.push("/home")
                 })
                 .catch(err => {
                     console.log({message:"Error when updating profile picture" , error:err})

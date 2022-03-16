@@ -76,8 +76,8 @@ const PostForm = () => {
 
             // Uploading the file to our cloud platform
             const CLOUDINARY_COULD_NAME = process.env.REACT_APP_CLOUDINARY_COULD_NAME;
-            const result = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_COULD_NAME}/image/upload`, formData)
-            
+            // const result = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_COULD_NAME}/image/upload`, formData)
+            const result = await axios.post(`https://api.cloudinary.com/v1_1/dvocilaus/image/upload`, formData)
 
             // Checking the info needed for our new post object
             // console.log(result)
