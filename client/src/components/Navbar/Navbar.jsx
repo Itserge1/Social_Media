@@ -44,6 +44,7 @@ const Navbar = (props) => {
         setText(event.target.value);
     }
 
+        // Find user
     const GetUser = async () => {
         history.push(`/profile/${text}`)
         // console.log(text)
