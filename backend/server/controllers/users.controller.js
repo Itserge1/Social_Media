@@ -1,7 +1,6 @@
 const user = require("../models/users.model")
 const jwt = require("jsonwebtoken")
-const cloudinary = require("../utils/cloudinary")
-const { findOne } = require("../models/users.model")
+
 
 // The decode function help use get all the info we stored in or cookies.
 // const decodedJWT = jwt.decode(req.cookies.usertoken, {complete:true}) // {complete:true} get the complete data.

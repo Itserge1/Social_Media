@@ -7,7 +7,6 @@ import { useHistory } from "react-router";
 
 const PostForm = () => {
     const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
-    const CLOUDINARY_COULD_NAME = process.env.REACT_APP_CLOUDINARY_COULD_NAME;
 
     const [LoggedInUser, setLoggedInUser] = useState({});
     const [file, setFile] = useState(null);
@@ -75,8 +74,9 @@ const PostForm = () => {
             formData.append('upload_preset', 'my-social-media-uploads')
 
             // Uploading the file to our cloud platform
-            const CLOUDINARY_COULD_NAME = process.env.REACT_APP_CLOUDINARY_COULD_NAME;
-            const result = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_COULD_NAME}/image/upload`, formData)
+            console.log(process.env.REACT_APP_CLOUDINARY_COULD_NAME)
+            const result = await axios.post(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_COULD_NAME}/image/upload`, formData)
+
             // Checking the info needed for our new post object
             // console.log(result)
             // console.log(form)
@@ -87,7 +87,7 @@ const PostForm = () => {
 
             // Creating the new post object 
             const NewPost = {
-                userId: form.userId,
+                userId: LoggedInUser._id,
                 description:form.description,
                 image: result.data.secure_url,
                 cloudinary_id:result.data.public_id

@@ -14,7 +14,6 @@ const EditProfilePage = () => {
 
     const history = useHistory();
 
-    const CLOUDINARY_COULD_NAME = process.env.REACT_APP_CLOUDINARY_COULD_NAME;
     useEffect(() => {
         axios.get("http://localhost:8000/api/finduser", { withCredentials: true })
             .then(res => {
@@ -95,7 +94,8 @@ const EditProfilePage = () => {
             // console.log(formData);
 
             // Uplooading the image to cloudinary (cloud)
-            const results = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_COULD_NAME}/image/upload`, formData)
+            console.log(process.env.REACT_APP_CLOUDINARY_COULD_NAME)
+            const result = await axios.post(`https://api.cloudinary.com/v1_1/dvocilaus/image/upload`, formData)
             // console.log({message:'here is result', result:result})
 
             // creating the new object
@@ -121,7 +121,8 @@ const EditProfilePage = () => {
             formData.append('upload_preset', 'my-social-media-uploads')
 
             // Uploading to cloudinary (cloud)
-            const result = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_COULD_NAME}/image/upload`, formData)
+            // console.log(process.env.REACT_APP_CLOUDINARY_COULD_NAME)
+            const result = await axios.post(`https://api.cloudinary.com/v1_1/dvocilaus/image/upload`, formData)
 
             // Creating a new object
             const newObject = {
