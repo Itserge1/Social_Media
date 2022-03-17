@@ -9,6 +9,7 @@ const Navbar = (props) => {
     const history = useHistory();
     const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
     const [LoggedInUser, setLoggedInUser] = useState({});
+    const [text, setText] = useState({});
 
 
     const logout = () => {
@@ -39,6 +40,23 @@ const Navbar = (props) => {
             })
     }, [])
 
+    const OnChangeHandler = (event) => {
+        setText(event.target.value);
+    }
+
+    const GetUser = async () => {
+        history.push(`/profile/${text}`)
+        // console.log(text)
+        // const result = await axios.get(`http://localhost:8000/api/finduser/username/${text}`)
+        // console.log({message:"here is result", result:result})
+        // if(result){
+        //     history.push(`/profile/${text}`)
+        // }else{
+        //     history.push("/error")
+        // }
+
+    }
+
     return(
         <div>
             <html lang="en">
@@ -58,10 +76,12 @@ const Navbar = (props) => {
                                 Social Name
                             </h2>
                         </Link>
-                        <div className="search_bar">
-                            <i class="uil uil-search"></i>
-                            <input type="search" placeholder="search" />
-                        </div>
+                        <form onSubmit={GetUser}>
+                            <div className="search_bar">
+                                <i class="uil uil-search"></i>
+                                <input type="search" placeholder="search" onChange={OnChangeHandler}/>
+                            </div>
+                        </form>
                         <div className="nav-left">
                             <input id="marginBottom" className="btn btn-primary" type="button" value="Logout" onClick={logout}/>
                             <div className="profile-pic">
