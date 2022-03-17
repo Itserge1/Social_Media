@@ -1,5 +1,108 @@
+.conatainer-info-form, .editProfilePage-info-form{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+}
+
 .editProfilePage-update-container{
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
+
+
+.info-form{
+    width: 100%;
+    background-color: rgb(107, 104, 104);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    background-color: var(--color-white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+}
+
+.General-file-form{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    /* align-items: center; */
+    /* justify-content: center; */
+}
+
+.file-form{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* width: 40%; */
+    background-color: rgb(107, 104, 104);
+    gap: 20px;
+    background-color: var(--color-white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+}
+
+.input-bar{
+    height: 1.5rem;
+    width: 15vw;
+    background: transparent;
+    color: var(--color-dark);
+    border-radius: 5px;
+    border: 0px solid black;
+    outline: none;
+    border: none;
+    margin: 0rem 1rem;
+    padding-left: .5rem;
+}
+
+.file-input{
+    display: flex;
+    align-items: center;
+}
+
+.IoMdPhotos{
+    color: rgb(211, 129, 35);
+    font-size: 1.5rem;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.IoMdContrast{
+    font-size: 1.5rem;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.home-span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+
+/* Image conatiner */
+.EditProfile-shareImageContainer{
+    padding: 0 20px 10px 20px;
+    position: relative;
+}
+
+.EditProfile-shareImage{
+    width: 100%;
+    object-fit: cover;
+}
+
+.EditProfile-shareCancelImg{
+    position: absolute;
+    top: 0;
+    right: 20px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+.IoMdCloseCircle{
+    font-size: 2rem;
+    color: var(--color-white);
+}
+

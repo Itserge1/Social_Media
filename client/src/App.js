@@ -17,6 +17,7 @@ function App() {
 
         <Route exact path= "/edit">
         <EditProfile/>
+        <Theme/>
         </Route>
 
         <Route exact path= "/home">

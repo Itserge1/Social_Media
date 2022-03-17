@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router";
+import { IoMdPhotos } from "react-icons/io";
+import { IoMdContrast } from "react-icons/io";
+import { IoMdCloseCircle } from "react-icons/io";
 import axios from "axios";
 import "./EditProfilePage.css"
-import Crop from "../crop/Crop";
 
 const EditProfilePage = () => {
     const [userForm, setUserForm] = useState({});
@@ -66,25 +68,25 @@ const EditProfilePage = () => {
     const UpdateLoggedUserInfo = (event) => {
         event.preventDefault();
         axios.patch("http://localhost:8000/api/update", userForm, { withCredentials: true })
-        .then(res => {
-            // history.push(`/profile/${LoggedInUser.username}`)
-            history.push(`/home`)
-            console.log({ message: "User updated", results: res })
-        })
-        .catch(err => {
-            history.push("/edit")
-            console.log({ error: "unable to update user", error: err })
-        })
+            .then(res => {
+                // history.push(`/profile/${LoggedInUser.username}`)
+                history.push(`/home`)
+                console.log({ message: "User updated", results: res })
+            })
+            .catch(err => {
+                history.push("/edit")
+                console.log({ error: "unable to update user", error: err })
+            })
     }
-    
+
     // UPDATING USER PROFILE/COVER PICTURE
     const UpdateLoggedUserCoverOrProfilePic = async (event) => {
         event.preventDefault();
         // console.log(event);
-        if(profilePicFile === null){
+        if (profilePicFile === null) {
             // Checking selected file
-            console.log({message:"here is cover pic", coverPicFile:coverPicFile})
-            console.log({message:"here is profile pic", profilePicFile:profilePicFile})
+            console.log({ message: "here is cover pic", coverPicFile: coverPicFile })
+            console.log({ message: "here is profile pic", profilePicFile: profilePicFile })
 
             // Creating a new forData for our file
             const formData = new FormData();
@@ -93,7 +95,8 @@ const EditProfilePage = () => {
             // console.log(formData);
 
             // Uplooading the image to cloudinary (cloud)
-            const results = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_COULD_NAME}/image/upload`, formData)
+            const result = await axios.post(`https://api.cloudinary.com/v1_1/dvocilaus/image/upload`, formData)
+            // const results = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_COULD_NAME}/image/upload`, formData)
             // console.log({message:'here is result', result:result})
 
             // creating the new object
@@ -104,106 +107,183 @@ const EditProfilePage = () => {
             // console.log({message:"new object", newObject:newObject})
 
             // Upadting our cover picture in MongoDB
-            axios.patch("http://localhost:8000/api/update/coverpicture", newObject, {withCredentials:true})
+            axios.patch("http://localhost:8000/api/update/coverpicture", newObject, { withCredentials: true })
                 .then(res => {
-                    console.log({message:"Successfully update cover picture" , result:res});
+                    console.log({ message: "Successfully update cover picture", result: res });
                     history.push("/home");
                 })
                 .catch(err => {
-                    console.log({message:"Error when updating cover picture" , error:err})
+                    console.log({ message: "Error when updating cover picture", error: err })
                 })
-        } else if (coverPicFile === null){
+        } else if (coverPicFile === null) {
             // Creating a new formData
             const formData = new FormData();
             formData.append('file', profilePicFile)
             formData.append('upload_preset', 'my-social-media-uploads')
 
             // Uploading to cloudinary (cloud)
-            const result = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_COULD_NAME}/image/upload`, formData)
+            const result = await axios.post(`https://api.cloudinary.com/v1_1/dvocilaus/image/upload`, formData)
+            // const result = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUDINARY_COULD_NAME}/image/upload`, formData)
 
             // Creating a new object
             const newObject = {
-                profilePicture: result.data.secure_url ,
+                profilePicture: result.data.secure_url,
                 cloudinary_profilePicture_id: result.data.public_id,
             };
             // console.log({message:"new object", newObject:newObject})
 
             // Updating user profile pic in MongoDB
-            axios.patch("http://localhost:8000/api/update/profilepicture", newObject, {withCredentials:true})
+            axios.patch("http://localhost:8000/api/update/profilepicture", newObject, { withCredentials: true })
                 .then(res => {
-                    console.log({message:"Successfully update profile picture" , result:res});
+                    console.log({ message: "Successfully update profile picture", result: res });
                     history.push("/home")
                 })
                 .catch(err => {
-                    console.log({message:"Error when updating profile picture" , error:err})
+                    console.log({ message: "Error when updating profile picture", error: err })
                 })
-        } else if(profilePicFile=== null && coverPicFile===null){
+        } else if (profilePicFile === null && coverPicFile === null) {
             history.push("/edit")
         }
 
     }
+
+    // theme display
+    const OpenThemModel = () => {
+        const themeModel = document.querySelector(".customize-theme")
+        themeModel.style.display = "grid";
+    }
+    // close
+    const CloseThemModel = () => {
+        const themeModel = document.querySelector(".customize-theme")
+        themeModel.style.display = "none";
+    }
     return (
         <div>
-            <h1>hello , {LoggedInUser.username}.</h1>
-            <a href="/home">Home</a>
+            <h1 style={{textAlign:"center",marginBlockStart:"1rem"}}>hello , {LoggedInUser.username}.</h1>
+            <span className="home-span">
+                <a href="/home" style={{textAlign:"center", textDecoration:"none", color:"var(--color-dark)", cursor:"pointer"}}>Home</a>
+                <IoMdContrast className="IoMdContrast" style={{color:"var(--color-dark)", cursor:"pointer"}} onClick= {OpenThemModel}/>
+            </span>
             {/* <div className="profile-profile-pic">
                 <img src="/assets/post/23.jpg" alt="profile picture" />
             </div> */}
-            <div className="editProfilePage-update-container">
+            <div className="conatainer-info-form">
                 <form onSubmit={UpdateLoggedUserInfo}>
-                    <h2>Update user info</h2>
-                    <div>
-                        <label htmlFor="username">username</label>
-                        <input type="text" name="username" placeholder="username" id="username" onChange={onChangeHandler} />
-                    </div>
+                    <div className="info-form">
+                        <h2>Update user info</h2>
+                        <div>
+                            <label htmlFor="username">username</label>
+                            <input type="text" name="username" placeholder="username" className="input-bar" id="username" onChange={onChangeHandler} />
+                        </div>
 
-                    <div>
-                        <label htmlFor="description">Description</label>
-                        <input type="text" name="description" placeholder="Description" id="description" onChange={onChangeHandler} />
-                    </div>
+                        <div>
+                            <label htmlFor="description">Description</label>
+                            <input type="text" name="description" placeholder="Description" className="input-bar" id="description" onChange={onChangeHandler} />
+                        </div>
 
-                    <div>
-                        <label htmlFor="city">City</label>
-                        <input type="text" name="city" placeholder="city" id="city" onChange={onChangeHandler} />
-                    </div>
+                        <div>
+                            <label htmlFor="city">City</label>
+                            <input type="text" name="city" placeholder="city" id="city" className="input-bar" onChange={onChangeHandler} />
+                        </div>
 
-                    <div>
-                        <label htmlFor="from">From</label>
-                        <input type="text" name="from" placeholder="from" id="from" onChange={onChangeHandler} />
-                    </div>
+                        <div>
+                            <label htmlFor="from">From</label>
+                            <input type="text" name="from" placeholder="from" id="from" className="input-bar" onChange={onChangeHandler} />
+                        </div>
 
-                    <div>
-                        <label htmlFor="relationship">Relationship Satue</label>
-                        <select name="relationship" id="relationship" onChange={onChangeHandler}>
-                            <option value="Single">Single</option>
-                            <option value="Married">Married</option>
-                            <option value="Complicated">Complicated</option>
-                        </select>
+                        <div>
+                            <label htmlFor="relationship">Relationship Satue</label>
+                            <select name="relationship" id="relationship" className="input-bar" onChange={onChangeHandler}>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Complicated">Complicated</option>
+                            </select>
+                        </div>
+                        <button type="submit" className="btn2 btn-primary" >Update</button>
                     </div>
-                    <button type="submit" >Update</button>
                 </form>
-                
+
+            </div>
+
+            <div className="editProfilePage-info-form">
                 {/* UPDATE PROFILE PICTURE */}
-                <form onSubmit={UpdateLoggedUserCoverOrProfilePic} >
-                    <h2>Update Profile picture</h2>
-                    <div>
-                        <label htmlFor="profilePicture">profile Picture</label>
-                        <input type="file" name="profilePicture" placeholder="profile Picture" id="profilePicture" onChange={onChangeProfilePicHandler} />
-                    </div>
-                    <button type="submit">Update profile Picture</button>
-                </form>
-
-                {/* UPDATE COVER PICTURE */}
-                <form onSubmit={UpdateLoggedUserCoverOrProfilePic}>
-                    <h2>Update Cover Picture</h2>
-                    <div>
-                        <label htmlFor="coverPicture">cover Picture</label>
-                        <input type="file" name="coverPicture" placeholder="cover Picture" id="coverPicture"  onChange={onChangeCoverPicHandler}/>
-                    </div>
-                    <button type="submit">Update Cover Picture</button>
+                <form onSubmit={UpdateLoggedUserCoverOrProfilePic}  >
+                    {
+                        profilePicFile ?
+                            <div className="file-form" style={{ width: "40%" }}>
+                                <h2>Update Profile picture</h2>
+                                <div className="input-div" >
+                                    <label className="file-input" htmlFor="profilePicture"> Profile Picture <IoMdPhotos className="IoMdPhotos" /> </label>
+                                    <input type="file" style={{ display: "none" }} name="profilePicture" placeholder="profile Picture" id="profilePicture" onChange={onChangeProfilePicHandler} />
+                                </div>
+                                {profilePicFile && (
+                                    <div className="EditProfile-shareImageContainer">
+                                        {/* <img className="shareImage"  src={PUBLIC_FOLDER + "person/default-profile-image.jpeg" } alt="image selected" />  */}
+                                        <img className="EditProfile-shareImage" src={URL.createObjectURL(profilePicFile)} alt="image selected" />
+                                        <span className="EditProfile-shareCancelImg" onClick={() => setProfilePicFile(null)}> <IoMdCloseCircle className="IoMdCloseCircle" /></span>
+                                    </div>
+                                )}
+                                <button type="submit" className="btn2 btn-primary">Update profile Picture</button>
+                            </div>
+                            :
+                            <div className="file-form" style={{ width: "100%" }}>
+                                <h2>Update Profile picture</h2>
+                                <div className="input-div" >
+                                    <label className="file-input" htmlFor="profilePicture"> Profile Picture <IoMdPhotos className="IoMdPhotos" /> </label>
+                                    <input type="file" style={{ display: "none" }} name="profilePicture" placeholder="profile Picture" id="profilePicture" onChange={onChangeProfilePicHandler} />
+                                </div>
+                                {profilePicFile && (
+                                    <div className="EditProfile-shareImageContainer">
+                                        {/* <img className="shareImage"  src={PUBLIC_FOLDER + "person/default-profile-image.jpeg" } alt="image selected" />  */}
+                                        <img className="EditProfile-shareImage" src={URL.createObjectURL(profilePicFile)} alt="image selected" />
+                                        <span className="EditProfile-shareCancelImg" onClick={() => setProfilePicFile(null)}> <IoMdCloseCircle className="IoMdCloseCircle" /></span>
+                                    </div>
+                                )}
+                                <button type="submit" className="btn2 btn-primary">Update profile Picture</button>
+                            </div>
+                    }
                 </form>
             </div>
-            {/* <Crop/> */}
+
+            <div className="conatainer-info-form">
+                {/* UPDATE COVER PICTURE */}
+                <form onSubmit={UpdateLoggedUserCoverOrProfilePic}  >
+                    {
+                        coverPicFile ?
+                            <div className="file-form" style={{ width: "40%" }}>
+                                <h2>Update Cover picture</h2>
+                                <div className="input-div" >
+                                    <label className="file-input" htmlFor="coverPicture"> Profile Picture <IoMdPhotos className="IoMdPhotos" /> </label>
+                                    <input type="file" style={{ display: "none" }} name="coverPicture" placeholder="cover Picture" id="coverPicture" onChange={onChangeCoverPicHandler} />
+                                </div>
+                                {coverPicFile && (
+                                    <div className="EditProfile-shareImageContainer">
+                                        {/* <img className="shareImage"  src={PUBLIC_FOLDER + "person/default-profile-image.jpeg" } alt="image selected" />  */}
+                                        <img className="EditProfile-shareImage" src={URL.createObjectURL(coverPicFile)} alt="image selected" />
+                                        <span className="EditProfile-shareCancelImg" onClick={() => setCoverPicFile(null)}> <IoMdCloseCircle className="IoMdCloseCircle" /></span>
+                                    </div>
+                                )}
+                                <button type="submit" className="btn2 btn-primary">Update profile Picture</button>
+                            </div>
+                            :
+                            <div className="file-form" style={{ width: "100%" }}>
+                                <h2>Update Cover picture</h2>
+                                <div className="input-div" >
+                                    <label className="file-input" htmlFor="coverPicture"> Profile Picture <IoMdPhotos className="IoMdPhotos" /> </label>
+                                    <input type="file" style={{ display: "none" }} name="coverPicture" placeholder="cover Picture" id="coverPicture" onChange={onChangeCoverPicHandler} />
+                                </div>
+                                {coverPicFile && (
+                                    <div className="EditProfile-shareImageContainer">
+                                        {/* <img className="shareImage"  src={PUBLIC_FOLDER + "person/default-profile-image.jpeg" } alt="image selected" />  */}
+                                        <img className="EditProfile-shareImage" src={URL.createObjectURL(coverPicFile)} alt="image selected" />
+                                        <span className="EditProfile-shareCancelImg" onClick={() => setCoverPicFile(null)}> <IoMdCloseCircle className="IoMdCloseCircle" /></span>
+                                    </div>
+                                )}
+                                <button type="submit" className="btn2 btn-primary">Update profile Picture</button>
+                            </div>
+                    }
+                </form>
+            </div>
         </div>
     )
 }
