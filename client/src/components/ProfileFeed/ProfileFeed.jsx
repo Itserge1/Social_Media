@@ -14,7 +14,7 @@ const ProfileFeed = (props) => {
     const history = useHistory();
     const [User, setUser] = useState({});
     const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
-    const [allPost, setAllpost] = useState([]);
+    const [OnlyUserpost, setOnlyUserpost] = useState([]);
     const [allFriend, setAllFriend] = useState([]);
     const [LoggedInUser, setLoggedInUser] = useState ({});
     const [isValidFollow, setIsValidFollow] = useState(true);
@@ -80,11 +80,11 @@ const ProfileFeed = (props) => {
 
     // FIND ALL USER AN USER'S FREIND POST
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/post/find/${props.username}`, { withCredentials: true })
+        axios.get(`http://localhost:8000/api/post/find/onlyuser/${props.username}`, { withCredentials: true })
             .then(res => {
                 console.log({ message: "All user posts and freind posts base on username", result: res })
                 // setAllpost(res.data.results);
-                setAllpost(res.data.results.sort((p1, p2) => {
+                setOnlyUserpost(res.data.results.sort((p1, p2) => {
                     return new Date(p2.createdAt) - new Date(p1.createdAt); //sorting all post by most recent
                 }));
                 
@@ -208,7 +208,7 @@ const ProfileFeed = (props) => {
                 {/* create post form */}
                 <div className="feed-post">
                     {User.username === LoggedInUser.username && <PostForm />}
-                    {allPost.map(p => (
+                    {OnlyUserpost.map(p => (
                         <Post key={p._id} post={p} />
                     ))}
                 </div>

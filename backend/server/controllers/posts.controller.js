@@ -125,3 +125,19 @@ module.exports.GetAllProfilePost = async (req, res) => {
         res.status(500).json({ message: "That did not work", error })
     }
 }
+
+// GET ONLY USER POSTS (FIND BY USERNAME)
+
+module.exports.GetOnlyUserPost = async (req, res) => {
+    try {
+        // Get the current user
+        const CurrentUser = await user.findOne({ username: req.params.username})
+        // const CurrentUser = await user.findOne({ _id: req.body._id })
+        // Get all the current user post
+        const UserPost = await post.find({ userId: CurrentUser._id })
+        // Concat both arrays
+        res.json({results: UserPost})
+    } catch (error) {
+        res.status(500).json({ message: "That did not work", error })
+    }
+}
