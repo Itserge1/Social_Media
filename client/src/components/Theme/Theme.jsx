@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import "./Theme.css";
 
 const Theme = (props) => {
     var root = document.querySelector(':root');
+    const fonts = document.querySelectorAll('font')
+    const [variable, setVariable] = useState('font-size-5');
+    const [color, setColor] = useState('color-5');
+    const [backgroung, setbackgroung] = useState('bg-3');
 
     const Bg1colorSlector = () => {
+        setBackgroudActive('bg-1')
         let darkColorLightness = '17%';
         let whiteColorLightness = '100%';
         let lightColorLightness = '95%';
@@ -13,6 +18,7 @@ const Theme = (props) => {
     }
 
     const Bg2colorSlector = () => {
+        setBackgroudActive('bg-2')
         let darkColorLightness = '95%';
         let whiteColorLightness = '20%';
         let lightColorLightness = '15%';
@@ -20,6 +26,7 @@ const Theme = (props) => {
     }
 
     const Bg3colorSlector = () => {
+        setBackgroudActive('bg-3')
         let darkColorLightness = '95%';
         let whiteColorLightness = '10%';
         let lightColorLightness = '0%';
@@ -40,7 +47,8 @@ const Theme = (props) => {
     }
     // font size
     const fontSlector = (size) => {
-        ChangeActive(size)
+        console.log(variable)
+        setFontActive(size)
         if (size == "font-size-1") {
             MovePointer('font-size-1')
             size = '10px';
@@ -71,6 +79,7 @@ const Theme = (props) => {
     }
     // COLOR SELECTOR
     const colorSlector = (color) => {
+        setColorActive(color)
         let primaryHue = 0;
         if (color == "color-1") {
             primaryHue = 252
@@ -95,21 +104,38 @@ const Theme = (props) => {
         themeModel.style.display = "none";
     }
 
-    // // Close cliking outside
-    // const ThemeModel = document.querySelector(".customize-theme")
-    // if (ThemeModel) {
-    //     ThemeModel.addEventListener('click', closeThemModel)
-    // }
 
-    // const closeThemModel = (event) => {
-    //     if (event.target.classList.contains('customize-theme')) {
-    //         ThemeModel.style.display = 'none'
-    //     }
-    // }
+    // CHANGE FONT ACTIVE
+    const setFontActive = async (FontId) =>{
+        if(variable == FontId){
+            document.getElementById(FontId).classList.add('active');
+        } else {
+            document.getElementById(variable).classList.remove('active');
+            document.getElementById(FontId).classList.add('active');
+            await setVariable(FontId);
+        }
+    }
 
-    // Change active
-    const ChangeActive = (clsS) => {
-        document.getElementById(clsS).className += " active"
+    // CHANGE COLOR ACTIVE
+    const setColorActive = async (ColorId) =>{
+        if(color == ColorId){
+            document.getElementById(ColorId).classList.add('active');
+        } else {
+            document.getElementById(color).classList.remove('active');
+            document.getElementById(ColorId).classList.add('active');
+            await setColor(ColorId);
+        }
+    }
+
+    // CHANGE BACkGROUNG ACTIVE
+    const setBackgroudActive = async (bgId) =>{
+        if(backgroung == bgId){
+            document.getElementById(bgId).classList.add('active');
+        } else {
+            document.getElementById(backgroung).classList.remove('active');
+            document.getElementById(bgId).classList.add('active');
+            await setbackgroung(bgId);
+        }
     }
 
     return (
@@ -135,11 +161,11 @@ const Theme = (props) => {
                                 <div>
                                     <h6>Aa</h6>
                                     <div className="choose-size">
-                                        <span className="font-size-1 " id="font-size-1" onClick={() => fontSlector("font-size-1")}></span>
-                                        <span className="font-size-2" id="font-size-2" onClick={() => fontSlector("font-size-2")}></span>
-                                        <span className="font-size-3 " id="font-size-3" onClick={() => fontSlector("font-size-3")}></span>
-                                        <span className="font-size-4" id="font-size-4" onClick={() => fontSlector("font-size-4")}></span>
-                                        <span className="font-size-5" id="font-size-5" onClick={() => fontSlector("font-size-5")}></span>
+                                        <span className="font-size-1 font" id="font-size-1" onClick={() => fontSlector("font-size-1")}></span>
+                                        <span className="font-size-2 font" id="font-size-2" onClick={() => fontSlector("font-size-2")}></span>
+                                        <span className="font-size-3 font" id="font-size-3" onClick={() => fontSlector("font-size-3")}></span>
+                                        <span className="font-size-4 font" id="font-size-4" onClick={() => fontSlector("font-size-4")}></span>
+                                        <span className="font-size-5 font" id="font-size-5" onClick={() => fontSlector("font-size-5")}></span>
 
                                     </div>
                                     <h3>Aa</h3>
@@ -150,11 +176,11 @@ const Theme = (props) => {
                             <div className="color">
                                 <h4>Color</h4>
                                 <div className="choose-color">
-                                    <span className="color-1 active" onClick={() => colorSlector("color-1")}></span>
-                                    <span className="color-2 " onClick={() => colorSlector("color-2")}></span>
-                                    <span className="color-3" onClick={() => colorSlector("color-3")}></span>
-                                    <span className="color-4" onClick={() => colorSlector("color-4")}></span>
-                                    <span className="color-5" onClick={() => colorSlector("color-5")}></span>
+                                    <span className="color-1" id="color-1" onClick={() => colorSlector("color-1")}></span>
+                                    <span className="color-2" id="color-2" onClick={() => colorSlector("color-2")}></span>
+                                    <span className="color-3" id="color-3" onClick={() => colorSlector("color-3")}></span>
+                                    <span className="color-4" id="color-4" onClick={() => colorSlector("color-4")}></span>
+                                    <span className="color-5" id="color-5" onClick={() => colorSlector("color-5")}></span>
                                 </div>
                             </div>
 
@@ -162,15 +188,15 @@ const Theme = (props) => {
                             <div className="background">
                                 <h4>Background</h4>
                                 <div className="choose-bg">
-                                    <div className="bg-1 active">
+                                    <div className="bg-1 " id='bg-1'>
                                         <span></span>
-                                        <h5 for="bg-1 " onClick={() => Bg1colorSlector()}>Light</h5>
+                                        <h5 for="bg-1 "  onClick={() => Bg1colorSlector()}>Light</h5>
                                     </div>
-                                    <div className="bg-2" onClick={() => Bg2colorSlector()}>
+                                    <div className="bg-2" id='bg-2' onClick={() => Bg2colorSlector()}>
                                         <span></span>
                                         <h5>Dim</h5>
                                     </div>
-                                    <div className="bg-3" onClick={() => Bg3colorSlector()}>
+                                    <div className="bg-3" id='bg-3' onClick={() => Bg3colorSlector()}>
                                         <span></span>
                                         <h5 for="bg-3">Lights Out</h5>
                                     </div>

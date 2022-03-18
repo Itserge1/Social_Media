@@ -31,6 +31,7 @@ const Leftbar = (props) => {
 
     // theme display
     const OpenThemModel = () => {
+        setActive();
         const themeModel = document.querySelector(".customize-theme")
         themeModel.style.display = "grid";
     }
@@ -39,20 +40,20 @@ const Leftbar = (props) => {
     
     // with mouse Hover
     function MouseOver(event) {
-        NotificationPopup.style.display = "block";
+        // NotificationPopup.style.display = "block";
     }
     function MouseOut(event){
-        NotificationPopup.style.display = "none"
+        // NotificationPopup.style.display = "none"
     }
 
     // With onClick
         const OpenNotificationPopup = () => {
         const NotificationPopup = document.querySelector(".notification-popup")
-        if(cliked%2 == 0){
-            NotificationPopup.style.display = "none";
-            cliked++;
-        } else if (cliked%2 != 0) {
+        if(cliked == 1){
             NotificationPopup.style.display = "block";
+            cliked--;
+        } else if (cliked == 0) {
+            NotificationPopup.style.display = "none";
             cliked++;
         };
     }
@@ -70,6 +71,13 @@ const Leftbar = (props) => {
             item.addEventListener('click', () => {
                 removeActive()
                 item.classList.add('active')
+                if(item.id == "notifications"){
+                    NotificationPopup.style.display = "block";
+                    // OpenNotificationPopup()
+                } else{
+                    NotificationPopup.style.display = "none";
+                    // OpenNotificationPopup()
+                }
             })
         })
     }
