@@ -8,6 +8,8 @@ const Leftbar = (props) => {
     const [LoggedInUser, setLoggedInUser] = useState({});
     const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
     var cliked = 1
+    const menuItem = document.querySelectorAll('.menu-item')
+    const NotificationPopup = document.querySelector(".notification-popup")
     useEffect(() => {
         axios.get("http://localhost:8000/api/finduser", {withCredentials:true})
             .then(res => {
@@ -33,8 +35,18 @@ const Leftbar = (props) => {
         themeModel.style.display = "grid";
     }
 
-    // Notification Popup display 
-    const OpenNotificationPopup = () => {
+    // NOTIFICATIONS POPUP
+    
+    // with mouse Hover
+    function MouseOver(event) {
+        NotificationPopup.style.display = "block";
+    }
+    function MouseOut(event){
+        NotificationPopup.style.display = "none"
+    }
+
+    // With onClick
+        const OpenNotificationPopup = () => {
         const NotificationPopup = document.querySelector(".notification-popup")
         if(cliked%2 == 0){
             NotificationPopup.style.display = "none";
@@ -45,9 +57,21 @@ const Leftbar = (props) => {
         };
     }
 
-    // SET ACTIVE
+    // REMOVE MENU-ITEM ACTIVE
+    const removeActive = () => {
+        const menuItem = document.querySelectorAll('.menu-item')
+        menuItem.forEach(item => {
+            item.classList.remove('active')
+        })
+    }
+    // SET MENU-ITEM ACTIVE
     const setActive = () => {
-        
+        menuItem.forEach(item => {
+            item.addEventListener('click', () => {
+                removeActive()
+                item.classList.add('active')
+            })
+        })
     }
 
     return(
@@ -75,16 +99,16 @@ const Leftbar = (props) => {
                 </a>
                 {/* ======================= SIDEBAR ====================== */}
                 <div className="sidebar">
-                    <a href="/home" className="menu-item active">
+                    <a href="/home" className="menu-item active" onClick={setActive}>
                         <span> <i class="uil uil-home"></i> </span> <h3>Home</h3>
                     </a>
                     <a className="menu-item"  onClick= {OpenThemModel}>
                         <span> <i class="uil uil-palette"></i> </span> <h3>Theme</h3>
                     </a>
-                    <a href="/edit" className="menu-item">
+                    <a href="/edit" className="menu-item" onClick={setActive}>
                         <span> <i class="uil uil-setting"></i> </span> <h3>Settings</h3>
                     </a>
-                    <div className="menu-item" id="notifications" onClick={OpenNotificationPopup}>
+                    <div className="menu-item" id="notifications" onClick={setActive} onMouseOver={MouseOver} onMouseOut={MouseOut}>
                         <span> <i class="uil uil-bell"><small className="notification-count">9</small></i> </span> <h3>Notifications</h3>
                         {/* =============== NOTIFICATION POPUP ============ */}
                         
@@ -93,14 +117,14 @@ const Leftbar = (props) => {
                     <a className="menu-item" onClick={setActive}>
                         <span> <i class="uil uil-compass"></i> </span> <h3>Explore</h3>
                     </a>
-                    <a className="menu-item"  id="messages-notifications">
+                    <a className="menu-item"  id="messages-notifications" onClick={setActive}>
                         <span> <i class="uil uil-envelope"> <small className="notification-count">6</small></i> </span> <h3>Messages</h3>
                     </a>
                     
-                    <a className="menu-item">
+                    <a className="menu-item" onClick={setActive}>
                         <span> <i class="uil uil-bookmark"></i> </span> <h3>Bookmarks</h3>
                     </a>
-                    <a className="menu-item">
+                    <a className="menu-item" onClick={setActive}>
                         <span> <i class="uil uil-chart-line"></i> </span> <h3>Analytics</h3>
                     </a>
                 </div>
