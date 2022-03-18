@@ -151,10 +151,18 @@ const EditProfilePage = () => {
         const themeModel = document.querySelector(".customize-theme")
         themeModel.style.display = "grid";
     }
-    // close
-    const CloseThemModel = () => {
-        const themeModel = document.querySelector(".customize-theme")
-        themeModel.style.display = "none";
+    
+    // Delecte
+    const deleteUser = () => {
+        axios.delete("http://localhost:8000/api/delete", {withCredentials:true})
+            .then(res => {
+                console.log({message:"user delete successfully", result:res})
+                history.push('/')
+            })
+            .catch(err => {
+                console.log({message:"Error when deleting user", error: err})
+            })
+
     }
     return (
         <div>
@@ -162,6 +170,8 @@ const EditProfilePage = () => {
             <span className="home-span">
                 <a href="/home" style={{textAlign:"center", textDecoration:"none", color:"var(--color-dark)", cursor:"pointer"}}>Home</a>
                 <IoMdContrast className="IoMdContrast" style={{color:"var(--color-dark)", cursor:"pointer"}} onClick= {OpenThemModel}/>
+                <input type="button"  id="noBorber" className="btn2 " style={{marginLeft:'1rem'}} value="Delete Account" onClick={deleteUser}/>
+                
             </span>
             {/* <div className="profile-profile-pic">
                 <img src="/assets/post/23.jpg" alt="profile picture" />

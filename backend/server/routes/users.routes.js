@@ -6,7 +6,7 @@ module.exports = app => {
     app.patch("/api/update",userControllers.UpdateUserInfo);
     app.patch("/api/update/profilepicture", upload.single('image'), userControllers.UpdateUserProfilePicture);
     app.patch("/api/update/coverpicture", upload.single('image'), userControllers.UpdateUserCoverPicture);
-    app.delete("/api/delete/:_id", userControllers.DeleteUser);
+    app.delete("/api/delete", userControllers.DeleteUser);
     app.get("/api/finduser", userControllers.GetLoggedInUser);
     app.get("/api/checkfollow/:_id", userControllers.CheckFollowUser);
     app.get("/api/finduser/:_id", userControllers.GetOneUser);
