@@ -1,5 +1,5 @@
 import React from "react";
-import { IoMdCloseCircle } from "react-icons/io";
+import { IoMdClose } from "react-icons/io";
 import "./Theme.css";
 
 const Theme = (props) => {
@@ -179,7 +179,7 @@ const Theme = (props) => {
 
                             {/* ============ CLOSE ================= */}
                             <div className="bg-3" >
-                                <span onClick={CloseThemModel}  style={{cursor:'pointer', color:'var(--color-primary)', fontSize:"1.5rem"}}><IoMdCloseCircle  /></span>
+                                <span onClick={CloseThemModel}  style={{cursor:'pointer', color:'var(--color-primary)', fontSize:"1.5rem"}}><IoMdClose  /></span>
                             </div>
                         </div>
                     </div>

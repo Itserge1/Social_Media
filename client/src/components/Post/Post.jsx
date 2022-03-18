@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Post.css";
+import { IoMdTrash } from "react-icons/io";
+
+
 
 import axios from "axios";
 import {format} from "timeago.js";
@@ -85,6 +88,20 @@ const Post = ({post}) => {
         setLiked(post.likes.includes(LoggedInUser._id))
     },[post.likes, LoggedInUser._id]);
 
+    // Delete post
+    const deletePost = () => {
+        axios.delete(`http://localhost:8000/api/delete/post/${post._id}`, {withCredentials:true})
+            .then(res => {
+                console.log({message:"post deleted successfully", result:res})
+                // reloading
+                window.location.reload();
+            })
+            .catch(err => {
+                console.log({message:"error when deleting post", error:err})
+            })
+    }
+
+
     return (
         <div>
             {/* ======== Fist post ============= */}
@@ -99,7 +116,11 @@ const Post = ({post}) => {
                             <small className="text-muted">Dubai,{format(post.createdAt)}</small>
                         </div>
                     </div>
-                    <span className="edit"><i class="uil uil-ellipsis-h"></i></span>
+                    {
+                        LoggedInUser._id == UserInDB._id? 
+                        <span  onClick={deletePost}><IoMdTrash style={{fontSize:'1.4rem', color:'tomato', cursor:'pointer'}}/></span>
+                        : <span className="edit" style={{cursor:'pointer'}}><i class="uil uil-ellipsis-h"></i></span> 
+                    }
                 </div>
 
                 {/* Photo */}

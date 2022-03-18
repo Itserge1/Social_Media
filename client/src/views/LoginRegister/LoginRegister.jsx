@@ -32,7 +32,7 @@ const LoginRegister = (props) => {
         axios.post("http://localhost:8000/api/login", form, {withCredentials:true}) // {withCredentials:true} allow us to pass in cookies back and forth(lol)
             .then( res => {
                 console.log({message:"login info", results: res});
-                history.push("/edit")
+                history.push("/home")
             })
             .catch(err => {
                 console.log({message:"here is err", errors:err});
@@ -54,7 +54,7 @@ const LoginRegister = (props) => {
                     console.log(res);
                 } else{
                     console.log("Register successfully!", res)
-                    history.push("/edit") // redirect to an edit profile 
+                    history.push("/home") // redirect to an edit profile 
                 }
             })
             .catch(err => {

@@ -29,10 +29,15 @@ module.exports.UpdatePost = async (req, res) => {
 }
 // DELETE A POST
 module.exports.DeletePost = async (req, res) => {
+    // console.log(req)
     try {
         // Try this. If you can not fing PostToUpdate, run the code in the catch block
         const PostToDelete = await post.findById(req.params._id)
-        if (req.body.userId === PostToDelete.userId) {
+
+        // Getting the logged in user cookies
+        const decodedJWT = jwt.decode(req.cookies.usertoken, {complete:true})
+
+        if (decodedJWT.payload.id === PostToDelete.userId) {
             post.deleteOne({ _id: req.params._id })
                 .then(deletedPost => res.json({ mesage: "Your post have been deleted", results: deletedPost }))
                 .catch(error => res.status(400).json({ mesage: "That did not work" }, error))
