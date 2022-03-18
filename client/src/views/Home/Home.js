@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Leftbar from "../../components/Leftbar/Leftbar";
 import Feed from "../../components/Feed/Feed";
 import Rightbar from "../../components/Rightbar/Rightbar";
+import NotificationsPop from "../../components/NotificationsPop/NotificationsPop";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
@@ -42,6 +43,7 @@ const Home = (props) => {
                 <div className="container">
                     <div className="left">
                         <Leftbar/>
+                        <NotificationsPop/>
                     </div>
                     
                     <div className="feed">

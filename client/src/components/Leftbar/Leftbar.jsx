@@ -7,6 +7,7 @@ const Leftbar = (props) => {
     const history = useHistory();
     const [LoggedInUser, setLoggedInUser] = useState({});
     const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+    var cliked = 1
     useEffect(() => {
         axios.get("http://localhost:8000/api/finduser", {withCredentials:true})
             .then(res => {
@@ -31,6 +32,19 @@ const Leftbar = (props) => {
         const themeModel = document.querySelector(".customize-theme")
         themeModel.style.display = "grid";
     }
+
+    // Notification Popup display 
+    const OpenNotificationPopup = () => {
+        const NotificationPopup = document.querySelector(".notification-popup")
+        if(cliked%2 == 0){
+            NotificationPopup.style.display = "none";
+            cliked++;
+        } else if (cliked%2 != 0) {
+            NotificationPopup.style.display = "block";
+            cliked++;
+        };
+    }
+
     // close
     const CloseThemModel = () => {
         const themeModel = document.querySelector(".customize-theme")
@@ -68,10 +82,10 @@ const Leftbar = (props) => {
                     <a className="menu-item">
                         <span> <i class="uil uil-compass"></i> </span> <h3>Explore</h3>
                     </a>
-                    <div className="menu-item" id="notifications">
+                    <div className="menu-item" id="notifications" onClick={OpenNotificationPopup}>
                         <span> <i class="uil uil-bell"><small className="notification-count">9</small></i> </span> <h3>Notifications</h3>
                         {/* =============== NOTIFICATION POPUP ============ */}
-                        <div className="notification-popup">
+                        {/* <div className="notification-popup">
 
                             <div>
                                 <div className="profile-pic">
@@ -112,7 +126,7 @@ const Leftbar = (props) => {
                                     <small  className="text-muted">1 hour ago</small>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         {/* =============== END NOTIFICATION POPUP ============ */}
                     </div>
 
