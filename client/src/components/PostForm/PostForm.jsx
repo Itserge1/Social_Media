@@ -124,7 +124,7 @@ const PostForm = () => {
             <form className="feed-post-form" onSubmit={makeApost}>
                 <div className="create-post">
                     <div className="profile-pic">
-                        <img className="profile-pic" src={LoggedInUser.profilePicture ? LoggedInUser.profilePicture : `${PUBLIC_FOLDER}person/default-profile-image.jpeg`} alt="profile picture" />
+                        <img className="postForm-profile-pic" src={LoggedInUser.profilePicture ? LoggedInUser.profilePicture : `${PUBLIC_FOLDER}person/default-profile-image.jpeg`} alt="profile picture" />
                     </div>
                     <input type="text" className="create-post-input" placeholder="what is inside of you mind?" id="post-id" name="description" onChange={onChangeHandler} />
                     {/* <input type="hidden"  value={LoggedInUser._id}  name="userId"/> */}

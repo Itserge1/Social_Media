@@ -179,7 +179,7 @@ const Theme = (props) => {
 
                             {/* ============ CLOSE ================= */}
                             <div className="bg-3" >
-                                <span onClick={CloseThemModel} id="closeCross" style={{cursor:'pointer', color:'var(--color-primary)', fontSize:"1.5rem"}}><IoMdCloseCircle  /></span>
+                                <span onClick={CloseThemModel}  style={{cursor:'pointer', color:'var(--color-primary)', fontSize:"1.5rem"}}><IoMdCloseCircle  /></span>
                             </div>
                         </div>
                     </div>

@@ -45,10 +45,9 @@ const Leftbar = (props) => {
         };
     }
 
-    // close
-    const CloseThemModel = () => {
-        const themeModel = document.querySelector(".customize-theme")
-        themeModel.style.display = "none";
+    // SET ACTIVE
+    const setActive = () => {
+        
     }
 
     return(
@@ -79,76 +78,34 @@ const Leftbar = (props) => {
                     <a href="/home" className="menu-item active">
                         <span> <i class="uil uil-home"></i> </span> <h3>Home</h3>
                     </a>
-                    <a className="menu-item">
-                        <span> <i class="uil uil-compass"></i> </span> <h3>Explore</h3>
-                    </a>
-                    <div className="menu-item" id="notifications" onClick={OpenNotificationPopup}>
-                        <span> <i class="uil uil-bell"><small className="notification-count">9</small></i> </span> <h3>Notifications</h3>
-                        {/* =============== NOTIFICATION POPUP ============ */}
-                        {/* <div className="notification-popup">
-
-                            <div>
-                                <div className="profile-pic">
-                                    <img src={`${PUBLIC_FOLDER}person/1.png`} alt="Person picture" />
-                                </div>
-                                <div className="notification-body">
-                                    <b>Kenny Michel </b> accepted your friend request
-                                    <small  className="text-muted">2 days ago</small>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div className="profile-pic">
-                                    <img src={`${PUBLIC_FOLDER}person/1.png`} alt="Person picture" />
-                                </div>
-                                <div className="notification-body">
-                                    <b>Alex Kubel </b> commented on your post
-                                    <small  className="text-muted">7 days ago</small>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div className="profile-pic">
-                                    <img src={`${PUBLIC_FOLDER}person/1.png`} alt="Person picture" />
-                                </div>
-                                <div className="notification-body">
-                                    <b>Micheal Smith </b> Started following you
-                                    <small  className="text-muted">26 min ago</small>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div className="profile-pic">
-                                    <img src={`${PUBLIC_FOLDER}person/1.png`} alt="Person picture" />
-                                </div>
-                                <div className="notification-body">
-                                    <b>Brethany Amber  </b> share  your post
-                                    <small  className="text-muted">1 hour ago</small>
-                                </div>
-                            </div>
-                        </div> */}
-                        {/* =============== END NOTIFICATION POPUP ============ */}
-                    </div>
-
-
-                    <a className="menu-item"  id="messages-notifications">
-                        <span> <i class="uil uil-envelope"> <small className="notification-count">6</small></i> </span> <h3>Messages</h3>
-                    </a>
-                    <a className="menu-item">
-                        <span> <i class="uil uil-bookmark"></i> </span> <h3>Bookmarks</h3>
-                    </a>
-                    <a className="menu-item">
-                        <span> <i class="uil uil-chart-line"></i> </span> <h3>Analytics</h3>
-                    </a>
                     <a className="menu-item"  onClick= {OpenThemModel}>
                         <span> <i class="uil uil-palette"></i> </span> <h3>Theme</h3>
                     </a>
                     <a href="/edit" className="menu-item">
                         <span> <i class="uil uil-setting"></i> </span> <h3>Settings</h3>
                     </a>
+                    <div className="menu-item" id="notifications" onClick={OpenNotificationPopup}>
+                        <span> <i class="uil uil-bell"><small className="notification-count">9</small></i> </span> <h3>Notifications</h3>
+                        {/* =============== NOTIFICATION POPUP ============ */}
+                        
+                        {/* =============== END NOTIFICATION POPUP ============ */}
+                    </div>
+                    <a className="menu-item" onClick={setActive}>
+                        <span> <i class="uil uil-compass"></i> </span> <h3>Explore</h3>
+                    </a>
+                    <a className="menu-item"  id="messages-notifications">
+                        <span> <i class="uil uil-envelope"> <small className="notification-count">6</small></i> </span> <h3>Messages</h3>
+                    </a>
+                    
+                    <a className="menu-item">
+                        <span> <i class="uil uil-bookmark"></i> </span> <h3>Bookmarks</h3>
+                    </a>
+                    <a className="menu-item">
+                        <span> <i class="uil uil-chart-line"></i> </span> <h3>Analytics</h3>
+                    </a>
                 </div>
                 {/* ============= BUTTON ================*/}
-                <label htmlFor="creat-post" className="btn btn-primary"> Create Post</label>
+                {/* <label htmlFor="creat-post" className="btn btn-primary"> Create Post</label> */}
             </body>
             </html>
         </div>
