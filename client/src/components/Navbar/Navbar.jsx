@@ -74,7 +74,7 @@ const Navbar = (props) => {
                     <div className="navbar">
                         <Link to="/home" className="link-clean-text">
                             <h2 class="log">
-                                Social Name
+                                Dojo Media
                             </h2>
                         </Link>
                         <form onSubmit={GetUser}>
