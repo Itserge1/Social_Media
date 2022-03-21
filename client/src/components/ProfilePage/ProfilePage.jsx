@@ -11,7 +11,6 @@ import { useHistory } from "react-router-dom";
 
 
 
-
 const ProfilePage = (props) => {
     const [userByUsername, setuserByUsername] = useState({})
     const history = useHistory();
