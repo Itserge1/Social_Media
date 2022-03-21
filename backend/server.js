@@ -6,6 +6,7 @@ const cors = require("cors")
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const path = require('path')
 
 
 //  Using dotenv. (Getting info from .env)
@@ -32,4 +33,16 @@ require("./server/routes/post.routes")(app);
 app.use(helmet());
 app.use(morgan("common"));
 
-app.listen(port, () => console.log(`Backed Server is Running on port ${port}`) )
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(path.join(__dirname, '../client/build')));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+    })
+}else{
+    app.get('/', (req, res) => {
+        res.send('Api running');
+    })
+}
+
+app.listen( process.env.PORT || port, () => console.log(`Backed Server is Running on port ${port}`) )

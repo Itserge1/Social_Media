@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar/Navbar";
+import Navbar from "../Navbar/Navbar";
 import Leftbar from "../Leftbar/Leftbar";
-import ProfileFeed from "../../components/ProfileFeed/ProfileFeed";
+import ProfileFeed from "../ProfileFeed/ProfileFeed";
 import "./ProfilePage.css";
 
 import axios from "axios";
