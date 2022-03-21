@@ -151,27 +151,27 @@ const EditProfilePage = () => {
         const themeModel = document.querySelector(".customize-theme")
         themeModel.style.display = "grid";
     }
-    
+
     // Delecte
     const deleteUser = () => {
-        axios.delete("http://localhost:8000/api/delete", {withCredentials:true})
+        axios.delete("http://localhost:8000/api/delete", { withCredentials: true })
             .then(res => {
-                console.log({message:"user delete successfully", result:res})
+                console.log({ message: "user delete successfully", result: res })
                 history.push('/')
             })
             .catch(err => {
-                console.log({message:"Error when deleting user", error: err})
+                console.log({ message: "Error when deleting user", error: err })
             })
 
     }
     return (
         <div>
-            <h1 style={{textAlign:"center",marginBlockStart:"1rem"}}>hello , {LoggedInUser.username}.</h1>
+            <h1 style={{ textAlign: "center", marginBlockStart: "1rem" }}>hello , {LoggedInUser.username}.</h1>
             <span className="home-span">
-                <a href="/home" style={{textAlign:"center", textDecoration:"none", color:"var(--color-dark)", cursor:"pointer"}}>Home</a>
-                <IoMdContrast className="IoMdContrast" style={{color:"var(--color-dark)", cursor:"pointer"}} onClick= {OpenThemModel}/>
-                <input type="button"  id="noBorber" className="btn2 " style={{marginLeft:'1rem'}} value="Delete Account" onClick={deleteUser}/>
-                
+                <a href="/home" style={{ textAlign: "center", textDecoration: "none", color: "var(--color-dark)", cursor: "pointer" }}>Home</a>
+                <IoMdContrast className="IoMdContrast" style={{ color: "var(--color-dark)", cursor: "pointer" }} onClick={OpenThemModel} />
+                <input type="button" id="noBorber" className="btn2 " style={{ marginLeft: '1rem' }} value="Delete Account" onClick={deleteUser} />
+
             </span>
             {/* <div className="profile-profile-pic">
                 <img src="/assets/post/23.jpg" alt="profile picture" />
@@ -214,84 +214,49 @@ const EditProfilePage = () => {
 
             </div>
 
-            <div className="editProfilePage-info-form">
-                {/* UPDATE PROFILE PICTURE */}
-                <form onSubmit={UpdateLoggedUserCoverOrProfilePic}  >
-                    {
-                        profilePicFile ?
-                            <div className="file-form" style={{ width: "40%" }}>
-                                <h2>Update Profile picture</h2>
-                                <div className="input-div" >
-                                    <label className="file-input" htmlFor="profilePicture"> Profile Picture <IoMdPhotos className="IoMdPhotos" /> </label>
-                                    <input type="file" style={{ display: "none" }} name="profilePicture" placeholder="profile Picture" id="profilePicture" onChange={onChangeProfilePicHandler} />
-                                </div>
-                                {profilePicFile && (
-                                    <div className="EditProfile-shareImageContainer">
-                                        {/* <img className="shareImage"  src={PUBLIC_FOLDER + "person/default-profile-image.jpeg" } alt="image selected" />  */}
-                                        <img className="EditProfile-shareImage" src={URL.createObjectURL(profilePicFile)} alt="image selected" />
-                                        <span className="EditProfile-shareCancelImg" onClick={() => setProfilePicFile(null)}> <IoMdCloseCircle className="IoMdCloseCircle" /></span>
-                                    </div>
-                                )}
-                                <button type="submit" className="btn2 btn-primary">Update profile Picture</button>
+            <div className="editProfilePage-imageUpdate">
+                <div className="editProfilePage-info-form">
+                    {/* UPDATE PROFILE PICTURE */}
+                    <form onSubmit={UpdateLoggedUserCoverOrProfilePic}  >
+                        <div className="file-form" style={{ width: "100%" }}>
+                            <h2>Update Profile picture</h2>
+                            <div className="input-div" >
+                                <label className="file-input" htmlFor="profilePicture"> Profile Picture <IoMdPhotos className="IoMdPhotos" /> </label>
+                                <input type="file" style={{ display: "none" }} name="profilePicture" placeholder="profile Picture" id="profilePicture" onChange={onChangeProfilePicHandler} />
                             </div>
-                            :
-                            <div className="file-form" style={{ width: "100%" }}>
-                                <h2>Update Profile picture</h2>
-                                <div className="input-div" >
-                                    <label className="file-input" htmlFor="profilePicture"> Profile Picture <IoMdPhotos className="IoMdPhotos" /> </label>
-                                    <input type="file" style={{ display: "none" }} name="profilePicture" placeholder="profile Picture" id="profilePicture" onChange={onChangeProfilePicHandler} />
+                            {profilePicFile && (
+                                <div className="EditProfile-shareImageContainer">
+                                    {/* <img className="shareImage"  src={PUBLIC_FOLDER + "person/default-profile-image.jpeg" } alt="image selected" />  */}
+                                    <img className="EditProfile-shareImage" src={URL.createObjectURL(profilePicFile)} alt="image selected" />
+                                    <span className="EditProfile-shareCancelImg" onClick={() => setProfilePicFile(null)}> <IoMdCloseCircle className="IoMdCloseCircle" /></span>
                                 </div>
-                                {profilePicFile && (
-                                    <div className="EditProfile-shareImageContainer">
-                                        {/* <img className="shareImage"  src={PUBLIC_FOLDER + "person/default-profile-image.jpeg" } alt="image selected" />  */}
-                                        <img className="EditProfile-shareImage" src={URL.createObjectURL(profilePicFile)} alt="image selected" />
-                                        <span className="EditProfile-shareCancelImg" onClick={() => setProfilePicFile(null)}> <IoMdCloseCircle className="IoMdCloseCircle" /></span>
-                                    </div>
-                                )}
-                                <button type="submit" className="btn2 btn-primary">Update profile Picture</button>
-                            </div>
-                    }
-                </form>
-            </div>
+                            )}
+                            <button type="submit" className="btn2 btn-primary">Update profile Picture</button>
+                        </div>
+                    </form>
+                </div>
 
-            <div className="conatainer-info-form">
-                {/* UPDATE COVER PICTURE */}
-                <form onSubmit={UpdateLoggedUserCoverOrProfilePic}  >
-                    {
-                        coverPicFile ?
-                            <div className="file-form" style={{ width: "40%" }}>
-                                <h2>Update Cover picture</h2>
-                                <div className="input-div" >
-                                    <label className="file-input" htmlFor="coverPicture"> Profile Picture <IoMdPhotos className="IoMdPhotos" /> </label>
-                                    <input type="file" style={{ display: "none" }} name="coverPicture" placeholder="cover Picture" id="coverPicture" onChange={onChangeCoverPicHandler} />
-                                </div>
-                                {coverPicFile && (
-                                    <div className="EditProfile-shareImageContainer">
-                                        {/* <img className="shareImage"  src={PUBLIC_FOLDER + "person/default-profile-image.jpeg" } alt="image selected" />  */}
-                                        <img className="EditProfile-shareImage" src={URL.createObjectURL(coverPicFile)} alt="image selected" />
-                                        <span className="EditProfile-shareCancelImg" onClick={() => setCoverPicFile(null)}> <IoMdCloseCircle className="IoMdCloseCircle" /></span>
-                                    </div>
-                                )}
-                                <button type="submit" className="btn2 btn-primary">Update profile Picture</button>
+                <div className="conatainer-info-form">
+                    {/* UPDATE COVER PICTURE */}
+                    <form onSubmit={UpdateLoggedUserCoverOrProfilePic}  >
+                        <div className="file-form" style={{ width: "100%" }}>
+                            <h2>Update Cover picture</h2>
+                            <div className="input-div" >
+                                <label className="file-input" htmlFor="coverPicture"> Profile Picture <IoMdPhotos className="IoMdPhotos" /> </label>
+                                <input type="file" style={{ display: "none" }} name="coverPicture" placeholder="cover Picture" id="coverPicture" onChange={onChangeCoverPicHandler} />
                             </div>
-                            :
-                            <div className="file-form" style={{ width: "100%" }}>
-                                <h2>Update Cover picture</h2>
-                                <div className="input-div" >
-                                    <label className="file-input" htmlFor="coverPicture"> Profile Picture <IoMdPhotos className="IoMdPhotos" /> </label>
-                                    <input type="file" style={{ display: "none" }} name="coverPicture" placeholder="cover Picture" id="coverPicture" onChange={onChangeCoverPicHandler} />
+                            {coverPicFile && (
+                                <div className="EditProfile-shareImageContainer">
+                                    {/* <img className="shareImage"  src={PUBLIC_FOLDER + "person/default-profile-image.jpeg" } alt="image selected" />  */}
+                                    <img className="EditProfile-shareImage" src={URL.createObjectURL(coverPicFile)} alt="image selected" />
+                                    <span className="EditProfile-shareCancelImg" onClick={() => setCoverPicFile(null)}> <IoMdCloseCircle className="IoMdCloseCircle" /></span>
                                 </div>
-                                {coverPicFile && (
-                                    <div className="EditProfile-shareImageContainer">
-                                        {/* <img className="shareImage"  src={PUBLIC_FOLDER + "person/default-profile-image.jpeg" } alt="image selected" />  */}
-                                        <img className="EditProfile-shareImage" src={URL.createObjectURL(coverPicFile)} alt="image selected" />
-                                        <span className="EditProfile-shareCancelImg" onClick={() => setCoverPicFile(null)}> <IoMdCloseCircle className="IoMdCloseCircle" /></span>
-                                    </div>
-                                )}
-                                <button type="submit" className="btn2 btn-primary">Update profile Picture</button>
-                            </div>
-                    }
-                </form>
+                            )}
+                            <button type="submit" className="btn2 btn-primary">Update profile Picture</button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div>
     )

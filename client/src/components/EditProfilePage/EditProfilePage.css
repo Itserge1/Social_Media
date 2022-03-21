@@ -11,6 +11,13 @@
     justify-content: space-around;
 }
 
+.editProfilePage-imageUpdate{
+    display: grid;
+    grid-template-columns: auto 50vw;
+    padding: 3rem;
+    column-gap: 3rem;
+}
+
 
 .info-form{
     width: 100%;
