@@ -21,9 +21,9 @@ require("./server/config/mongoose.config");
 // require("./server/config/jwt.config");
 
 //  important to accept post data(post request) - 2
+app.use(cors({credentials: true, origin: 'https://dojosocial.netlify.app'}));
 app.use(express.json(), express.urlencoded({extended:true}));
 app.use(cookieParser());
-app.use(cors({credentials: true, origin: 'https://dojosocial.netlify.app/'}));
 
 // sending the app over to the route folder inside the server folder
 require("./server/routes/users.routes")(app);
