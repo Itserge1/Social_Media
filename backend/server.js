@@ -1,11 +1,12 @@
 const express = require("express");
+const cors = require('cors')
+
 const app = express();
 const port = 8000;
-const cors = require("cors")
 
 const dotenv = require("dotenv");
-const helmet = require("helmet");
 const morgan = require("morgan");
+const helmet = require("helmet");
 const path = require('path')
 
 
@@ -22,7 +23,7 @@ require("./server/config/mongoose.config");
 //  important to accept post data(post request) - 2
 app.use(express.json(), express.urlencoded({extended:true}));
 app.use(cookieParser());
-app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+app.use(cors({credentials: true, origin: 'https://stirring-chebakia-c5da1c.netlify.app'}));
 
 // sending the app over to the route folder inside the server folder
 require("./server/routes/users.routes")(app);
