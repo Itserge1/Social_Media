@@ -23,7 +23,7 @@ require("./server/config/mongoose.config");
 //  important to accept post data(post request) - 2
 app.use(express.json(), express.urlencoded({extended:true}));
 app.use(cookieParser());
-app.use(cors({credentials: true, origin: 'https://stirring-chebakia-c5da1c.netlify.app'}));
+app.use(cors({credentials: true, origin: 'https://unique-nougat-ab5dc0.netlify.app'}));
 
 // sending the app over to the route folder inside the server folder
 require("./server/routes/users.routes")(app);
