@@ -22,7 +22,7 @@ const ProfileFeed = (props) => {
 
     // GET USER BY USERNAME 
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/finduser/username/${props.username}`, { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser/username/${props.username}`, { withCredentials: true })
             .then(res => {
                 // console.log("LeftBar: Your logged in user info", res)
                 // res.data.results will contains the info of the user, 
@@ -42,45 +42,11 @@ const ProfileFeed = (props) => {
                 // display user not found
                 console.log("Erorr when getting logged in user", err)
             })
-
-        // (props.username)
-        // ? axios.get("http://localhost:8000/api/finduser/username/:username", {withCredentials:true})
-        // .then(res => {
-        //     // console.log("LeftBar: Your logged in user info", res)
-        //     // res.data.results will contains the info of the user, 
-        //     // that has its id in the cookies. if the user logged in, he will have one. 
-        //     // if not he won't have a cookie therefore no info
-        //     if(res.data.results){
-        //         // user have a cookies
-        //         setUser(res.data.results)
-        //         console.log("ok")
-        //     } 
-        // })
-        // .catch(err => {
-        //     history.push("/")
-        //     console.log("Erorr when getting logged in user", err)
-        // }) :
-        // axios.get("http://localhost:8000/api/finduser", {withCredentials:true})
-        //     .then(res => {
-        //         // console.log("LeftBar: Your logged in user info", res)
-        //         // res.data.results will contains the info of the user, 
-        //         // that has its id in the cookies. if the user logged in, he will have one. 
-        //         // if not he won't have a cookie therefore no info
-        //         if(res.data.results){
-        //             // user have a cookies
-        //             setUser(res.data.results)
-        //             console.log("ok")
-        //         } 
-        //     })
-        //     .catch(err => {
-        //         history.push("/")
-        //         console.log("Erorr when getting logged in user", err)
-        //     });
     }, [props.username]);
 
     // FIND ALL USER AN USER'S FREIND POST
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/post/find/onlyuser/${props.username}`, { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_API_LINK}/api/post/find/onlyuser/${props.username}`, { withCredentials: true })
             .then(res => {
                 console.log({ message: "All user posts and freind posts base on username", result: res })
                 // setAllpost(res.data.results);
@@ -92,30 +58,12 @@ const ProfileFeed = (props) => {
             .catch(err => {
                 console.log({ message: "Error when getting user posts and freind posts ", error: err })
             })
-        // (props.username)?
-        // axios.get(`http://localhost:8000/api/post/find/${props.username}`, {withCredentials:true} )
-        //     .then(res => {
-        //         console.log({message: "All user posts and freind posts base on username", result: res})
-        //         setAllpost(res.data.results);
-        //     })
-        //     .catch(err => {
-        //         console.log({message:"Error when getting user posts and freind posts ", error: err})
-        //     }) :
-        // axios.get("http://localhost:8000/api/post/find", {withCredentials:true} )
-        //     .then(res => {
-        //         console.log({message: "All user posts and freind posts", result: res})
-        //         setAllpost(res.data.results);
-        //     })
-        //     .catch(err => {
-        //         console.log({message:"Error when getting user posts and freind posts ", error: err})
-        //     })
-
     }, [props.username]);
 
     // GET USER'S FRIENDS
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/finduser/friends/${props.userByUsername._id}`)
+        axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser/friends/${props.userByUsername._id}`)
             .then(res => {
                 setAllFriend(res.data);
                 // console.log({message:"here is all user's freinds", friends:res});
@@ -128,7 +76,7 @@ const ProfileFeed = (props) => {
 
     // GET THE LOGGED IN USER WITH JASONWEBTOKEN
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/finduser`, {withCredentials:true})
+        axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser`, {withCredentials:true})
         .then(res => {
             // console.log("LeftBar: Your logged in user info", res)
             // res.data.results will contains the info of the user, 
@@ -161,7 +109,7 @@ const ProfileFeed = (props) => {
     // FOLLOW OR UNFOLLOW USER
     const FollowUser = () => {
         // Then Follow user
-        axios.put(`http://localhost:8000/api/follow/${User._id}`, {_id: LoggedInUser._id})
+        axios.put(`${process.env.REACT_APP_API_LINK}/api/follow/${User._id}`, {_id: LoggedInUser._id})
         .then( res => {
             console.log({message: "User follow successfully", result:res});
             setIsValidFollow(true);
@@ -178,7 +126,7 @@ const ProfileFeed = (props) => {
 
     const UnfollowUser = () => {
         // Then Unfollow user
-        axios.put(`http://localhost:8000/api/unfollow/${User._id}`, {_id: LoggedInUser._id})
+        axios.put(`${process.env.REACT_APP_API_LINK}/api/unfollow/${User._id}`, {_id: LoggedInUser._id})
         .then(res => {
             console.log({message:"User unfollow successfully",result: res})
             setIsValidFollow(false);

@@ -13,7 +13,7 @@ const Navbar = (props) => {
 
 
     const logout = () => {
-        axios.get("http://localhost:8000/api/logout", {withCredentials: true})
+        axios.get(`${process.env.REACT_APP_API_LINK}/api/logout`, {withCredentials: true})
         .then(res => {
             console.log(res)
             history.push("/")
@@ -22,7 +22,7 @@ const Navbar = (props) => {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/finduser", {withCredentials:true})
+        axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser`, {withCredentials:true})
             .then(res => {
                 // console.log("LeftBar: Your logged in user info", res)
                 // res.data.results will contains the info of the user, 

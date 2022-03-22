@@ -27,7 +27,7 @@ const Post = ({post}) => {
 
     // Get all users
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/finduser/${post.userId}`)
+        axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser/${post.userId}`)
             .then(res =>{
                 console.log({message:"Here is the user in DB", results:res})
                 setUserInDB(res.data.results);
@@ -39,7 +39,7 @@ const Post = ({post}) => {
 
     // GET THE LOGGED IN USER WITH JASONWEBTOKEN
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/finduser`, {withCredentials:true})
+        axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser`, {withCredentials:true})
         .then(res => {
             // console.log("LeftBar: Your logged in user info", res)
             // res.data.results will contains the info of the user, 
@@ -70,7 +70,7 @@ const Post = ({post}) => {
 
 
             // AXIOS CALL ,{_id: LoggedInUser._id}
-            axios.put(`http://localhost:8000/api/post/like/${post._id}`, {_id: LoggedInUser._id})
+            axios.put(`${process.env.REACT_APP_API_LINK}/api/post/like/${post._id}`, {_id: LoggedInUser._id})
                 .then(res => {
                     console.log(res);
                 })
@@ -90,7 +90,7 @@ const Post = ({post}) => {
 
     // Delete post
     const deletePost = () => {
-        axios.delete(`http://localhost:8000/api/delete/post/${post._id}`, {withCredentials:true})
+        axios.delete(`${process.env.REACT_APP_API_LINK}/api/delete/post/${post._id}`, {withCredentials:true})
             .then(res => {
                 console.log({message:"post deleted successfully", result:res})
                 // reloading

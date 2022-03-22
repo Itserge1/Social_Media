@@ -9,11 +9,12 @@ import { useParams } from "react-router";
 const Profile = (props) => {
     const history = useHistory();
     const params = useParams();
+    
     // console.log({message:" Here is your Parms", params: params});
 
     // CHECK IF USER LOGGED IN
     useEffect(() => {
-        axios.get("http://localhost:8000/api/finduser", {withCredentials:true})
+        axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser`, {withCredentials:true})
             .then(res => {
                 // console.log("LeftBar: Your logged in user info", res)
                 // res.data.results will contains the info of the user, 

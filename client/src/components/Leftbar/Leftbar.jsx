@@ -11,7 +11,7 @@ const Leftbar = (props) => {
     const menuItem = document.querySelectorAll('.menu-item')
     const NotificationPopup = document.querySelector(".notification-popup")
     useEffect(() => {
-        axios.get("http://localhost:8000/api/finduser", {withCredentials:true})
+        axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser`, {withCredentials:true})
             .then(res => {
                 // console.log("LeftBar: Your logged in user info", res)
                 // res.data.results will contains the info of the user, 

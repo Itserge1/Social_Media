@@ -15,7 +15,7 @@ const EditProfilePage = () => {
     const history = useHistory();
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/finduser", { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser`, { withCredentials: true })
             .then(res => {
                 console.log("Your logged in user info", res)
                 // res.data.results will contains the info of the user, 
@@ -66,7 +66,7 @@ const EditProfilePage = () => {
     // UPDATING USER INFO
     const UpdateLoggedUserInfo = (event) => {
         event.preventDefault();
-        axios.patch("http://localhost:8000/api/update", userForm, { withCredentials: true })
+        axios.patch(`${process.env.REACT_APP_API_LINK}/api/update`, userForm, { withCredentials: true })
             .then(res => {
                 // history.push(`/profile/${LoggedInUser.username}`)
                 history.push(`/home`)
@@ -94,8 +94,7 @@ const EditProfilePage = () => {
             // console.log(formData);
 
             // Uplooading the image to cloudinary (cloud)
-            console.log(process.env.REACT_APP_CLOUDINARY_COULD_NAME)
-            const result = await axios.post(`https://api.cloudinary.com/v1_1/dvocilaus/image/upload`, formData)
+            const result = await axios.post(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_COULD_NAME}/image/upload`, formData)
             // console.log({message:'here is result', result:result})
 
             // creating the new object
@@ -106,7 +105,7 @@ const EditProfilePage = () => {
             // console.log({message:"new object", newObject:newObject})
 
             // Upadting our cover picture in MongoDB
-            axios.patch("http://localhost:8000/api/update/coverpicture", newObject, { withCredentials: true })
+            axios.patch(`${process.env.REACT_APP_API_LINK}/api/update/coverpicture`, newObject, { withCredentials: true })
                 .then(res => {
                     console.log({ message: "Successfully update cover picture", result: res });
                     history.push("/home");
@@ -122,7 +121,7 @@ const EditProfilePage = () => {
 
             // Uploading to cloudinary (cloud)
             // console.log(process.env.REACT_APP_CLOUDINARY_COULD_NAME)
-            const result = await axios.post(`https://api.cloudinary.com/v1_1/dvocilaus/image/upload`, formData)
+            const result = await axios.post(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_COULD_NAME}/image/upload`, formData)
 
             // Creating a new object
             const newObject = {
@@ -132,7 +131,7 @@ const EditProfilePage = () => {
             // console.log({message:"new object", newObject:newObject})
 
             // Updating user profile pic in MongoDB
-            axios.patch("http://localhost:8000/api/update/profilepicture", newObject, { withCredentials: true })
+            axios.patch(`${process.env.REACT_APP_API_LINK}/api/update/profilepicture`, newObject, { withCredentials: true })
                 .then(res => {
                     console.log({ message: "Successfully update profile picture", result: res });
                     history.push("/home")
@@ -154,7 +153,7 @@ const EditProfilePage = () => {
 
     // Delecte
     const deleteUser = () => {
-        axios.delete("http://localhost:8000/api/delete", { withCredentials: true })
+        axios.delete(`${process.env.REACT_APP_API_LINK}/api/delete`, { withCredentials: true })
             .then(res => {
                 console.log({ message: "user delete successfully", result: res })
                 history.push('/')

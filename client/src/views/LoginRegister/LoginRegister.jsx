@@ -29,7 +29,7 @@ const LoginRegister = (props) => {
     const login = (event) =>{
         event.preventDefault(); // stop the page from refreching
         console.log("User form input", form)
-        axios.post("http://localhost:8000/api/login", form, {withCredentials:true}) // {withCredentials:true} allow us to pass in cookies back and forth(lol)
+        axios.post(`${process.env.REACT_APP_API_LINK}/api/login`, form, {withCredentials:true}) // {withCredentials:true} allow us to pass in cookies back and forth(lol)
             .then( res => {
                 console.log({message:"login info", results: res});
                 history.push("/edit")
@@ -46,7 +46,7 @@ const LoginRegister = (props) => {
     // Register
     const register = (event) => {
         event.preventDefault();
-        axios.post("http://localhost:8000/api/register", form, {withCredentials:true})// {withCredentials:true} allow us to pass in cookies back and forth(lol)
+        axios.post(`${process.env.REACT_APP_API_LINK}/api/register`, form, {withCredentials:true})// {withCredentials:true} allow us to pass in cookies back and forth(lol)
             .then(res => {
                 if(res.data.message){
                     setRegisterError(res.data.message);

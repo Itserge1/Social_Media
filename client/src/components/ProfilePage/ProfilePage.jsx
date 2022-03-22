@@ -15,7 +15,7 @@ const ProfilePage = (props) => {
 
     // GET USER BASED ON PARAMS
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/finduser/username/${props.params.username}`, { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser/username/${props.params.username}`, { withCredentials: true })
             .then(res => {
                 // console.log("LeftBar: Your logged in user info", res)
                 // res.data.results will contains the info of the user, 

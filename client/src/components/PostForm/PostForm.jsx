@@ -23,7 +23,7 @@ const PostForm = () => {
 
     // GET THE LOGGED IN USER WITH JASONWEBTOKEN
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/finduser`, { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser`, { withCredentials: true })
             .then(res => {
                 // console.log("LeftBar: Your logged in user info", res)
                 // res.data.results will contains the info of the user, 
@@ -97,7 +97,7 @@ const PostForm = () => {
             console.log(NewPost)
 
             // Making the axios call that will create our post in our MongoDB
-            axios.post("http://localhost:8000/api/newpost", NewPost, { withCredentials: true })
+            axios.post(`${process.env.REACT_APP_API_LINK}/api/newpost`, NewPost, { withCredentials: true })
                 .then(res => {
                     console.log({ message: "Here is your res", res: res });
                     window.location.reload() // this code refresh the page after a post
@@ -107,7 +107,7 @@ const PostForm = () => {
                 })
         } else {
             // If we dont have a file selected then send the form instead.
-            axios.post("http://localhost:8000/api/newpost", form, { withCredentials: true })
+            axios.post(`${process.env.REACT_APP_API_LINK}/api/newpost`, form, { withCredentials: true })
                 .then(res => {
                     console.log({ message: "Here is your res", res: res });
                     window.location.reload() // this code refresh the page after a post
