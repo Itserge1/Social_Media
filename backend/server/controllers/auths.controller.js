@@ -42,7 +42,7 @@ module.exports.Login = async (req, res) => {
 
         // if we made it this far, the password was correct.
         // Creating a user token to keep track of whoevere just login. (PS: it is like session)
-        const userToken = jwt.sign({
+        const userToken = await jwt.sign({
             id: useR._id,
             username: useR.username,
         }, process.env.SECRET_KEY);
