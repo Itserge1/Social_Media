@@ -1,7 +1,15 @@
 const user = require("../models/users.model")
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+// const JWT = require("jsonwebtoken");
+const jwt = require('jsonwebtoken')
+const uuid = require('uuid/v4')
 
+
+
+const getExpiry = () => {
+    const exp = Math.floor(Date.now() / 1000) + 60 * 60;
+    return exp;
+};
 
 
 
@@ -10,22 +18,41 @@ module.exports.Register = (req, res) => {
     user.create(req.body)
         .then(newUser => {
             // Creating a user token to keep track of whoevere just register. (PS: it is like session)
+
+            // // ***** 1
+            // const userToken = jwt.sign({
+            //     id: newUser._id,
+            //     username: newUser.username
+            // }, process.env.SECRET_KEY);
+
+            // ***** 2
             const userToken = jwt.sign({
-                id: newUser._id,
-                username: newUser.username
+                exp: getExpiry(),
+                app_metadata: {
+                    authorization: {
+                        roles: ["editor", "admin"]
+                    }
+                },
+                user_metadata: {
+                    id: newUser._id,
+                    username: newUser.username
+                },
+                user_id: uuidv4()
             }, process.env.SECRET_KEY);
 
             // note that the response object allows chained calls to cookie and json
+            // res
+            //     .cookie("usertoken", userToken, process.env.SECRET_KEY, {
+            //         httpOnly: true
+            //     })
+            //     .json({ msg: "success!", results: newUser, userToken:userToken });
             res
-                .cookie("usertoken", userToken, process.env.SECRET_KEY, {
-                    httpOnly: true
-                })
-                .json({ msg: "success!", results: newUser });
-            // res.json({results: newUser})
+            .cookie("usertoken", userToken, process.env.SECRET_KEY)
+            .json({ msg: "Successful Login!", newUser: newUser, userToken:userToken });
         })
         .catch(error => {
             console.log(req.body)
-            res.json({ message: "Invalid registration attemp!!!", error:error })
+            res.json({ message: "Invalid registration attemp!!!", error: error })
         })
 }
 
@@ -42,17 +69,39 @@ module.exports.Login = async (req, res) => {
 
         // if we made it this far, the password was correct.
         // Creating a user token to keep track of whoevere just login. (PS: it is like session)
-        const userToken = await jwt.sign({
-            id: useR._id,
-            username: useR.username,
+        
+        // // ***** 1
+        // const userToken = jwt.sign({
+        //     id: useR._id,
+        //     username: useR.username,
+        // }, process.env.SECRET_KEY);
+
+
+        // ***** 2
+        const userToken = jwt.sign({
+            exp: getExpiry(),
+            app_metadata: {
+                authorization: {
+                    roles: ["editor", "admin"]
+                }
+            },
+            user_metadata: {
+                id: useR._id,
+                username: useR.username
+            },
+            user_id: uuidv4()
         }, process.env.SECRET_KEY);
 
         // note that the response object allows chained calls to cookie and json
+        // res
+        //     .cookie("usertoken", userToken, process.env.SECRET_KEY, {
+        //         httpOnly: true
+        //     })
+        //     .json({ msg: "Successful Login!", useR: useR });
+
         res
-            .cookie("usertoken", userToken, process.env.SECRET_KEY, {
-                httpOnly: true
-            })
-            .json({ msg: "Successful Login!", useR: useR });
+            .cookie("usertoken", userToken, process.env.SECRET_KEY)
+            .json({ msg: "Successful Login!", useR: useR, userToken:userToken });
 
     } catch (err) {
         console.log(err);

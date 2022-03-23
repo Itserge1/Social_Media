@@ -77,7 +77,7 @@ module.exports.DeleteUser = (req, res) => {
 module.exports.GetLoggedInUser = (req, res) => {
     // Getting the current user cookie info
     const decodedJWT = jwt.decode(req.cookies.usertoken, { complete: true })
-    user.findOne({ _id: decodedJWT.payload.id })
+    user.findOne({ _id: decodedJWT.payload.user_metadata.id })
         .then(OneUser => res.json({ results: OneUser }))
         .catch(error => res.status(400).json({ message: "That did not work!!!" }, error))
 }

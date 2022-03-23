@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {useHistory} from 'react-router-dom';
+import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import "./LoginRegister.css";
 
@@ -9,11 +9,11 @@ const LoginRegister = (props) => {
         username: "",
         email: "",
         password: "",
-        confirmPassword:"",
-        checkbox:"",
+        confirmPassword: "",
+        checkbox: "",
     });
-    const [loginError,setLoginError] = useState("");
-    const [registerError,setRegisterError] = useState("");
+    const [loginError, setLoginError] = useState("");
+    const [registerError, setRegisterError] = useState("");
     const [formErrors, setFormErrors] = useState({});
 
     const oneChangeHandler = (event) => {
@@ -24,45 +24,42 @@ const LoginRegister = (props) => {
     }
 
     // LOGIN AN REGISTER  (BACKEND)
-    
+
+
     // Login
-    const login = (event) =>{
+    const login = (event) => {
         event.preventDefault(); // stop the page from refreching
         console.log("User form input", form)
-        axios.post(`${process.env.REACT_APP_API_LINK}/api/login`, form, {withCredentials:true}) // {withCredentials:true} allow us to pass in cookies back and forth(lol)
-            .then( res => {
-                console.log({message:"login info", results: res});
+        axios.post(`${process.env.REACT_APP_API_LINK}/api/login`, form, { withCredentials: true }) // {withCredentials:true} allow us to pass in cookies back and forth(lol)
+            .then(res => {
+                console.log({ message: "login info", results: res });
                 history.push("/edit")
             })
             .catch(err => {
-                console.log({message:"here is err", errors:err});
+                console.log({ message: "here is err", errors: err });
                 // console.log(err.response.data.message)
                 setLoginError(err.response.data.message)
             })
-
-
     }
 
     // Register
     const register = (event) => {
         event.preventDefault();
-        axios.post(`${process.env.REACT_APP_API_LINK}/api/register`, form, {withCredentials:true})// {withCredentials:true} allow us to pass in cookies back and forth(lol)
+        axios.post(`${process.env.REACT_APP_API_LINK}/api/register`, form, { withCredentials: true })// {withCredentials:true} allow us to pass in cookies back and forth(lol)
             .then(res => {
-                if(res.data.message){
+                if (res.data.message) {
                     setRegisterError(res.data.message);
                     setFormErrors(res.data.error.errors)
                     console.log(res);
-                } else{
+                } else {
                     console.log("Register successfully!", res)
-                    history.push("/edit") // redirect to an edit profile 
+                    history.push("/edit")
                 }
             })
             .catch(err => {
                 console.log(err)
             })
     }
-
-
 
 
     // LOGIN AN REGISTER SLIDER (FRONTEND)
@@ -103,7 +100,7 @@ const LoginRegister = (props) => {
                             </div>
 
                             <div className="LoginRegister-social-icons">
-                                <img src="/login-reg-img/fb.png" alt="facebook icon"/>
+                                <img src="/login-reg-img/fb.png" alt="facebook icon" />
                                 <img src="/login-reg-img/gp.png" alt="Google icon" />
                                 <img src="/login-reg-img/tw.png" alt="Twitter icon" />
                                 {/* <i class="uil uil-home"></i> */}
@@ -114,9 +111,9 @@ const LoginRegister = (props) => {
 
                             <span className="mainErrormessage">{loginError}</span>
                             <form onSubmit={login} id="login" className="input-group">
-                                <input type="email" className="input-feild" placeholder="email" name="email" onChange={oneChangeHandler}/>
-                                <input type="password" className="input-feild" placeholder="Password" name="password" onChange={oneChangeHandler}/>
-                                <input type="checkbox" className="checkbox" name="checkbox"  onChange={oneChangeHandler} /><span>Remember Password</span>
+                                <input type="email" className="input-feild" placeholder="email" name="email" onChange={oneChangeHandler} />
+                                <input type="password" className="input-feild" placeholder="Password" name="password" onChange={oneChangeHandler} />
+                                <input type="checkbox" className="checkbox" name="checkbox" onChange={oneChangeHandler} /><span>Remember Password</span>
                                 <button type="submit" className="LoginRegister-submit-btn">Login</button>
                             </form>
 
@@ -129,19 +126,19 @@ const LoginRegister = (props) => {
                                     <span className="littleErrormessage" >{formErrors.username?.message}</span>
                                 </div>
                                 <div >
-                                    <input type="email" className="input-feild" placeholder="Email" name="email" onChange={oneChangeHandler}/>
+                                    <input type="email" className="input-feild" placeholder="Email" name="email" onChange={oneChangeHandler} />
                                     <span className="littleErrormessage" >{formErrors.email?.message}</span>
                                 </div>
                                 <div >
-                                    <input type="password" className="input-feild" placeholder="Password (at least 6 characters)" name="password" onChange={oneChangeHandler}/>
+                                    <input type="password" className="input-feild" placeholder="Password (at least 6 characters)" name="password" onChange={oneChangeHandler} />
                                     <span className="littleErrormessage" >{formErrors.password?.message}</span>
                                 </div>
                                 <div >
-                                    <input type="password" className="input-feild" placeholder="Confirm Password" name="confirmPassword" onChange={oneChangeHandler}/>
+                                    <input type="password" className="input-feild" placeholder="Confirm Password" name="confirmPassword" onChange={oneChangeHandler} />
                                     <span className="littleErrormessage" >{formErrors.confirmPassword?.message}</span>
                                 </div>
                                 <p>
-                                    <input type="checkbox" className="checkbox" name="checkbox"  id="checkbox" onChange={oneChangeHandler}/>
+                                    <input type="checkbox" className="checkbox" name="checkbox" id="checkbox" onChange={oneChangeHandler} />
                                     <label htmlFor="checkbox" >I agree to the terms and conditions</label>
                                     <span className="checkbox-message">{formErrors.checkbox?.message}</span>
                                 </p>
