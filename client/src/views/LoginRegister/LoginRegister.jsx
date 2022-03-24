@@ -15,6 +15,7 @@ const LoginRegister = (props) => {
     const [loginError, setLoginError] = useState("");
     const [registerError, setRegisterError] = useState("");
     const [formErrors, setFormErrors] = useState({});
+    const [userToken, setUserToken] = useState("");
 
     const oneChangeHandler = (event) => {
         setForm({
@@ -24,6 +25,21 @@ const LoginRegister = (props) => {
     }
 
     // LOGIN AN REGISTER  (BACKEND)
+    const accessGatedSite = (userToken) => {
+        const token = userToken // call an external function to generate a JWT
+        console.log(token);
+        try {
+            const response = await axios.post(
+                "/.netlify/functions/set-cookie",
+                JSON.stringify(token)
+            );
+            const { token } = response.data;
+            console.log(token)
+            history.push("/edit")
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
 
     // Login
@@ -32,11 +48,12 @@ const LoginRegister = (props) => {
         console.log("User form input", form)
         axios.post(`${process.env.REACT_APP_API_LINK}/api/login`, form, { withCredentials: true }) // {withCredentials:true} allow us to pass in cookies back and forth(lol)
             .then(res => {
-                console.log({ message: "login info", results: res });
-                // Create a cookie
+                console.log({ message: "login info", results: res, userToken: res.data.userToken });
+                // Set the cookie and access private page
+                accessGatedSite(res.data.userToken)
 
-                // redirect
-                history.push("/edit")
+                // // redirect
+                // history.push("/edit")
             })
             .catch(err => {
                 console.log({ message: "here is err", errors: err });

@@ -1,8 +1,8 @@
 const user = require("../models/users.model")
 const bcrypt = require("bcrypt");
-// const JWT = require("jsonwebtoken");
 const jwt = require('jsonwebtoken')
-const uuid = require('uuid/v4')
+const cookie = require('cookie')
+const { v4: uuidv4 } = require("uuid")
 
 
 
@@ -47,8 +47,8 @@ module.exports.Register = (req, res) => {
             //     })
             //     .json({ msg: "success!", results: newUser, userToken:userToken });
             res
-            .cookie("usertoken", userToken, process.env.SECRET_KEY)
-            .json({ msg: "Successful Login!", newUser: newUser, userToken:userToken });
+                .cookie("usertoken", userToken, process.env.SECRET_KEY)
+                .json({ msg: "Successful Login!", newUser: newUser, userToken: userToken });
         })
         .catch(error => {
             console.log(req.body)
@@ -69,7 +69,7 @@ module.exports.Login = async (req, res) => {
 
         // if we made it this far, the password was correct.
         // Creating a user token to keep track of whoevere just login. (PS: it is like session)
-        
+
         // // ***** 1
         // const userToken = jwt.sign({
         //     id: useR._id,
@@ -101,7 +101,7 @@ module.exports.Login = async (req, res) => {
 
         res
             .cookie("usertoken", userToken, process.env.SECRET_KEY)
-            .json({ msg: "Successful Login!", useR: useR, userToken:userToken });
+            .json({ msg: "Successful Login!", useR: useR, userToken: userToken });
 
     } catch (err) {
         console.log(err);

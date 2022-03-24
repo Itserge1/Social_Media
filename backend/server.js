@@ -12,7 +12,7 @@ const path = require('path')
 
 //  Using dotenv. (Getting info from .env)
 dotenv.config();
-
+const cookie = require('cookie')
 const cookieParser = require('cookie-parser'); // so that the server can understand 
 // the cookie information that is comming from the client (Browser)
 
