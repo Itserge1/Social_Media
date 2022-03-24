@@ -5,11 +5,10 @@ const axios = require("axios");
 exports.handler = async function (event, context, callback) {
     console.log({ message: "event from set-cookies", event: event })
     const parsedBody = await JSON.parse(event.body);
-    const { token } = parsedBody;
 
     const twoWeeks = 14 * 24 * 3600000
 
-    const netlifyCookie = cookie.serialize("nf_jwt", parsedBody, {
+    const netlifyCookie = cookie.serialize("usertoken", parsedBody, {
         secure: true,
         path: "/",
         maxAge: twoWeeks
