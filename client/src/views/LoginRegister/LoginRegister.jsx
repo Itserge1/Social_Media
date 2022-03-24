@@ -27,7 +27,7 @@ const LoginRegister = (props) => {
     // LOGIN AN REGISTER  (BACKEND)
     const accessGatedSite = async (userToken) => {
         try {
-            const response = await axios.post("/.netlify/functions/set-cookie", JSON.stringify(userToken));
+            const response = await axios.post("/.netlify/functions/setcookie", JSON.stringify(userToken));
             const { token } = response.data;
             console.log(token)
             history.push("/edit")
