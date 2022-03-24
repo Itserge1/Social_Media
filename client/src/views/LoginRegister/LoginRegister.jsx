@@ -25,7 +25,7 @@ const LoginRegister = (props) => {
     }
 
     // LOGIN AN REGISTER  (BACKEND)
-    const accessGatedSite = (userToken) => {
+    const accessGatedSite = async (userToken) => {
         const token = userToken // call an external function to generate a JWT
         console.log(token);
         try {
