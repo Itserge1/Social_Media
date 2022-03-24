@@ -165,7 +165,7 @@ const EditProfilePage = () => {
     }
     return (
         <div>
-            {/* <h1 style={{ textAlign: "center", marginBlockStart: "1rem" }}>hello , {LoggedInUser.username}.</h1> */}
+            <h1 style={{ textAlign: "center", marginBlockStart: "1rem" }}>hello , {LoggedInUser.username}.</h1>
             <span className="home-span">
                 <a href="/home" style={{ textAlign: "center", textDecoration: "none", color: "var(--color-dark)", cursor: "pointer" }}>Home</a>
                 <IoMdContrast className="IoMdContrast" style={{ color: "var(--color-dark)", cursor: "pointer" }} onClick={OpenThemModel} />
