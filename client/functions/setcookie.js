@@ -15,12 +15,12 @@ exports.handler = async function (event, context, callback) {
         maxAge: twoWeeks
     });
 
-    return(null, {
+    callback(null, {
         statusCode: 200,
         headers: {
             "Set-Cookie": netlifyCookie,
             "Cache-Control": "no-cache"
         },
-        body: JSON.stringify( {token})
+        body: JSON.stringify({ token })
     });
 };
