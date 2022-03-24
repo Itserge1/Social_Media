@@ -25,8 +25,10 @@ const LoginRegister = (props) => {
 
     // LOGIN AN REGISTER  (BACKEND)
     const accessGatedSite = async (userToken) => {
+        console.log(userToken)
         try {
             const response = await axios.post("/.netlify/functions/setcookie", JSON.stringify(userToken));
+            console.log(response)
             const { token } = response.data;
             console.log(token)
             history.push("/edit")
@@ -45,9 +47,6 @@ const LoginRegister = (props) => {
                 console.log({ message: "login info", results: res, userToken: res.data.userToken });
                 // Set the cookie and access private page
                 accessGatedSite(res.data.userToken)
-
-                // // redirect
-                // history.push("/edit")
             })
             .catch(err => {
                 console.log({ message: "here is err", errors: err });
@@ -67,7 +66,8 @@ const LoginRegister = (props) => {
                     console.log(res);
                 } else {
                     console.log("Register successfully!", res)
-                    history.push("/edit")
+                    // Set the cookie and access private page
+                    accessGatedSite(res.data.userToken)
                 }
             })
             .catch(err => {
