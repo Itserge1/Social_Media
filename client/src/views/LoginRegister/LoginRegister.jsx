@@ -26,12 +26,10 @@ const LoginRegister = (props) => {
 
     // LOGIN AN REGISTER  (BACKEND)
     const accessGatedSite = async (userToken) => {
-        const token = userToken // call an external function to generate a JWT
-        console.log({token: token, userToken: userToken});
         try {
             const response = await axios.post(
                 "/.netlify/functions/set-cookie",
-                JSON.stringify(token)
+                JSON.stringify(userToken)
             );
             const { token } = response.data;
             console.log(token)
