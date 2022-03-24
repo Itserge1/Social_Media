@@ -20,6 +20,6 @@ exports.handler = async function (event, context, callback) {
             "Set-Cookie": netlifyCookie,
             "Cache-Control": "no-cache"
         },
-        body: JSON.stringify({ token })
+        body: JSON.stringify({ parsedBody })
     });
 };
