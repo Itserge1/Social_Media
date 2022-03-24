@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const cookie = require('cookie')
 const axios = require("axios");
 
-exports.handler = function (event, context, callback) {
+exports.handler = async function (event, context, callback) {
     console.log({ message: "event from set-cookies", event: event })
     const parsedBody = JSON.parse(event.body);
     const { token } = parsedBody;
@@ -15,12 +15,12 @@ exports.handler = function (event, context, callback) {
         maxAge: twoWeeks
     });
 
-    callback(null, {
+    return(null, {
         statusCode: 200,
         headers: {
             "Set-Cookie": netlifyCookie,
             "Cache-Control": "no-cache"
         },
-        body: JSON.stringify({ token })
+        body: JSON.stringify( {token})
     });
 };

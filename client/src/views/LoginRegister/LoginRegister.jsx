@@ -15,7 +15,6 @@ const LoginRegister = (props) => {
     const [loginError, setLoginError] = useState("");
     const [registerError, setRegisterError] = useState("");
     const [formErrors, setFormErrors] = useState({});
-    const [userToken, setUserToken] = useState("");
 
     const oneChangeHandler = (event) => {
         setForm({
