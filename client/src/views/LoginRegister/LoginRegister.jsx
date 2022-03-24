@@ -32,7 +32,7 @@ const LoginRegister = (props) => {
             console.log(token)
             history.push("/edit")
         } catch (err) {
-            console.log(err);
+            console.log({err:err});
         }
     }
 

@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const cookie = require('cookie')
 const axios = require("axios");
 
-exports.handler = async function (event, context, callback) {
+exports.handler = function (event, context, callback) {
     console.log({ message: "event from set-cookies", event: event })
     const parsedBody = JSON.parse(event.body);
     const { token } = parsedBody;
