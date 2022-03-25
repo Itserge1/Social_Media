@@ -197,12 +197,14 @@ const ProfileFeed = (props) => {
                             {/* ============= ONE FIREND ================= */}
                             { allFriend.map(friend => (
                                 <div className="profile-user-profile">
-                                    <a href={`/profile/${friend.username}`} className="profile-Link-Text">
-                                        <div className="profile-user-profile-pic">
-                                            <img src={friend.profilePicture? friend.profilePicture : PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="" />
-                                        </div>
-                                        <h4>{friend.username}</h4>
-                                    </a>
+                                    <Link to={`/profile/${friend.username}`} >
+                                        <a className="profile-Link-Text">
+                                            <div className="profile-user-profile-pic">
+                                                <img src={friend.profilePicture? friend.profilePicture : PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="" />
+                                            </div>
+                                            <h4>{friend.username}</h4>
+                                        </a>
+                                    </Link>
                                 </div>
                             ))}
                         </div>

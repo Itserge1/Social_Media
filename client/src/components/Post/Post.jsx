@@ -119,7 +119,8 @@ const Post = ({post}) => {
                     {
                         LoggedInUser._id == UserInDB._id? 
                         <span  onClick={deletePost}><IoMdTrash style={{fontSize:'1.4rem', color:'tomato', cursor:'pointer'}}/></span>
-                        : <span className="edit" style={{cursor:'pointer'}}><i class="uil uil-ellipsis-h"></i></span> 
+                        : <span></span>
+                        // <span className="edit" style={{cursor:'pointer'}}><i class="uil uil-ellipsis-h"></i></span> 
                     }
                 </div>
 
