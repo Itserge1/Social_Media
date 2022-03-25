@@ -15,6 +15,7 @@ const EditProfilePage = () => {
     const history = useHistory();
 
 
+    // GETTING THE LOGGEDINUSER FROM COOKIES
     const GetToken = async () => {
         try {
             const response = await axios.post("/.netlify/functions/getcookie");

@@ -12,6 +12,43 @@ const Navbar = (props) => {
     const [text, setText] = useState({});
 
 
+    // GETTING THE LOGGEDINUSER FROM COOKIES
+    const GetToken = async () => {
+        try {
+            const response = await axios.post("/.netlify/functions/getcookie");
+            // console.log({message:"Get cookies response", response:response})
+            // console.log(response.data.decodedToken.payload.user_metadata.id)
+            // console.log(response.data.decodedToken.payload.user_metadata.username)
+            const CookieId = response.data.decodedToken.payload.user_metadata.id;
+
+            axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser/${CookieId}`, { withCredentials: true })
+            .then(res => {
+                console.log("Your logged in user info", res)
+                // res.data.results will contains the info of the user, 
+                // that has its id in the cookies. if the user logged in, he will have one. 
+                // if not he won't have a cookie therefore no info
+                if (res.data.results) {
+                    // user have a cookies
+                    setLoggedInUser(res.data.results)
+                    console.log("ok");
+                }
+            })
+            .catch(err => {
+                console.log("Erorr when getting logged in user", err);
+                history.push("/");
+            })
+            
+            // history.push("/edit")
+        } catch (err) {
+            console.log({err:err});
+        }
+    }
+
+    useEffect(() => {
+        GetToken()
+    }, [])
+    
+    // LOGOUT 
     const logout = () => {
         axios.get(`${process.env.REACT_APP_API_LINK}/api/logout`, {withCredentials: true})
         .then(res => {
@@ -20,25 +57,6 @@ const Navbar = (props) => {
         })
         .catch(err => console.log(err))
     }
-
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser`, {withCredentials:true})
-            .then(res => {
-                // console.log("LeftBar: Your logged in user info", res)
-                // res.data.results will contains the info of the user, 
-                // that has its id in the cookies. if the user logged in, he will have one. 
-                // if not he won't have a cookie therefore no info
-                if(res.data.results){
-                    // user have a cookies
-                    setLoggedInUser(res.data.results)
-                    console.log("Navbar: Got logged in user from cookies")
-                } 
-            })
-            .catch(err => {
-                history.push("/")
-                console.log("Erorr when getting logged in user", err)
-            })
-    }, [])
 
     const OnChangeHandler = (event) => {
         setText(event.target.value);
