@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./ProfileFeed.css";
-
-import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import "./ProfileFeed.css";
+import axios from "axios";
 
 import Post from "../Post/Post";
-import ErrorPage from "../ErrorPage/ErrorPage";
 import PostForm from "../PostForm/PostForm";
 
 
