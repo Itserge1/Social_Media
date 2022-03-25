@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Leftbar.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Leftbar = (props) => {
     const history = useHistory();
