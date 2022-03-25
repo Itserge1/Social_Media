@@ -3,7 +3,7 @@ const upload = require("../utils/multer");
 
 
 module.exports = app => {
-    app.get("/api/post/find", postControllers.GetAllPost)
+    app.get("/api/post/findallfreindpost/:_id", postControllers.GetAllPost)
     app.get("/api/post/find/:username", postControllers.GetAllProfilePost)
     app.get("/api/post/find/onlyuser/:username", postControllers.GetOnlyUserPost)
     app.post("/api/newpost", upload.single('image'), postControllers.NewPost)

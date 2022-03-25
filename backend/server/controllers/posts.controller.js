@@ -80,12 +80,12 @@ module.exports.GetOnePost = (req, res) => {
 // GET (ALL) TIMELINE POSTS
 
 module.exports.GetAllPost = async (req, res) => {
-    const decodedJWT = jwt.decode(req.cookies.usertoken, {complete:true})
+    // const decodedJWT = jwt.decode(req.cookies.usertoken, {complete:true})
     // var newid = decodedJWT.payload.id
     // console.log(newid)
     try {
         // Get the current user
-        const CurrentUser = await user.findOne({ _id: decodedJWT.payload.id })
+        const CurrentUser = await user.findOne({ _id: req.params._id })
         // const CurrentUser = await user.findOne({ _id: req.body._id })
         // Get all the current user post
         const UserPost = await post.find({ userId: CurrentUser._id })
