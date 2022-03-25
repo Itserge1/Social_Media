@@ -118,7 +118,9 @@ const Leftbar = (props) => {
                 {/* ======================= PROFILE ==================== */}
                 <a className="profile">
                     <div className="profile-pic">
-                        <a href={`/profile/${LoggedInUser.username}`}><img className="profile-pic" src={LoggedInUser.profilePicture? LoggedInUser.profilePicture : PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="Profile picture" /></a>
+                        <Link to= {`/profile/${LoggedInUser.username}`}>
+                            <a ><img className="profile-pic" src={LoggedInUser.profilePicture? LoggedInUser.profilePicture : PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="Profile picture" /></a>
+                        </Link>
                     </div>
                     <div className="profile-name">
                         <h2>{LoggedInUser.username}</h2>
