@@ -12,8 +12,8 @@ const Feed = (props) => {
     const [allPost, setAllpost] = useState([]);
 
     // GET ALL USER AND USER'S FREINDS POST
-
-    useEffect(() => {
+    const getUserAndFreindPost = async () => {
+        
         const response = await axios.post("/.netlify/functions/getcookie");
         console.log({message:"Get cookies response", response:response})
         // console.log(response.data.decodedToken.payload.user_metadata.id)
@@ -32,7 +32,10 @@ const Feed = (props) => {
             .catch(err => {
                 console.log({message:"Error when getting user posts and freind posts ", error: err})
             })
+    }
 
+    useEffect(() => {
+        getUserAndFreindPost()
     }, []);
 
     
