@@ -14,7 +14,13 @@ const Feed = (props) => {
     // GET ALL USER AND USER'S FREINDS POST
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_LINK}/api/post/find`, {withCredentials:true} )
+        const response = await axios.post("/.netlify/functions/getcookie");
+        // console.log({message:"Get cookies response", response:response})
+        // console.log(response.data.decodedToken.payload.user_metadata.id)
+        // console.log(response.data.decodedToken.payload.user_metadata.username)
+        const CookieId = response.data.decodedToken.payload.user_metadata.id;
+        
+        axios.get(`${process.env.REACT_APP_API_LINK}/api/post/findallfreindpost/${CookieId}`, {withCredentials:true} )
             .then(res => {
                 console.log({message: "All user posts and freind posts", result: res})
                 // setAllpost(res.data.results) // all post
