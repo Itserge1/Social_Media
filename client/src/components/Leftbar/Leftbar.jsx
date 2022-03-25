@@ -126,15 +126,19 @@ const Leftbar = (props) => {
                 </a>
                 {/* ======================= SIDEBAR ====================== */}
                 <div className="sidebar">
-                    <a href="/home" className="menu-item active" onClick={setActive}>
-                        <span> <i class="uil uil-home"></i> </span> <h3>Home</h3>
-                    </a>
+                    <Link to="/home">
+                        <a className="menu-item active" onClick={setActive}>
+                            <span> <i class="uil uil-home"></i> </span> <h3>Home</h3>
+                        </a>
+                    </Link>
                     <a className="menu-item"  onClick= {OpenThemModel}>
                         <span> <i class="uil uil-palette"></i> </span> <h3>Theme</h3>
                     </a>
-                    <a href="/edit" className="menu-item" onClick={setActive}>
-                        <span> <i class="uil uil-setting"></i> </span> <h3>Settings</h3>
-                    </a>
+                    <Link to="/edit">
+                        <a className="menu-item" onClick={setActive}>
+                            <span> <i class="uil uil-setting"></i> </span> <h3>Settings</h3>
+                        </a>
+                    </Link>
                     <div className="menu-item" id="notifications" onClick={setActive} onMouseOver={MouseOver} onMouseOut={MouseOut}>
                         <span> <i class="uil uil-bell"><small className="notification-count">9</small></i> </span> <h3>Notifications</h3>
                         {/* =============== NOTIFICATION POPUP ============ */}
