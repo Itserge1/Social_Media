@@ -26,9 +26,12 @@ const Home = (props) => {
                 // res.data.results will contains the info of the user, 
                 // that has its id in the cookies. if the user logged in, he will have one. 
                 // if not he won't have a cookie therefore no info
-                if (res.data.results) {
+                if (res.data.results === null) {
                     // user have a cookies
-                    setLoggedInUser(res.data.results)
+                    // setLoggedInUser(res.data.results)
+                    history.push("/")
+                }
+                else if (res.data.results){
                     console.log("ok");
                 }
             })
