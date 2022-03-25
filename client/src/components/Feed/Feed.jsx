@@ -19,6 +19,7 @@ const Feed = (props) => {
         // console.log(response.data.decodedToken.payload.user_metadata.id)
         // console.log(response.data.decodedToken.payload.user_metadata.username)
         const CookieId = response.data.decodedToken.payload.user_metadata.id;
+        console.log({message:"user cookiess", CookieId:CookieId} )
         
         axios.get(`${process.env.REACT_APP_API_LINK}/api/post/findallfreindpost/${CookieId}`, {withCredentials:true} )
             .then(res => {
