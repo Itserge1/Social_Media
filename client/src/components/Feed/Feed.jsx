@@ -15,7 +15,7 @@ const Feed = (props) => {
 
     useEffect(() => {
         const response = await axios.post("/.netlify/functions/getcookie");
-        // console.log({message:"Get cookies response", response:response})
+        console.log({message:"Get cookies response", response:response})
         // console.log(response.data.decodedToken.payload.user_metadata.id)
         // console.log(response.data.decodedToken.payload.user_metadata.username)
         const CookieId = response.data.decodedToken.payload.user_metadata.id;
