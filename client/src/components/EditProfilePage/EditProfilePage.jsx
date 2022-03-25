@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 import { IoMdPhotos } from "react-icons/io";
 import { IoMdContrast } from "react-icons/io";
 import { IoMdCloseCircle } from "react-icons/io";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "./EditProfilePage.css"
 
@@ -185,7 +186,9 @@ const EditProfilePage = () => {
         <div>
             <h1 style={{ textAlign: "center", marginBlockStart: "1rem" }}>hello , {LoggedInUser.username}.</h1>
             <span className="home-span">
-                <a href="/home" style={{ textAlign: "center", textDecoration: "none", color: "var(--color-dark)", cursor: "pointer" }}>Home</a>
+                <Link to="/home">
+                    <a style={{ textAlign: "center", textDecoration: "none", color: "var(--color-dark)", cursor: "pointer" }}>Home</a>
+                </Link>
                 <IoMdContrast className="IoMdContrast" style={{ color: "var(--color-dark)", cursor: "pointer" }} onClick={OpenThemModel} />
                 <input type="button" id="noBorber" className="btn2 " style={{ marginLeft: '1rem' }} value="Delete Account" onClick={deleteUser} />
 
