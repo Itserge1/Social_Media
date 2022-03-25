@@ -12,29 +12,44 @@ const Profile = (props) => {
     
     // console.log({message:" Here is your Parms", params: params});
 
-    // CHECK IF USER LOGGED IN
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser`, {withCredentials:true})
+    
+    // CHECK IF USER IS LOGGED IN
+    const GetToken = async () => {
+        try {
+            const response = await axios.post("/.netlify/functions/getcookie");
+            // console.log({message:"Get cookies response", response:response})
+            // console.log(response.data.decodedToken.payload.user_metadata.id)
+            // console.log(response.data.decodedToken.payload.user_metadata.username)
+            const CookieId = response.data.decodedToken.payload.user_metadata.id;
+
+            axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser/${CookieId}`, { withCredentials: true })
             .then(res => {
-                // console.log("LeftBar: Your logged in user info", res)
+                console.log("Your logged in user info", res)
                 // res.data.results will contains the info of the user, 
                 // that has its id in the cookies. if the user logged in, he will have one. 
                 // if not he won't have a cookie therefore no info
-                if(res.data.results === null){
+                if (res.data.results === null) {
                     // user have a cookies
                     // setLoggedInUser(res.data.results)
-                    history.push("/");;
+                    history.push("/")
                 }
-                if(res.data.results){
-                    // user have a cookies
-                    // setLoggedInUser(res.data.results)
-                    console.log("Profile: User Can access profile page")
-                } 
+                else if (res.data.results){
+                    console.log("ok");
+                }
             })
             .catch(err => {
-                history.push("/")
-                console.log("Erorr when getting logged in user", err)
+                console.log("Erorr when getting logged in user", err);
+                history.push("/");
             })
+            
+            // history.push("/edit")
+        } catch (err) {
+            console.log({err:err});
+        }
+    }
+
+    useEffect(() => {
+        GetToken()
     }, [])
     return(
         <div>
