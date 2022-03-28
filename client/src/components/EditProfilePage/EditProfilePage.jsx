@@ -170,9 +170,11 @@ const EditProfilePage = () => {
         themeModel.style.display = "grid";
     }
 
-    // Delecte
-    const deleteUser = () => {
-        axios.delete(`${process.env.REACT_APP_API_LINK}/api/delete`, { withCredentials: true })
+    // Delete
+    const deleteUser = async () => {
+        const response = await axios.post("/.netlify/functions/getcookie");
+        const CookieId = response.data.decodedToken.payload.user_metadata.id;
+        axios.delete(`${process.env.REACT_APP_API_LINK}/api/delete/${CookieId}`)
             .then(res => {
                 console.log({ message: "user delete successfully", result: res })
                 history.push('/')
