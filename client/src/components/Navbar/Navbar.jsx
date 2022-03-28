@@ -105,7 +105,7 @@ const Navbar = (props) => {
                             <input id="marginBottom" className="btn btn-primary" type="button" value="Logout" onClick={logout}/>
                             <div className="profile-pic">
                                 <Link to={`/profile/${LoggedInUser.username}`} >
-                                    <a><img className="profile-pic" src={LoggedInUser.profilePicture? LoggedInUser.profilePicture : PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="profile picture" /></a>
+                                    <a><img className="profile-pic" src={LoggedInUser.profilePicture? LoggedInUser.profilePicture : "https://res.cloudinary.com/dvocilaus/image/upload/v1648492523/my-social-media-uploads/anwlelkpndjrwvkdncor.jpg"} alt="profile picture" /></a>
                                 </Link>
                             </div>
                         </div>

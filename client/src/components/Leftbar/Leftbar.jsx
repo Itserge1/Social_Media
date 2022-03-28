@@ -119,7 +119,7 @@ const Leftbar = (props) => {
                 <a className="profile">
                     <div className="profile-pic">
                         <Link to= {`/profile/${LoggedInUser.username}`}>
-                            <a ><img className="profile-pic" src={LoggedInUser.profilePicture? LoggedInUser.profilePicture : PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="Profile picture" /></a>
+                            <a ><img className="profile-pic" src={LoggedInUser.profilePicture? LoggedInUser.profilePicture : "https://res.cloudinary.com/dvocilaus/image/upload/v1648492523/my-social-media-uploads/anwlelkpndjrwvkdncor.jpg"} alt="Profile picture" /></a>
                         </Link>
                     </div>
                     <div className="profile-name">

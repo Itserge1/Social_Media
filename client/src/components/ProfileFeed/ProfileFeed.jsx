@@ -158,9 +158,9 @@ const ProfileFeed = (props) => {
         <div>
             {/* =========== TOP FEED =============== */}
             <div className="profileTopFeed">
-                <img src={(User.coverPicture) ? User.coverPicture : PUBLIC_FOLDER + "person/default-cover-image.jpeg"} alt="cover pic" />
+                <img src={(User.coverPicture) ? User.coverPicture : "https://res.cloudinary.com/dvocilaus/image/upload/v1648492534/my-social-media-uploads/z9h8mhzmi9q2phxv79bn.jpg"} alt="cover pic" />
                 <div className="profile-profile-pic">
-                    <img src={(User.profilePicture) ? User.profilePicture : PUBLIC_FOLDER + "person/default-profile-image.jpeg"} alt="profile pic" />
+                    <img src={(User.profilePicture) ? User.profilePicture : "https://res.cloudinary.com/dvocilaus/image/upload/v1648492523/my-social-media-uploads/anwlelkpndjrwvkdncor.jpg"} alt="profile pic" />
                 </div>
                 <div className="profile-profile-name">
                     <h1>{User.username}</h1>
