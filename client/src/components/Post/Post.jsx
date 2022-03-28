@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Post.css";
+import { useHistory } from "react-router";
 import { IoMdTrash } from "react-icons/io";
 
 
@@ -24,6 +25,8 @@ const Post = ({ post }) => {
     const [liked, setLiked] = useState(false);
     const [likedCount, setLikedCount] = useState(post.likes.length)
     const [bookmarked, setBookmarked] = useState(false);
+
+    const history = useHistory();
 
     // Get user Base on Post userId
     const GetUserBaseOnePostUserId = () => {
