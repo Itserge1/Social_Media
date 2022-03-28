@@ -93,6 +93,8 @@ const Post = ({post}) => {
         const response = await axios.post("/.netlify/functions/getcookie");
         
         const CookieId = response.data.decodedToken.payload.user_metadata.id;
+        console.log({message:"Cookie delete", CookieId:CookieId})
+        
         axios.delete(`${process.env.REACT_APP_API_LINK}/api/delete/post/${post._id}`, {_id:CookieId})
             .then(res => {
                 console.log({message:"post deleted successfully", result:res})
