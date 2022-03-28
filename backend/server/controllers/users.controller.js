@@ -67,9 +67,7 @@ module.exports.UpdateUserCoverPicture = async (req, res) => {
 }
 
 module.exports.DeleteUser = (req, res) => {
-    // Getting the current user cookie info
-    const decodedJWT = jwt.decode(req.cookies.usertoken, { complete: true })
-    user.deleteOne({ _id: decodedJWT.payload.id })
+    user.deleteOne({ _id: req.params._id })
         .then(DeleteUser => res.json({ results: DeleteUser }))
         .catch(error => res.status(400).json({ message: "That did not work!!" }, error))
 }

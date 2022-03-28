@@ -138,7 +138,7 @@ const Post = ({ post }) => {
                 <div className="post-top">
                     <div className="post-profile">
                         <div className="post-profile-pic">
-                            <img className="post-profile-pic" src={UserInDB.profilePicture ? UserInDB.profilePicture : PUBLIC_FOLDER + "person/default-profile-image.jpeg"} alt="profile profile" />
+                            <img className="post-profile-pic" src={UserInDB.profilePicture ? UserInDB.profilePicture : "https://res.cloudinary.com/dvocilaus/image/upload/v1648492523/my-social-media-uploads/anwlelkpndjrwvkdncor.jpg"} alt="profile profile" />
                         </div>
                         <div className="info">
                             <Link className="Post-Link-Text" to={`/profile/${UserInDB.username}`}><h3>{UserInDB.username}</h3></Link>
