@@ -49,13 +49,12 @@ const Navbar = (props) => {
     }, [])
     
     // LOGOUT 
-    const logout = () => {
-        axios.get(`${process.env.REACT_APP_API_LINK}/api/logout`, {withCredentials: true})
-        .then(res => {
-            console.log(res)
-            history.push("/")
-        })
-        .catch(err => console.log(err))
+    const logout = async () => {
+        // CLEARING COOKIES: USING NETLIFY SERVERLESS FUNCTION
+        const response = await axios.post("/.netlify/functions/clearcookie");
+        console.log({message:"Cookie clear", response:response})
+        // REDIRECT TO "/"
+        history.push("/")
     }
 
     const OnChangeHandler = (event) => {
