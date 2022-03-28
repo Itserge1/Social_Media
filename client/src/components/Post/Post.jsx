@@ -89,8 +89,11 @@ const Post = ({post}) => {
     },[post.likes, LoggedInUser._id]);
 
     // Delete post
-    const deletePost = () => {
-        axios.delete(`${process.env.REACT_APP_API_LINK}/api/delete/post/${post._id}`, {withCredentials:true})
+    const deletePost = async() => {
+        const response = await axios.post("/.netlify/functions/getcookie");
+        
+        const CookieId = response.data.decodedToken.payload.user_metadata.id;
+        axios.delete(`${process.env.REACT_APP_API_LINK}/api/delete/post/${post._id}`, {_id:CookieId})
             .then(res => {
                 console.log({message:"post deleted successfully", result:res})
                 // reloading
