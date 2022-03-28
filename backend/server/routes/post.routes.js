@@ -10,5 +10,5 @@ module.exports = app => {
     app.post("/api/post/find/:_id", postControllers.GetOnePost)
     app.put("/api/update/post/:_id", postControllers.UpdatePost)
     app.put("/api/post/like/:_id", postControllers.LikePost)
-    app.delete("/api/delete/post/:_id", postControllers.DeletePost)
+    app.delete("/api/delete/post/:_id/:cookieId", postControllers.DeletePost)
 }
