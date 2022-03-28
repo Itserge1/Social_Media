@@ -36,7 +36,7 @@ const Rightbar = (props) => {
                             {/* ============= Message 1 ============ */}
                             <div className="message">
                                 <div className="profile-pic">
-                                    <img src={`${PUBLIC_FOLDER}person/5.png`} alt="profile picture" />
+                                    <img src="https://res.cloudinary.com/dvocilaus/image/upload/v1648492477/my-social-media-uploads/oakpldycabvbenggua19.jpg" alt="profile picture" />
                                 </div>
                                 <div className="message-body">
                                     <h5>Jen</h5>
@@ -46,7 +46,7 @@ const Rightbar = (props) => {
                             {/* ============= Message 2============ */}
                             <div className="message">
                                 <div className="profile-pic">
-                                    <img src={`${PUBLIC_FOLDER}person/4.png`} alt="profile picture" />
+                                    <img src="https://res.cloudinary.com/dvocilaus/image/upload/v1648492444/my-social-media-uploads/z1fhkpeveix9kzzzzoih.jpg" alt="profile picture" />
                                     <div className="active"></div>
                                 </div>
                                 <div className="message-body">
@@ -57,7 +57,7 @@ const Rightbar = (props) => {
                             {/* ============= Message 3============ */}
                             <div className="message">
                                 <div className="profile-pic">
-                                    <img src={`${PUBLIC_FOLDER}person/3.png`} alt="profile picture" />
+                                    <img src="https://res.cloudinary.com/dvocilaus/image/upload/v1648492459/my-social-media-uploads/hdos5omhfbeia6xzlhje.jpg" alt="profile picture" />
                                 </div>
                                 <div className="message-body">
                                     <h5>Rick</h5>
@@ -67,7 +67,7 @@ const Rightbar = (props) => {
                             {/* ============= Message 3============ */}
                             <div className="message">
                                 <div className="profile-pic">
-                                    <img src={`${PUBLIC_FOLDER}person/1.png`} alt="profile picture" />
+                                    <img src="https://res.cloudinary.com/dvocilaus/image/upload/v1648269228/my-social-media-uploads/f6ic2rxxbrykygavgh74.jpg" alt="profile picture" />
                                     <div className="active"></div>
                                 </div>
                                 <div className="message-body">
@@ -84,7 +84,7 @@ const Rightbar = (props) => {
                             <div className="request">
                                 <div className="info">
                                     <div className="profile-pic">
-                                        <img src={`${PUBLIC_FOLDER}person/6.png`} alt="profile pic" />
+                                        <img src="https://res.cloudinary.com/dvocilaus/image/upload/v1648492427/my-social-media-uploads/lfqoeut4ogqctxw5hlj0.jpg" alt="profile pic" />
                                     </div>
                                     <div>
                                         <h5>Lauretta Vshiwk</h5>
@@ -100,7 +100,7 @@ const Rightbar = (props) => {
                             <div className="request">
                                 <div className="info">
                                     <div className="profile-pic">
-                                        <img src={`${PUBLIC_FOLDER}person/8.png`} alt="profile pic" />
+                                        <img src="https://res.cloudinary.com/dvocilaus/image/upload/v1647554332/my-social-media-uploads/efckv0rhoeaumpldmj4v.jpg" alt="profile pic" />
                                     </div>
                                     <div>
                                         <h5>Luci Smith</h5>
