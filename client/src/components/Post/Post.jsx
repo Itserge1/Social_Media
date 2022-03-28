@@ -28,7 +28,7 @@ const Post = ({ post }) => {
     // Get user Base on Post userId
     const GetUserBaseOnePostUserId = () => {
         console.log({message:"here is post userId", postUserId: post.userId})
-        
+
         axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser/${post.userId}`)
             .then(res => {
                 console.log({ message: "Here is the user in DB", results: res })
@@ -38,29 +38,46 @@ const Post = ({ post }) => {
                 console.log({ message: "Error when getting all users in DB", error: err })
             })
     }
-    useEffect(() => {
-        GetUserBaseOnePostUserId();
-    }, [])
 
-    // GET THE LOGGED IN USER WITH JASONWEBTOKEN
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser`, { withCredentials: true })
+    // GETTING THE LOGGEDINUSER FROM COOKIES
+    const GetToken = async () => {
+        try {
+            const response = await axios.post("/.netlify/functions/getcookie");
+            // console.log({message:"Get cookies response", response:response})
+            // console.log(response.data.decodedToken.payload.user_metadata.id)
+            // console.log(response.data.decodedToken.payload.user_metadata.username)
+            const CookieId = response.data.decodedToken.payload.user_metadata.id;
+
+            axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser/${CookieId}`, { withCredentials: true })
             .then(res => {
-                // console.log("LeftBar: Your logged in user info", res)
+                console.log("Your logged in user info", res)
                 // res.data.results will contains the info of the user, 
                 // that has its id in the cookies. if the user logged in, he will have one. 
                 // if not he won't have a cookie therefore no info
                 if (res.data.results) {
                     // user have a cookies
                     setLoggedInUser(res.data.results)
-                    console.log("Post: Got logged in user from cookies")
+                    console.log("ok");
                 }
             })
             .catch(err => {
-                console.log("Erorr when getting logged in user", err)
+                console.log("Erorr when getting logged in user", err);
+                history.push("/");
             })
+            
+            // history.push("/edit")
+        } catch (err) {
+            console.log({err:err});
+        }
+    }
 
-    }, []);
+    useEffect(() => {
+        GetToken()
+    }, [])
+
+    useEffect(() => {
+        GetUserBaseOnePostUserId();
+    }, [])
 
     // LIKED/BOOKEDMARK A POST
     const Cliked = (object) => {
@@ -127,8 +144,8 @@ const Post = ({ post }) => {
                     </div>
                     {
                         LoggedInUser._id == UserInDB._id ?
-                            <span className="edit" style={{ cursor: 'pointer' }}><i class="uil uil-ellipsis-h"></i></span>
-                            : <span onClick={deletePost}><IoMdTrash style={{ fontSize: '1.4rem', color: 'tomato', cursor: 'pointer' }} /></span>
+                        <span onClick={deletePost}><IoMdTrash style={{ fontSize: '1.4rem', color: 'tomato', cursor: 'pointer' }} /></span>
+                        : <span className="edit" style={{ cursor: 'pointer' }}><i class="uil uil-ellipsis-h"></i></span>
                     }
                 </div>
 
