@@ -46,7 +46,7 @@ const Feed = (props) => {
                 <div className="stories">
                     <div className="story">
                         <div className="profile-pic">
-                            <img  src="https://res.cloudinary.com/dvocilaus/image/upload/v1648493911/my-social-media-uploads/njrz9sele5sss7pdest5.jpg" alt="profile photo" />
+                            <img style={{objectFit:"cover"}} src="https://res.cloudinary.com/dvocilaus/image/upload/v1648493911/my-social-media-uploads/njrz9sele5sss7pdest5.jpg" alt="profile photo" />
                         </div>
                         <p className="name">Isabela Wheitch</p>
                     </div>
@@ -67,7 +67,7 @@ const Feed = (props) => {
 
                     <div className="story">
                         <div className="profile-pic">
-                            <img  src="https://res.cloudinary.com/dvocilaus/image/upload/v1647552601/my-social-media-uploads/w8ompqwtgmnuskk3yugq.jpg" alt="profile photo" />
+                            <img style={{objectFit:"cover"}} src="https://res.cloudinary.com/dvocilaus/image/upload/v1647552601/my-social-media-uploads/w8ompqwtgmnuskk3yugq.jpg" alt="profile photo" />
                         </div>
                         <p className="name">Jhenne Dilan</p>
                     </div>
