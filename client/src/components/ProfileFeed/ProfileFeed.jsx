@@ -200,7 +200,7 @@ const ProfileFeed = (props) => {
                                     <Link to={`/profile/${friend.username}`} >
                                         <a className="profile-Link-Text">
                                             <div className="profile-user-profile-pic">
-                                                <img src={friend.profilePicture? friend.profilePicture : PUBLIC_FOLDER+"person/default-profile-image.jpeg"} alt="" />
+                                                <img src={friend.profilePicture? friend.profilePicture : "https://res.cloudinary.com/dvocilaus/image/upload/v1648492523/my-social-media-uploads/anwlelkpndjrwvkdncor.jpg"} alt="" />
                                             </div>
                                             <h4>{friend.username}</h4>
                                         </a>
