@@ -45,28 +45,28 @@ const Feed = (props) => {
             <div className="top-feed">
                 <div className="stories">
                     <div className="story">
-                        <div className="profile-pic">
+                        <div >
                             <img className="profile-pic" src="https://res.cloudinary.com/dvocilaus/image/upload/v1648493911/my-social-media-uploads/njrz9sele5sss7pdest5.jpg" alt="profile photo" />
                         </div>
                         <p className="name">Isabela Wheitch</p>
                     </div>
 
                     <div className="story">
-                        <div className="profile-pic">
+                        <div >
                             <img className="profile-pic" src="https://res.cloudinary.com/dvocilaus/image/upload/v1648493899/my-social-media-uploads/mbprhbithww6baz9fvi4.png" alt="profile photo" />
                         </div>
                         <p className="name">Lara Thomson</p>
                     </div>
 
                     <div className="story">
-                        <div className="profile-pic">
+                        <div >
                             <img className="profile-pic" src="https://res.cloudinary.com/dvocilaus/image/upload/v1647553962/my-social-media-uploads/bgxilyzmlywsbkliofdj.png" alt="profile photo" />
                         </div>
                         <p className="name">Veronica Payler</p>
                     </div>
 
                     <div className="story">
-                        <div className="profile-pic">
+                        <div>
                             <img className="profile-pic" src="https://res.cloudinary.com/dvocilaus/image/upload/v1647552601/my-social-media-uploads/w8ompqwtgmnuskk3yugq.jpg" alt="profile photo" />
                         </div>
                         <p className="name">Jhenne Dilan</p>
