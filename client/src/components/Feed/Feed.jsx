@@ -46,28 +46,28 @@ const Feed = (props) => {
                 <div className="stories">
                     <div className="story">
                         <div className="profile-pic">
-                            <img src={`${PUBLIC_FOLDER}person/2.png`} alt="profile photo" />
+                            <img className="profile-pic" src="https://res.cloudinary.com/dvocilaus/image/upload/v1648493911/my-social-media-uploads/njrz9sele5sss7pdest5.jpg" alt="profile photo" />
                         </div>
-                        <p className="name">Jhenne Dilan</p>
+                        <p className="name">Isabela Wheitch</p>
                     </div>
 
                     <div className="story">
                         <div className="profile-pic">
-                            <img src={`${PUBLIC_FOLDER}person/3.png`} alt="profile photo" />
+                            <img className="profile-pic" src="https://res.cloudinary.com/dvocilaus/image/upload/v1648493899/my-social-media-uploads/mbprhbithww6baz9fvi4.png" alt="profile photo" />
                         </div>
-                        <p className="name">Jhenne Dilan</p>
+                        <p className="name">Lara Thomson</p>
                     </div>
 
                     <div className="story">
                         <div className="profile-pic">
-                            <img src={`${PUBLIC_FOLDER}person/4.png`} alt="profile photo" />
+                            <img className="profile-pic" src="https://res.cloudinary.com/dvocilaus/image/upload/v1647553962/my-social-media-uploads/bgxilyzmlywsbkliofdj.png" alt="profile photo" />
                         </div>
-                        <p className="name">Jhenne Dilan</p>
+                        <p className="name">Veronica Payler</p>
                     </div>
 
                     <div className="story">
                         <div className="profile-pic">
-                            <img src={`${PUBLIC_FOLDER}person/5.png`} alt="profile photo" />
+                            <img className="profile-pic" src="https://res.cloudinary.com/dvocilaus/image/upload/v1647552601/my-social-media-uploads/w8ompqwtgmnuskk3yugq.jpg" alt="profile photo" />
                         </div>
                         <p className="name">Jhenne Dilan</p>
                     </div>
