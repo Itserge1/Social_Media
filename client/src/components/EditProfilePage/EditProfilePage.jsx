@@ -85,7 +85,9 @@ const EditProfilePage = () => {
     // UPDATING USER INFO
     const UpdateLoggedUserInfo = (event) => {
         event.preventDefault();
-        axios.patch(`${process.env.REACT_APP_API_LINK}/api/update`, userForm, { withCredentials: true })
+        const response = await axios.post("/.netlify/functions/getcookie");
+        const CookieId = response.data.decodedToken.payload.user_metadata.id;
+        axios.patch(`${process.env.REACT_APP_API_LINK}/api/update/${CookieId}`, userForm, { withCredentials: true })
             .then(res => {
                 // history.push(`/profile/${LoggedInUser.username}`)
                 history.push(`/home`)
