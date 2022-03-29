@@ -188,16 +188,19 @@ const EditProfilePage = () => {
     // Delete
     const deleteUser = async () => {
         const response = await axios.post("/.netlify/functions/getcookie");
-        const CookieId = response.data.decodedToken.payload.user_metadata.id;
-        axios.delete(`${process.env.REACT_APP_API_LINK}/api/delete/${CookieId}`)
-            .then(res => {
-                console.log({ message: "user delete successfully", result: res })
-                history.push('/')
-            })
-            .catch(err => {
-                console.log({ message: "Error when deleting user", error: err })
-            })
-
+        if(response.data.decodedToken == null){
+            history.push("/")
+        }else{
+            const CookieId = response.data.decodedToken.payload.user_metadata.id;
+            axios.delete(`${process.env.REACT_APP_API_LINK}/api/delete/${CookieId}`)
+                .then(res => {
+                    console.log({ message: "user delete successfully", result: res })
+                    history.push('/')
+                })
+                .catch(err => {
+                    console.log({ message: "Error when deleting user", error: err })
+                })
+        }
     }
     return (
         <div>
