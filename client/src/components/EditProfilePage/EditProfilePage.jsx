@@ -102,9 +102,9 @@ const EditProfilePage = () => {
         event.preventDefault();
         // console.log(event);
         if (profilePicFile === null) {
-            // Checking selected file
-            console.log({ message: "here is cover pic", coverPicFile: coverPicFile })
-            console.log({ message: "here is profile pic", profilePicFile: profilePicFile })
+            // // Checking selected file
+            // console.log({ message: "here is cover pic", coverPicFile: coverPicFile })
+            // console.log({ message: "here is profile pic", profilePicFile: profilePicFile })
 
             // Creating a new forData for our file
             const formData = new FormData();
@@ -123,8 +123,12 @@ const EditProfilePage = () => {
             }
             // console.log({message:"new object", newObject:newObject})
 
+            // Getting Logged in user id
+            const response = await axios.post("/.netlify/functions/getcookie");
+            const CookieId = response.data.decodedToken.payload.user_metadata.id;
+
             // Upadting our cover picture in MongoDB
-            axios.patch(`${process.env.REACT_APP_API_LINK}/api/update/coverpicture`, newObject, { withCredentials: true })
+            axios.patch(`${process.env.REACT_APP_API_LINK}/api/update/coverpicture/${CookieId}`, newObject, { withCredentials: true })
                 .then(res => {
                     console.log({ message: "Successfully update cover picture", result: res });
                     history.push("/home");
@@ -149,8 +153,12 @@ const EditProfilePage = () => {
             };
             // console.log({message:"new object", newObject:newObject})
 
+            // Getting Logged in user id
+            const response = await axios.post("/.netlify/functions/getcookie");
+            const CookieId = response.data.decodedToken.payload.user_metadata.id;
+
             // Updating user profile pic in MongoDB
-            axios.patch(`${process.env.REACT_APP_API_LINK}/api/update/profilepicture`, newObject, { withCredentials: true })
+            axios.patch(`${process.env.REACT_APP_API_LINK}/api/update/profilepicture/${CookieId}`, newObject, { withCredentials: true })
                 .then(res => {
                     console.log({ message: "Successfully update profile picture", result: res });
                     history.push("/home")
