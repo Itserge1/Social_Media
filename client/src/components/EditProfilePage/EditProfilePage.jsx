@@ -83,7 +83,7 @@ const EditProfilePage = () => {
     }
 
     // UPDATING USER INFO
-    const UpdateLoggedUserInfo = (event) => {
+    const UpdateLoggedUserInfo = async (event) => {
         event.preventDefault();
         const response = await axios.post("/.netlify/functions/getcookie");
         const CookieId = response.data.decodedToken.payload.user_metadata.id;
