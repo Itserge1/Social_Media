@@ -31,7 +31,7 @@ const LoginRegister = (props) => {
             console.log(response)
             const { token } = response.data;
             console.log(token)
-            history.push("/home")
+            history.push("/edit")
         } catch (err) {
             console.log({err:err});
         }
