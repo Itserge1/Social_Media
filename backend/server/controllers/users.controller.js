@@ -21,14 +21,9 @@ module.exports.UpdateUserProfilePicture = async (req, res) => {
     // console.log(req);
     // console.log(req.body.coverPicture);
     // console.log(req.body.cloudinary_coverPicture_id);
-    
-    const decodedJWT = jwt.decode(req.cookies.usertoken, { complete: true })
-    // var newid = decodedJWT.payload.id
-    // console.log(newid)
 
     // Find current user
-    const UserLoggedIn = await user.findOne({_id: decodedJWT.payload.id})
-    // const UserLoggedIn = await user.findOne({_id: req.params._id})
+    const UserLoggedIn = await user.findOne({_id: req.params._id})
     // console.log({message:"Login user", UserLoggedIn:UserLoggedIn})
 
     // Creation and update vesion of our user
@@ -36,7 +31,7 @@ module.exports.UpdateUserProfilePicture = async (req, res) => {
     // console.log({message:"Login user", UserLoggedIn:UserLoggedIn})
 
     //  Udating user info
-    user.updateOne({ _id: decodedJWT.payload.id }, UserLoggedIn, { runValidators: true })
+    user.updateOne({ _id: req.params._id }, UserLoggedIn, { runValidators: true })
         .then(updateUser => res.json({ results: updateUser }))
         .catch(error => res.status(400).json({ message: "That did not work!!!" }, error))
 }
@@ -47,13 +42,8 @@ module.exports.UpdateUserCoverPicture = async (req, res) => {
     // console.log(req.body.coverPicture);
     // console.log(req.body.cloudinary_coverPicture_id);
 
-    const decodedJWT = jwt.decode(req.cookies.usertoken, { complete: true })
-    // var newid = decodedJWT.payload.id
-    // console.log(newid)
-
     // Find current user
-    const UserLoggedIn = await user.findOne({_id: decodedJWT.payload.id})
-    // const UserLoggedIn = await user.findOne({_id: req.params._id})
+    const UserLoggedIn = await user.findOne({_id: req.params._id})
     // console.log({message:"Login user", UserLoggedIn:UserLoggedIn})
 
     // Creation and update vesion of our user
@@ -61,7 +51,7 @@ module.exports.UpdateUserCoverPicture = async (req, res) => {
     // console.log({message:"Login user", UserLoggedIn:UserLoggedIn})
 
     //  Udating user info
-    user.updateOne({ _id: decodedJWT.payload.id }, UserLoggedIn, { runValidators: true })
+    user.updateOne({ _id: req.params._id }, UserLoggedIn, { runValidators: true })
         .then(updateUser => res.json({ results: updateUser }))
         .catch(error => res.status(400).json({ message: "That did not work!!!" }, error))
 }
