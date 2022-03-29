@@ -24,9 +24,11 @@ const EditProfilePage = () => {
             // console.log(response.data.decodedToken.payload.user_metadata.id)
             // console.log(response.data.decodedToken.payload.user_metadata.username)
 
+            // Check if use have token to allow him/her to page
             if(response.data.decodedToken == null){
                 history.push("/")
             }else{
+                // User have cookie
                 const CookieId = response.data.decodedToken.payload.user_metadata.id;
                 axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser/${CookieId}`, { withCredentials: true })
                 .then(res => {
