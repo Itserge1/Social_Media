@@ -8,10 +8,7 @@ const jwt = require("jsonwebtoken")
 
 // UPDATE USER INFO
 module.exports.UpdateUserInfo = (req, res) => {
-    const decodedJWT = jwt.decode(req.cookies.usertoken, { complete: true })
-    // var newid = decodedJWT.payload.id
-    // console.log(newid)
-    user.updateOne({ _id: decodedJWT.payload.id }, req.body, { runValidators: true })
+    user.updateOne({ _id: req.params._id }, req.body, { runValidators: true })
         .then(updateUser => res.json({ results: updateUser }))
         .catch(error => res.status(400).json({ message: "That did not work!!!" }, error))
 }

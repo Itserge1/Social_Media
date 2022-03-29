@@ -3,7 +3,7 @@ const upload = require("../utils/multer")
 // const authors = require("../models/authors.model");
 
 module.exports = app => {
-    app.patch("/api/update",userControllers.UpdateUserInfo);
+    app.patch("/api/update/:_id",userControllers.UpdateUserInfo);
     app.patch("/api/update/profilepicture/:_id", upload.single('image'), userControllers.UpdateUserProfilePicture);
     app.patch("/api/update/coverpicture/:_id", upload.single('image'), userControllers.UpdateUserCoverPicture);
     app.delete("/api/delete/:_id", userControllers.DeleteUser);
