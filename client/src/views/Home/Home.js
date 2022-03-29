@@ -18,29 +18,30 @@ const Home = (props) => {
             // console.log({message:"Get cookies response", response:response})
             // console.log(response.data.decodedToken.payload.user_metadata.id)
             // console.log(response.data.decodedToken.payload.user_metadata.username)
-            const CookieId = response.data.decodedToken.payload.user_metadata.id;
-
-            axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser/${CookieId}`, { withCredentials: true })
-            .then(res => {
-                console.log("Your logged in user info", res)
-                // res.data.results will contains the info of the user, 
-                // that has its id in the cookies. if the user logged in, he will have one. 
-                // if not he won't have a cookie therefore no info
-                if (res.data.decodedToken === null) {
-                    // user have a cookies
-                    // setLoggedInUser(res.data.results)
-                    history.push("/")
-                }
-                else if (res.data.decodedToken){
-                    console.log("ok");
-                }
-            })
-            .catch(err => {
-                console.log("Erorr when getting logged in user", err);
-                history.push("/");
-            })
-            
-            // history.push("/edit")
+            if (response.data.decodedToken == null){
+                history.push("/")
+            }else{
+                const CookieId = response.data.decodedToken.payload.user_metadata.id;
+                axios.get(`${process.env.REACT_APP_API_LINK}/api/finduser/${CookieId}`, { withCredentials: true })
+                .then(res => {
+                    console.log("Your logged in user info", res)
+                    // res.data.results will contains the info of the user, 
+                    // that has its id in the cookies. if the user logged in, he will have one. 
+                    // if not he won't have a cookie therefore no info
+                    if (res.data.results === null) {
+                        // user have a cookies
+                        // setLoggedInUser(res.data.results)
+                        history.push("/")
+                    }
+                    else if (res.data.results){
+                        console.log("ok");
+                    }
+                })
+                .catch(err => {
+                    console.log("Erorr when getting logged in user", err);
+                    history.push("/");
+                })
+            }
         } catch (err) {
             console.log({err:err});
         }
